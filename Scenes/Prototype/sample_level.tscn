@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=4 uid="uid://ct5hekqr35kpm"]
+
+[ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
+[ext_resource type="Script" path="res://Scripts/Grid/Grid.gd" id="1_vo475"]
+[ext_resource type="Texture2D" uid="uid://bmafeh41mv4ja" path="res://Sprites/Prototype/select-cursor.png" id="2_a4oga"]
+[ext_resource type="Texture2D" uid="uid://cbsc7ydtafhom" path="res://Sprites/Prototype/obstacle.png" id="2_gdea5"]
+[ext_resource type="Texture2D" uid="uid://cppm06x3vkcub" path="res://Sprites/Prototype/main-character-path.png" id="3_vjtpf"]
+[ext_resource type="Texture2D" uid="uid://40ywqg8vb31l" path="res://Sprites/Prototype/target-path.png" id="4_s1bld"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8381p"]
+texture = ExtResource("1_6ed6c")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0jy6g"]
+texture = ExtResource("2_gdea5")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_723cb"]
+texture = ExtResource("3_vjtpf")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_shg4g"]
+texture = ExtResource("4_s1bld")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xd872"]
+texture = ExtResource("2_a4oga")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_0axwb"]
+sources/4 = SubResource("TileSetAtlasSource_xd872")
+sources/0 = SubResource("TileSetAtlasSource_8381p")
+sources/1 = SubResource("TileSetAtlasSource_0jy6g")
+sources/2 = SubResource("TileSetAtlasSource_723cb")
+sources/3 = SubResource("TileSetAtlasSource_shg4g")
+
+[node name="Sample_level" type="Node2D"]
+texture_filter = 1
+
+[node name="TileMap" type="Node2D" parent="."]
+script = ExtResource("1_vo475")
+max_y_size = 12
+
+[node name="Path" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAATAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAAAAAAAAAAAAAASAAAAAAAAAAAAAAATAAEAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAATAAQAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAAAAAAAAAAATAAcAAAAAAAAAAAATAAgAAAAAAAAAAAATAAkAAAAAAAAAAAATAAoAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAYAAAAAAAAAAAAJAAUAAAAAAAAAAAALAAUAAAAAAAAAAAAKAAcAAAAAAAAAAAAJAAcAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAALAAYAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_0axwb")
+
+[node name="Obstacle" type="TileMapLayer" parent="TileMap"]
+z_index = 1
+use_parent_material = true
+tile_set = SubResource("TileSet_0axwb")
+
+[node name="Player_path" type="TileMapLayer" parent="TileMap"]
+z_index = 2
+use_parent_material = true
+tile_set = SubResource("TileSet_0axwb")
+
+[node name="Target_path" type="TileMapLayer" parent="TileMap"]
+z_index = 3
+use_parent_material = true
+tile_set = SubResource("TileSet_0axwb")
+
+[node name="Mouse_layer" type="TileMapLayer" parent="TileMap"]
+z_index = 3
+use_parent_material = true
+tile_set = SubResource("TileSet_0axwb")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(161, 98)
+zoom = Vector2(2.64, 2.64)
