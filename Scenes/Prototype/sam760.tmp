@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=16 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" path="res://Scripts/Grid/Grid.gd" id="1_vo475"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://40ywqg8vb31l" path="res://Sprites/Prototype/target-path.png" id="4_s1bld"]
 [ext_resource type="PackedScene" uid="uid://bg1iiqsskh3fn" path="res://Scenes/Character/main_character.tscn" id="7_2phpi"]
 [ext_resource type="Script" path="res://Scripts/Animation/CustomAnimation.gd" id="8_4gu7f"]
-[ext_resource type="Script" path="res://Scripts/GUI/DisplayInput.gd" id="9_47kkx"]
 
 [sub_resource type="TileSet" id="TileSet_vue63"]
 
@@ -77,34 +76,8 @@ position = Vector2(136, 88)
 grid = NodePath("../TileMap")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(155, 98)
+position = Vector2(161, 98)
 zoom = Vector2(2.64, 2.64)
 
 [node name="CustomTween" type="Node2D" parent="."]
 script = ExtResource("8_4gu7f")
-
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("label")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("9_47kkx")
-label = NodePath("Label")
-
-[node name="Panel" type="Panel" parent="Control"]
-layout_mode = 0
-offset_left = -51.0
-offset_top = 184.0
-offset_right = -5.0
-offset_bottom = 208.0
-scale = Vector2(0.978941, 1.02962)
-
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = -45.0
-offset_top = 186.0
-offset_right = -3.0
-offset_bottom = 209.0
-scale = Vector2(0.753247, 0.837209)
-text = "Input"
-horizontal_alignment = 1

@@ -1,4 +1,4 @@
-extends Node2D
+extends TileMapLayer
 
 class_name Grid
 
@@ -25,7 +25,6 @@ func display_mouse_hover():
 	var mouse_layer_id = 4
 	var mouse_pos = get_global_mouse_position()
 	var mouse_coordination = $Mouse_layer.local_to_map(mouse_pos)
-	print("Mouse_pos: ", mouse_coordination)
 	if cells.has(str(mouse_coordination)):
 		clear_layer(mouse_layer_id)
 		hover(mouse_coordination)
