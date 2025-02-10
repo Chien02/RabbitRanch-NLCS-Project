@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5icvfyyatrwy"]
+
+[ext_resource type="Script" path="res://Scripts/Environment/Destination.gd" id="1_foa5w"]
+[ext_resource type="Texture2D" uid="uid://ppkfba1v8m6g" path="res://Sprites/Prototype/destination.png" id="1_yfoka"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8o63"]
+size = Vector2(16, 16)
+
+[node name="Destination" type="Area2D"]
+script = ExtResource("1_foa5w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v8o63")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yfoka")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

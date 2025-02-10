@@ -4,7 +4,7 @@ class_name DisplayInput
 
 @export var label : Label
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !label: return
 	if Input.is_action_just_pressed("ui_left"):
 		label.text = "Left"
