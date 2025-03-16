@@ -23,6 +23,10 @@ CustomTween="*res://Scripts/Animation/CustomAnimation.gd"
 
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
+
 [input]
 
 ui_left={

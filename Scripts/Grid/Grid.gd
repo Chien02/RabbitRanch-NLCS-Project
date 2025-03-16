@@ -28,7 +28,7 @@ func init_grid():
 			cells[str(Vector2(x, y))] = {
 				"is_path" = true
 			}
-			$Path.set_cell(Vector2(x, y), 0, Vector2i(0, 0))
+			$Path.set_cell(Vector2(x, y), 6, Vector2i(2, 6))
 
 # This function use to tell player which tile the cursor points to
 func display_mouse_hover():
@@ -63,6 +63,7 @@ func clear_layer(layer_id: int):
 
 #Load in Obstacle Layer to find obstacles and add them to the Obstacles dictionary
 func scan_obstacles(layer: Node):
+	print("From grid - Obstacles:")
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
 			if layer.get_cell_source_id(Vector2i(x, y)) == obstale_source_id:
@@ -72,6 +73,7 @@ func scan_obstacles(layer: Node):
 				obstacles[str(Vector2(x, y))] = {
 					"coord" = Vector2(x, y)
 				}
+				print(str(Vector2(x, y)))
 
 func scan_destination(layer: Node):
 	for x in range(0, max_x_size):
