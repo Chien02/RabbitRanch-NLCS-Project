@@ -63,7 +63,6 @@ func clear_layer(layer_id: int):
 
 #Load in Obstacle Layer to find obstacles and add them to the Obstacles dictionary
 func scan_obstacles(layer: Node):
-	print("From grid - Obstacles:")
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
 			if layer.get_cell_source_id(Vector2i(x, y)) == obstale_source_id:
@@ -73,14 +72,12 @@ func scan_obstacles(layer: Node):
 				obstacles[str(Vector2(x, y))] = {
 					"coord" = Vector2(x, y)
 				}
-				print(str(Vector2(x, y)))
 
 func scan_destination(layer: Node):
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
 			if layer.get_cell_source_id(Vector2i(x, y)) == destination_source_id:
 				destination = Vector2i(x, y)
-				print("destination(", x, ", ", y,")")
 
 #The _position is still in the local coordinate, so in this function, it will turn to map coordinate
 #then compare to obstacles dictionary to find out: Is it an obstacle?

@@ -12,7 +12,6 @@ func _ready() -> void:
 	
 	if get_parent().is_in_group("Entity"):
 		character = get_parent()
-		print("From state machine: parent is ", character.name)
 	
 	for child in get_children():
 		if child is BaseState:

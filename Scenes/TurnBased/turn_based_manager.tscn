@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wstv8voo4ymo"]
+
+[ext_resource type="Script" path="res://Scripts/TurnBased/Turn_based_manager.gd" id="1_jebys"]
+
+[node name="TurnBasedManager" type="Node2D"]
+script = ExtResource("1_jebys")
