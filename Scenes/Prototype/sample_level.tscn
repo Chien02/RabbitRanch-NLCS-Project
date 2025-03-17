@@ -1,18 +1,19 @@
-[gd_scene load_steps=25 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=26 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="PackedScene" uid="uid://wstv8voo4ymo" path="res://Scenes/TurnBased/turn_based_manager.tscn" id="1_t7rht"]
-[ext_resource type="Script" path="res://Scripts/Grid/Grid.gd" id="1_vo475"]
+[ext_resource type="Script" uid="uid://bxgngqdjbv6hg" path="res://Scripts/Grid/Grid.gd" id="1_vo475"]
 [ext_resource type="Texture2D" uid="uid://bmafeh41mv4ja" path="res://Sprites/Prototype/select-cursor.png" id="2_a4oga"]
 [ext_resource type="Texture2D" uid="uid://cbsc7ydtafhom" path="res://Sprites/Prototype/obstacle.png" id="2_gdea5"]
+[ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="3_bkwjg"]
 [ext_resource type="Texture2D" uid="uid://cppm06x3vkcub" path="res://Sprites/Prototype/main-character-path.png" id="3_vjtpf"]
 [ext_resource type="Texture2D" uid="uid://40ywqg8vb31l" path="res://Sprites/Prototype/target-path.png" id="4_s1bld"]
 [ext_resource type="PackedScene" uid="uid://bg1iiqsskh3fn" path="res://Scenes/Character/main_character.tscn" id="7_2phpi"]
 [ext_resource type="Texture2D" uid="uid://ppkfba1v8m6g" path="res://Sprites/Prototype/destination.png" id="7_qxj2o"]
-[ext_resource type="Script" path="res://Scripts/Animation/CustomAnimation.gd" id="8_4gu7f"]
+[ext_resource type="Script" uid="uid://vo7v44bl816h" path="res://Scripts/Animation/CustomAnimation.gd" id="8_4gu7f"]
 [ext_resource type="PackedScene" uid="uid://c5icvfyyatrwy" path="res://Scenes/Destination/destination.tscn" id="8_hfh6p"]
 [ext_resource type="Texture2D" uid="uid://brqtp5aolsjvm" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="8_p6rji"]
-[ext_resource type="Script" path="res://Scripts/GUI/DisplayInput.gd" id="9_47kkx"]
+[ext_resource type="Script" uid="uid://c0lsf8dbbhh6w" path="res://Scripts/GUI/DisplayInput.gd" id="9_47kkx"]
 [ext_resource type="Texture2D" uid="uid://ftk0ln4h52ll" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="9_ect2t"]
 
 [sub_resource type="TileSet" id="TileSet_vue63"]
@@ -206,7 +207,8 @@ texture_filter = 1
 position = Vector2(136, 88)
 grid = NodePath("../../TileMap")
 
-[node name="MainCharacter2" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
+[node name="Animal" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]
+position = Vector2(88, 55)
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="."]

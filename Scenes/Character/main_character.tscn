@@ -1,11 +1,11 @@
 [gd_scene load_steps=52 format=3 uid="uid://bg1iiqsskh3fn"]
 
-[ext_resource type="Script" path="res://Scenes/Character/Main_character.gd" id="1_x1ua0"]
+[ext_resource type="Script" uid="uid://ccliahv1c3bnd" path="res://Scenes/Character/Main_character.gd" id="1_x1ua0"]
 [ext_resource type="Texture2D" uid="uid://dhe6ehshltn7a" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="2_0eraa"]
 [ext_resource type="PackedScene" uid="uid://ch5fh10qum08x" path="res://StateMachine/state_machine.tscn" id="3_7key7"]
 [ext_resource type="PackedScene" uid="uid://cd3g18pluw3uq" path="res://StateMachine/idle.tscn" id="4_sbmxy"]
 [ext_resource type="PackedScene" uid="uid://bpk0lstdfrq7i" path="res://StateMachine/walking.tscn" id="5_2kawb"]
-[ext_resource type="Script" path="res://Scenes/Character/AnimationControl.gd" id="6_6qd1f"]
+[ext_resource type="Script" uid="uid://byqxrlsexth5u" path="res://Scenes/Character/AnimationControl.gd" id="6_6qd1f"]
 [ext_resource type="PackedScene" uid="uid://b4ifcppc3u03i" path="res://Scenes/TurnBased/turn_based_actor.tscn" id="7_a0nku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb5bw"]
@@ -403,17 +403,17 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_84wie"]
 _data = {
-"RESET": SubResource("Animation_5krt5"),
-"idle": SubResource("Animation_83bsr"),
-"idle_down": SubResource("Animation_8fow2"),
-"idle_left": SubResource("Animation_jinqw"),
-"idle_right": SubResource("Animation_ff73q"),
-"idle_up": SubResource("Animation_viaxn"),
-"walking": SubResource("Animation_2mcyc"),
-"walking_down": SubResource("Animation_0mvh2"),
-"walking_left": SubResource("Animation_f4b1i"),
-"walking_right": SubResource("Animation_v6nvc"),
-"walking_up": SubResource("Animation_aeh1h")
+&"RESET": SubResource("Animation_5krt5"),
+&"idle": SubResource("Animation_83bsr"),
+&"idle_down": SubResource("Animation_8fow2"),
+&"idle_left": SubResource("Animation_jinqw"),
+&"idle_right": SubResource("Animation_ff73q"),
+&"idle_up": SubResource("Animation_viaxn"),
+&"walking": SubResource("Animation_2mcyc"),
+&"walking_down": SubResource("Animation_0mvh2"),
+&"walking_left": SubResource("Animation_f4b1i"),
+&"walking_right": SubResource("Animation_v6nvc"),
+&"walking_up": SubResource("Animation_aeh1h")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kuxsv"]
@@ -507,11 +507,10 @@ zoom = Vector2(5.05, 5.05)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qd1bx")
 animation = &"idle_down"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_84wie")
+&"": SubResource("AnimationLibrary_84wie")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

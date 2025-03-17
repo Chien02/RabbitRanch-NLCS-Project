@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4ifcppc3u03i"]
 
-[ext_resource type="Script" path="res://Scripts/TurnBased/turn_based_actor.gd" id="1_lv56n"]
+[ext_resource type="Script" uid="uid://ff3fik1rbxbg" path="res://Scripts/TurnBased/turn_based_actor.gd" id="1_lv56n"]
 
 [node name="TurnBasedActor" type="Node2D"]
 script = ExtResource("1_lv56n")
