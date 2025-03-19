@@ -18,16 +18,12 @@ func get_actor():
 		print("From turnBased management: Cannot get the actors")
 		return
 	else:
-		print("----From TurnBased Management")
-		for child in actor:
-			print("actor: ", child.name)
 		current_actor = actor.pop_front()
 		active_actor()
 
 func active_actor():
 	if !current_actor: return
 	current_actor.turnbase_actor.active()
-	print("active actor: ", current_actor.name)
 
 func switch_actor():
 	actor.push_back(current_actor)

@@ -17,8 +17,9 @@ func movement(_object, _delta: float):
 	
 	var next_position : Vector2 = _object.position.floor() + direction * tile_size
 	# Check if next_position is a obstacle or the bound then player can move to that next_position
+	var local_next_pos : Vector2i = _object.grid.local_to_map(next_position)
 	if _object.grid:
-		can_walk = false if _object.grid.is_obstacle(next_position) or !_object.grid.is_within_grid(next_position) else true
+		can_walk = false if !_object.grid.is_within_grid(next_position) or not _object.grid.cells[str(local_next_pos)]["is_path"]  else true
 	if !can_walk:
 		is_walking = false
 		return
@@ -28,3 +29,5 @@ func movement(_object, _delta: float):
 	await _object.get_tree().create_timer(speed * _delta).timeout
 	is_walking = false
 	
+func move_to(_current_pos: Vector2, _direction: Vector2):
+	_current_pos += _direction * tile_size

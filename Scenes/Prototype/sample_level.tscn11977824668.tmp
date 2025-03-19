@@ -212,10 +212,14 @@ grid = NodePath("../../TileMap")
 position = Vector2(24, 24)
 grid = NodePath("../../TileMap")
 
-[node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management") groups=["Grid"]]
+[node name="TileMap" type="TileMapLayer" parent="." groups=["Grid"]]
 tile_set = SubResource("TileSet_vue63")
 script = ExtResource("1_vo475")
-obstacles_management = NodePath("../ObstacleManagement")
+max_x_size = null
+max_y_size = null
+obstale_source_id = null
+destination_source_id = null
+tile_size = null
 
 [node name="Path" type="TileMapLayer" parent="TileMap"]
 use_parent_material = true
@@ -223,7 +227,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAA
 tile_set = SubResource("TileSet_0axwb")
 
 [node name="Obstacle" type="TileMapLayer" parent="TileMap"]
-visible = false
 z_index = 1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAEAAcAAQAAAAAAAAAFAAcAAQAAAAAAAAAGAAcAAQAAAAAAAAARAAcAAQAAAAAAAAARAAgAAQAAAAAAAAARAAkAAQAAAAAAAAAQAAkAAQAAAAAAAAAPAAkAAQAAAAAAAAAGAAYAAQAAAAAAAAAMAAQAAQAAAAAAAAAMAAUAAQAAAAAAAAALAAUAAQAAAAAAAAALAAYAAQAAAAAAAAALAAcAAQAAAAAAAAAKAAcAAQAAAAAAAAAKAAgAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAMAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAMAAQAAAAAAAAAJAAQAAQAAAAAAAAAPAAQAAQAAAAAAAAAPAAMAAQAAAAAAAAAPAAIAAQAAAAAAAAAQAAQAAQAAAAAAAAAQAAUAAQAAAAAAAAAOAAIAAQAAAAAAAAALAAgAAQAAAAAAAAALAAkAAQAAAAAAAAADAAUAAQAAAAAAAAADAAQAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAADAAMAAQAAAAAAAAAGAAgAAQAAAAAAAAAKAAIAAQAAAAAAAAAMAAkAAQAAAAAAAAA=")

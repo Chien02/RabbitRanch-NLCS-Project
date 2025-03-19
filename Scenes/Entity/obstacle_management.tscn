@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7m7xvqv4d8pw"]
+
+[ext_resource type="Script" uid="uid://djaiyg6ud0eij" path="res://Scripts/Entity/obstacle_management.gd" id="1_obbif"]
+
+[node name="ObstacleManagement" type="Node2D"]
+script = ExtResource("1_obbif")

@@ -4,8 +4,11 @@ var paths : Array[TilePath] = []
 var found_path_flag : bool = false
 
 func enter_state(): # Overriding
-	print("----From animal idle")
 	found_path_flag = false
+
+func exit_state():
+	var destination_layer : int = 4
+	character.grid.clear_layer(destination_layer)
 
 func update_state(): # Overriding
 	if character:
@@ -22,6 +25,6 @@ func finding_path():
 		else:
 			print("----From idle animal:")
 			for path in paths:
-				print(path.position)
-				character.grid.get_child(5).set_cell(path.position, 3, Vector2i(0, 0))
+				print(path.position, " is_path: ", path.is_path)
+				character.grid.get_child(4).set_cell(path.position, 3, Vector2i(0, 0))
 		found_path_flag = true
