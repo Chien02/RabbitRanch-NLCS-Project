@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://buix5n034hegi"]
+
+[ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_iuf54"]
+[ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="2_5vh1g"]
+[ext_resource type="Script" uid="uid://woopor4825kk" path="res://Scripts/StateSripts/animal_idle.gd" id="3_os1si"]
+[ext_resource type="Script" uid="uid://bnc1ukqjrd8e1" path="res://Scripts/StateSripts/walking.gd" id="4_iqvew"]
+
+[node name="Chicken" node_paths=PackedStringArray("astar") instance=ExtResource("1_iuf54")]
+astar = NodePath("AstarComponent")
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+frame = 0
+
+[node name="StateMachine" type="Node2D" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_5vh1g")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://mnm4nxg6x55o"
+
+[node name="Idle" type="Node2D" parent="StateMachine" index="0"]
+script = ExtResource("3_os1si")
+metadata/_custom_type_script = "uid://b8mx8y4y5p4iu"
+
+[node name="Walking" type="Node2D" parent="StateMachine" index="1"]
+script = ExtResource("4_iqvew")
+metadata/_custom_type_script = "uid://bnc1ukqjrd8e1"

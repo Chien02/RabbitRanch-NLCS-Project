@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://c0pe257yeyxmg"]
+[gd_scene load_steps=23 format=3 uid="uid://c0pe257yeyxmg"]
 
 [ext_resource type="Texture2D" uid="uid://c7q7rn1fff4x6" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_neh52"]
 [ext_resource type="Script" uid="uid://b0ui0vb6htv5k" path="res://Scripts/Characters/animal.gd" id="1_vm1lg"]
 [ext_resource type="Script" uid="uid://bau1lp2dn57pt" path="res://Scripts/Animation/AnimalAnimationControl.gd" id="2_vm1lg"]
+[ext_resource type="PackedScene" uid="uid://dgbehmkbqx6xp" path="res://Scenes/Components/astar_component.tscn" id="4_u6t0b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6t0b"]
 size = Vector2(16, 16)
@@ -184,3 +185,5 @@ tree_root = SubResource("AnimationNodeStateMachine_dcrbs")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_idling = false
 parameters/conditions/is_walking = false
+
+[node name="AstarComponent" parent="." instance=ExtResource("4_u6t0b")]

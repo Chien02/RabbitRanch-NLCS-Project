@@ -7,7 +7,7 @@ var is_active : bool = false
 signal EndTurn
 
 func active():
-	is_active = not is_active
+	is_active = true
 
 func emit_endturn():
 	active()

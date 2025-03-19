@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgbehmkbqx6xp"]
+
+[ext_resource type="Script" uid="uid://bkx0mh2dlt0vm" path="res://Scripts/Components/astar_component.gd" id="1_jcchs"]
+
+[node name="AstarComponent" type="Node2D"]
+script = ExtResource("1_jcchs")

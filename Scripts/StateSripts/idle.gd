@@ -11,9 +11,11 @@ func exit_state():
 	pass
 
 func update_state():
-	pass
+	if character is MainCharacter:
+		if !character.turnbase_actor.is_active: return
 
 func physics_update():
 	if !character: return
+	if !character.turnbase_actor.is_active: return
 	if character.character_controller.is_walking:
 		SwitchState.emit(self, "walking")

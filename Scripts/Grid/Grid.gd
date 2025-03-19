@@ -6,6 +6,7 @@ class_name Grid
 @export var max_y_size : int = 12
 @export var obstale_source_id : int = 1
 @export var destination_source_id : int = 5
+@export var tile_size : int = 16
 
 var cells = {}
 var obstacles = {}

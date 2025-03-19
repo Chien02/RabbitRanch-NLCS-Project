@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bxgngqdjbv6hg" path="res://Scripts/Grid/Grid.gd" id="1_vo475"]
 [ext_resource type="Texture2D" uid="uid://bmafeh41mv4ja" path="res://Sprites/Prototype/select-cursor.png" id="2_a4oga"]
 [ext_resource type="Texture2D" uid="uid://cbsc7ydtafhom" path="res://Sprites/Prototype/obstacle.png" id="2_gdea5"]
-[ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="3_bkwjg"]
+[ext_resource type="PackedScene" uid="uid://buix5n034hegi" path="res://Scenes/Character/chicken.tscn" id="3_bkwjg"]
 [ext_resource type="Texture2D" uid="uid://cppm06x3vkcub" path="res://Sprites/Prototype/main-character-path.png" id="3_vjtpf"]
 [ext_resource type="Texture2D" uid="uid://40ywqg8vb31l" path="res://Sprites/Prototype/target-path.png" id="4_s1bld"]
 [ext_resource type="PackedScene" uid="uid://bg1iiqsskh3fn" path="res://Scenes/Character/main_character.tscn" id="7_2phpi"]
@@ -207,8 +207,8 @@ texture_filter = 1
 position = Vector2(136, 88)
 grid = NodePath("../../TileMap")
 
-[node name="Animal" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]
-position = Vector2(88, 55)
+[node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]
+position = Vector2(24, 24)
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="."]

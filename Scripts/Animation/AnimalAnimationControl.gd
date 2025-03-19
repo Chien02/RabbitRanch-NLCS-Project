@@ -9,7 +9,6 @@ var character
 func _ready() -> void:
 	if get_parent().is_in_group("Entity"):
 		character = get_parent()
-		print(character.name)
 	
 	if animation_tree:
 		change_idle()
