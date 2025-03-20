@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not character: return
-	direction = character.character_controller.direction
+	direction = character.facing_direction
 	
 #	idle condition
 	if character.character_controller.is_walking:

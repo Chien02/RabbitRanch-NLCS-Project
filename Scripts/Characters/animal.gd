@@ -8,6 +8,7 @@ class_name Animal
 
 var turnbase_actor : TurnBaseActor
 var character_controller : CharacterController
+var facing_direction : Vector2 = Vector2(0, 1)
 
 func _ready() -> void:
 	turnbase_actor = TurnBaseActor.new()

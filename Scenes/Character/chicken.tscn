@@ -8,6 +8,9 @@
 [node name="Chicken" node_paths=PackedStringArray("astar") instance=ExtResource("1_iuf54")]
 astar = NodePath("AstarComponent")
 
+[node name="AnimatedSprite2D" parent="." index="3"]
+frame = 0
+
 [node name="StateMachine" type="Node2D" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_5vh1g")
 initial_state = NodePath("Idle")

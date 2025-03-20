@@ -8,12 +8,12 @@ size = Vector2(16, 16)
 
 [node name="Obstacle" type="RigidBody2D" groups=["Obstacle"]]
 texture_filter = 1
-mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_78vdk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_78vdk")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_brp3y")

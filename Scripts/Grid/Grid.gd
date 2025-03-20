@@ -25,6 +25,7 @@ func _process(_delta: float) -> void:
 
 func rescan(player_zone: Array[Vector2i] = []):
 	init_grid()
+	obstacles_management.init_obstacle()
 	scan_obstacles("object")
 	scan_player_zone(player_zone)
 

@@ -18,9 +18,10 @@ func get_obstacles():
 func spawn_obstacle():
 	if grid.cells.is_empty(): return
 	for cell in grid.cells:
-		if grid.cells[str(cell)]["is_path"] == false:
+		var local_cell = grid.string_to_vector2(cell)
+		if not grid.is_path(local_cell):
 			var new_obs = preload("res://Scenes/Entity/obstacle.tscn").instantiate()
-			new_obs.global_spawn = grid.map_to_local(grid.string_to_vector2(cell))
+			new_obs.global_spawn = grid.map_to_local(local_cell)
 			add_child.call_deferred(new_obs)
 	call_deferred("init_obstacle")
 
