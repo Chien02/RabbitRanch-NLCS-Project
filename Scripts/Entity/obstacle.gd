@@ -24,9 +24,10 @@ func init_pushable_diretion():
 			pushable_direction.append(dir)
 
 func _on_body_entered(body: Node) -> void:
-	if body is MainCharacter:
-		var _direction : Vector2 = body.character_controller.direction
-		if pushable_direction.find(_direction) != -1:
-			var index =  pushable_direction.find(_direction)
-			var next_pos =  pushable_direction.get(index)
-			characterController.move_to(position, next_pos)
+	pass
+	#if body is MainCharacter:
+		#var _direction : Vector2 = body.character_controller.direction
+		#if pushable_direction.find(_direction) != -1:
+			#var index =  pushable_direction.find(_direction)
+			#var next_pos =  pushable_direction.get(index)
+			#characterController.move_to(position, next_pos)

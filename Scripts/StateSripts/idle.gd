@@ -3,8 +3,11 @@ extends BaseState
 class_name Idle
 
 func enter_state():
-	#print("Enter Idle State")
-	pass
+	if character is MainCharacter:
+		character.init_player_zone()
+		character.grid.rescan(character.player_zone)
+		for zone in character.player_zone:
+			character.grid.get_node("Destination").set_cell(zone, 4, Vector2i(0, 0)) # debug
 
 func exit_state():
 	#print("Exit Idle State")

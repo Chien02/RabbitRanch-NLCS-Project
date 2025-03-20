@@ -205,7 +205,8 @@ texture_filter = 1
 [node name="TurnBasedManager" parent="." instance=ExtResource("1_t7rht")]
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(136, 167)
+position = Vector2(136, 88)
+speed = null
 grid = NodePath("../../TileMap")
 
 [node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]

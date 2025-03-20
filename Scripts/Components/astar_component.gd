@@ -33,7 +33,7 @@ func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
 		index += 1
 	
 	#for path in paths:
-		#print(path.position)
+		#print("path: ", path.position, " - is_path: ", path.is_path, " - is_player_zone: ", path.is_player_zone)
 	return paths
 
 func astar_ignore(_mode: String):
@@ -92,7 +92,8 @@ func get_surrounding_tile(current_tile: TilePath) -> Array[TilePath]:
 		
 		# Defy that child tile is walkable or not
 		if grid.cells.has(str(tile.position)):
-			tile.is_path = grid.cells[str(tile.position)]["is_path"]
+			tile.is_path = grid.is_path(tile.position)
+			tile.is_player_zone = grid.is_player_zone(tile.position)
 		
 		# Compute the f value for each child
 		calculate_cost(tile)
@@ -100,8 +101,9 @@ func get_surrounding_tile(current_tile: TilePath) -> Array[TilePath]:
 		tile.calculate_f()
 		
 		# Adding the tile that suitable for open
-		if grid.is_within_grid(tile.position) and tile.is_path:
-			surrounding_tile.append(tile)
+		if grid.is_within_grid(tile.position):
+			if tile.is_path and !tile.is_player_zone:
+				surrounding_tile.append(tile)
 			#print("Surrounding tile: tile at ", tile.position, " with f: ", tile.f)
 	
 	return surrounding_tile

@@ -10,11 +10,12 @@ class_name Grid
 @export var obstacles_management : ObstacleManagement
 
 var cells = {}
+var obstacles : Array[Vector2i] = []
 var destination : Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
 	init_grid()
-	scan_obstacles($Obstacle)
+	scan_obstacles()
 	scan_destination()
 	obstacles_management.set_grid(self)
 	obstacles_management.spawn_obstacle()
@@ -22,13 +23,18 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	display_mouse_hover()
 
-# As its name
+func rescan(player_zone: Array[Vector2i] = []):
+	init_grid()
+	scan_obstacles("object")
+	scan_player_zone(player_zone)
+
 func init_grid():
 	# Init for the path
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
 			cells[str(Vector2i(x, y))] = {
-				"is_path" = true
+				"is_path" = true,
+				"player_zone" = false
 			}
 			$Path.set_cell(Vector2i(x, y), 6, Vector2i(2, 6))
 
@@ -59,19 +65,38 @@ func clear_layer(layer_id: int):
 		3: layer = $Target_path
 		4: layer = $Destination
 		5: layer = $Mouse_layer
-	
+		6: layer = $PlayerZone
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
 			layer.erase_cell(Vector2i(x, y))
 
 #Load in Obstacle Layer to find obstacles and add them to the Obstacles dictionary
-func scan_obstacles(layer: Node):
-	for x in range(0, max_x_size):
-		for y in range(0, max_y_size):
-			if layer.get_cell_source_id(Vector2i(x, y)) == obstale_source_id:
-				cells[str(Vector2i(x, y))] = {
-					"is_path" = false
-				}
+func scan_obstacles(mode: String = ""):
+	obstacles.clear()
+	if mode == "":
+		for x in range(0, max_x_size):
+			for y in range(0, max_y_size):
+				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == obstale_source_id:
+					cells[str(Vector2i(x, y))] = {
+						"is_path" = false,
+						"player_zone" = false,
+					}
+					obstacles.append(Vector2i(x, y))
+	else:
+		obstacles = obstacles_management.get_obstacles()
+		if obstacles.is_empty():
+			return
+		for obs in obstacles:
+			cells[str(obs)] = {
+				"is_path" = false,
+				"player_zone" = false,
+			}
+	
+func scan_player_zone(player_zone: Array[Vector2i]):
+	if player_zone.is_empty(): return
+	for zone in player_zone:
+		if is_within_grid(zone):
+			cells[str(zone)]["player_zone"] = true
 
 func scan_destination():
 	var door : Destination = get_tree().get_first_node_in_group("Destination")
@@ -81,8 +106,25 @@ func scan_destination():
 #then compare to obstacles dictionary to find out: Is it an obstacle?
 
 # This function use to check that character is in the map or not
-func is_within_grid(_position: Vector2) -> bool:
-	var local_coord = local_to_map(_position)
+func is_within_grid(_position: Vector2i) -> bool:
+	var local_coord = _position
 	var inside_x = local_coord.x < max_x_size and local_coord.x >= 0
 	var inside_y = local_coord.y < max_y_size and local_coord.y >= 0
 	return inside_x and inside_y
+
+func is_path(local_pos: Vector2i):
+	return cells[str(local_pos)]["is_path"]
+
+func is_player_zone(local_pos: Vector2i):
+	return cells[str(local_pos)]["player_zone"] and cells[str(local_pos)]["is_path"]
+
+func string_to_vector2(string := "") -> Vector2i:
+	if string:
+		var new_string: String = string
+		new_string = new_string.erase(0, 1)
+		new_string = new_string.erase(new_string.length() - 1, 1)
+		var array: Array = new_string.split(", ")
+
+		return Vector2i(int(array[0]), int(array[1]))
+
+	return Vector2i.ZERO

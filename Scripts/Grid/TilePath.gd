@@ -6,6 +6,7 @@ var f : float = 0.0
 var heuristic : float = 0.0
 var cost : float = 0.0
 var is_path : bool = true
+var is_player_zone : bool = false
 
 func set_value(_position: Vector2, _f: float = 0.0, _heuristic: float = 0.0, _cost: int = 0):
 	position = _position

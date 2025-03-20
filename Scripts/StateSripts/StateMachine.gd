@@ -23,10 +23,12 @@ func _ready() -> void:
 		current_state = initial_state
 
 func _process(_delta: float) -> void:
+	if not character.turnbase_actor.is_active: return
 	if current_state:
 		current_state.update_state()
 
 func _physics_process(_delta: float) -> void:
+	if not character.turnbase_actor.is_active: return
 	if current_state:
 		current_state.physics_update()
 

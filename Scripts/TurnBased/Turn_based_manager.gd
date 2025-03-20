@@ -20,12 +20,13 @@ func get_actor():
 	else:
 		current_actor = actor.pop_front()
 		active_actor()
-
-func active_actor():
-	if !current_actor: return
-	current_actor.turnbase_actor.active()
+		print("enter turn ", current_actor.name)
 
 func switch_actor():
 	actor.push_back(current_actor)
 	current_actor = actor.pop_front()
 	active_actor()
+	
+func active_actor():
+	if !current_actor: return
+	current_actor.turnbase_actor.active()

@@ -507,6 +507,7 @@ zoom = Vector2(5.05, 5.05)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qd1bx")
 animation = &"idle_down"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

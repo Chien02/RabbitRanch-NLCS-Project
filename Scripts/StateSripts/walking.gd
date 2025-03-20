@@ -7,7 +7,6 @@ func enter_state():
 	pass
 
 func exit_state():
-	#print("Exit Walking State")
 	pass
 
 func update_state():
@@ -18,4 +17,9 @@ func physics_update():
 	if not character.character_controller.is_walking:
 		SwitchState.emit(self, "idle")
 		print("end turn ", character.name)
+		
+		if character is MainCharacter:
+			character.init_player_zone()
+			character.grid.rescan(character.player_zone)
+		
 		character.turnbase_actor.emit_endturn()
