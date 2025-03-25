@@ -205,11 +205,11 @@ texture_filter = 1
 [node name="TurnBasedManager" parent="." instance=ExtResource("1_t7rht")]
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(136, 73)
+position = Vector2(38, 87)
 grid = NodePath("../../TileMap")
 
 [node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]
-position = Vector2(73, 88)
+position = Vector2(136, 120)
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management") groups=["Grid"]]
@@ -265,13 +265,14 @@ zoom = Vector2(2.64, 2.64)
 [node name="CustomTween" type="Node2D" parent="."]
 script = ExtResource("8_4gu7f")
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("label")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("label", "label_mouse_pos")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("9_47kkx")
 label = NodePath("Label")
+label_mouse_pos = NodePath("MousePosition")
 
 [node name="Panel" type="Panel" parent="Control"]
 layout_mode = 0
@@ -299,5 +300,15 @@ offset_right = 95.0
 offset_bottom = 179.0
 scale = Vector2(0.76, 0.76)
 text = "Show Animal Path"
+
+[node name="MousePosition" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 188.0
+offset_right = 127.0
+offset_bottom = 211.0
+scale = Vector2(0.660705, 0.913468)
+text = "Mouse position"
+horizontal_alignment = 1
 
 [connection signal="button_down" from="Control/ShowAnimalPathBtn" to="Control" method="_on_show_animal_path_btn_button_down"]

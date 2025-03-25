@@ -20,9 +20,7 @@ func reset():
 	close.clear()
 
 func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
-	match(option):
-		"ignore": astar_ignore(mode)
-		"not_ignore": astar(mode)
+	astar_ignore(option, mode)
 	
 	if close.is_empty(): return
 	paths.append(close[close.size() - 1])
@@ -36,7 +34,7 @@ func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
 		#print("path: ", path.position, " - is_path: ", path.is_path, " - is_player_zone: ", path.is_player_zone)
 	return paths
 
-func astar_ignore(_mode: String):
+func astar_ignore(_option: String, _mode: String):
 	if not character: return
 	if not grid: return
 	
@@ -49,7 +47,7 @@ func astar_ignore(_mode: String):
 		var min_f_index = get_min_f(open)
 		var current_tile : TilePath = open.pop_at(min_f_index)
 		#print("A* pop at: ", current_tile.position, " with f: ", current_tile.f) # debug
-		var neighbors = get_surrounding_tile(current_tile)
+		var neighbors = get_surrounding_tile(current_tile, _option, _mode)
 		for neighbor in neighbors:
 			if neighbor.position == grid.destination:
 				close.append(neighbor)
@@ -62,9 +60,6 @@ func astar_ignore(_mode: String):
 		
 		close.append(current_tile)
 		#print_list()
-
-func astar(_mode: String):
-	pass
 
 func check_in_open(tile: TilePath) -> bool:
 	for node in open:
@@ -80,9 +75,25 @@ func check_in_close(tile: TilePath) -> bool:
 				return true
 	return false
 
-func get_surrounding_tile(current_tile: TilePath) -> Array[TilePath]:
-	var surrounding_position = grid.get_surrounding_cells(current_tile.position)
+func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _mode: String = "not_diagonal") -> Array[TilePath]:
+	var surrounding_position
 	var surrounding_tile : Array[TilePath]= []
+	
+	if _mode=="not_diagonal":
+		surrounding_position = grid.get_surrounding_cells(current_tile.position)
+	elif _mode == "diagonal":
+		surrounding_position = grid.get_surrounding_cells(current_tile.position)
+		
+		# Adding four corner
+		for x in range(current_tile.position.x - 1, current_tile.position.x + 2):
+			for y in range(current_tile.position.y - 1, current_tile.position.y + 2):
+				if x == y:
+					surrounding_position.append(Vector2i(x, y))
+				elif x == current_tile.position.x + 1 and y == current_tile.position.y - 1:
+					surrounding_position.append(Vector2i(x, y))
+				elif x == current_tile.position.x - 1 and y == current_tile.position.y + 1:
+					surrounding_position.append(Vector2i(x, y))
+	
 	
 	for index in range(0, surrounding_position.size()):
 		var tile = TilePath.new()
@@ -96,14 +107,21 @@ func get_surrounding_tile(current_tile: TilePath) -> Array[TilePath]:
 			tile.is_player_zone = grid.is_player_zone(tile.position)
 		
 		# Compute the f value for each child
-		calculate_cost(tile)
-		calculate_heuristic(tile)
+		calculate_cost(tile, _mode, _option)
+		calculate_heuristic(tile, _mode, _option)
 		tile.calculate_f()
 		
 		# Adding the tile that suitable for open
 		if grid.is_within_grid(tile.position):
-			if tile.is_path and !tile.is_player_zone:
-				surrounding_tile.append(tile)
+			# not_ignore
+			if _option == "not_ignore":
+				if !tile.is_player_zone:
+					surrounding_tile.append(tile)
+			# ignore
+			elif _option == "ignore":
+				if tile.is_path and !tile.is_player_zone:
+					surrounding_tile.append(tile)
+			
 			#print("Surrounding tile: tile at ", tile.position, " with f: ", tile.f)
 	
 	return surrounding_tile

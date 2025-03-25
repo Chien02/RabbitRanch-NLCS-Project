@@ -3,6 +3,7 @@ extends Control
 class_name DisplayInput
 
 @export var label : Label
+@export var label_mouse_pos : Label
 
 var is_showing_animal_path : bool = false
 
@@ -16,7 +17,20 @@ func _process(_delta: float) -> void:
 		label.text = "Up"
 	elif Input.is_action_just_pressed("ui_down"):
 		label.text = "Down"
+	
+	if !label_mouse_pos: return
+	show_mouse_pos()
 
+func show_mouse_pos():
+	var grid : Grid = get_tree().get_first_node_in_group("Grid")
+	var mouse_pos : Vector2i = grid.local_to_map(get_global_mouse_position())
+	label_mouse_pos.text = str(mouse_pos)
+	if !grid.cells.is_empty():
+		if grid.cells.has(str(mouse_pos)):
+			var obs = grid.cells[str(mouse_pos)]["is_path"]
+			label_mouse_pos.text = str(mouse_pos) + " - is path: " + str(obs)
+	else:
+		print("Display: Cannot find mouse_pos in cells")
 
 func _on_show_animal_path_btn_button_down() -> void:
 	is_showing_animal_path = not is_showing_animal_path

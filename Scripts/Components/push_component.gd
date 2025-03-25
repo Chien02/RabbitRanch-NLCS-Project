@@ -36,10 +36,11 @@ func pushing_check() -> void:
 		var next_pos_push = local_next_pos + Vector2i(direction)
 		if not grid.is_path(next_pos_push): return
 		temp_obstacle = obs
+		
 		if pushable_direction != direction:
 			pushable_direction = direction
 		
-		can_push = true if pushable_direction == direction else false
+		can_push = true if pushable_direction == direction and temp_obstacle.is_pushable() else false
 
 func push(_obs: Obstacle, dir: Vector2):
 	if is_pushing: return

@@ -11,8 +11,9 @@ func set_grid(_grid: Grid):
 func get_obstacles():
 	var temp_obs : Array[Vector2i] = []
 	for obstacle in obstacles:
-		var local_pos = grid.local_to_map(obstacle.position)
-		temp_obs.append(local_pos)
+		if obstacle is Obstacle:
+			var local_pos = grid.local_to_map(obstacle.position)
+			temp_obs.append(local_pos)
 	return temp_obs
 
 func spawn_obstacle():
@@ -25,8 +26,8 @@ func spawn_obstacle():
 			add_child.call_deferred(new_obs)
 	call_deferred("init_obstacle")
 
-
 func init_obstacle():
+	obstacles.clear()
 	obstacles = get_children()
 	if obstacles.is_empty():
 		print("O.Management: Obstacles is empty")

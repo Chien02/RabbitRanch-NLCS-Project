@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://djaiyg6ud0eij" path="res://Scripts/Entity/obstacle_management.gd" id="1_obbif"]
 
-[node name="ObstacleManagement" type="Node2D"]
+[node name="ObstacleManagement" type="Node2D" groups=["ObsManager"]]
 script = ExtResource("1_obbif")

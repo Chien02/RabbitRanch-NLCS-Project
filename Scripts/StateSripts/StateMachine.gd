@@ -21,6 +21,7 @@ func _ready() -> void:
 	
 	if initial_state:
 		current_state = initial_state
+		current_state.enter_state()
 
 func _process(_delta: float) -> void:
 	if not character.turnbase_actor.is_active: return

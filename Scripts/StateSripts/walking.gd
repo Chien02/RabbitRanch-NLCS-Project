@@ -3,7 +3,7 @@ extends BaseState
 class_name Walking
 
 func enter_state():
-	#print("Enter Walking State")
+	print("Enter Walking State")
 	pass
 
 func exit_state():
