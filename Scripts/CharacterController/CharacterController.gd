@@ -47,6 +47,8 @@ func check_direction(character, dir: Vector2):
 		return false
 	return true
 
-func move_to(_object, _direction: Vector2, duration: float):
-	var destination = _object.position + _direction * tile_size
-	CustomTween.movement(_object, destination, duration)
+func move_to(_object, next_pos: Vector2, duration: float):
+	is_walking = true
+	CustomTween.movement(_object, next_pos, duration)
+	await _object.get_tree().create_timer(duration).timeout
+	is_walking = false

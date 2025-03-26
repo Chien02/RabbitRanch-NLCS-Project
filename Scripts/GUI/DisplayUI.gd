@@ -1,13 +1,18 @@
 extends Control
 
-class_name DisplayInput
+class_name DisplayUI
 
 @export var label : Label
 @export var label_mouse_pos : Label
-
+@onready var level_manager : LevelManager = get_parent().get_parent()
 var is_showing_animal_path : bool = false
 
 func _process(_delta: float) -> void:
+	show_input()
+	show_mouse_pos()
+	handle_event_UI()
+	
+func show_input():
 	if !label: return
 	if Input.is_action_just_pressed("ui_left"):
 		label.text = "Left"
@@ -17,11 +22,9 @@ func _process(_delta: float) -> void:
 		label.text = "Up"
 	elif Input.is_action_just_pressed("ui_down"):
 		label.text = "Down"
-	
-	if !label_mouse_pos: return
-	show_mouse_pos()
 
 func show_mouse_pos():
+	if !label_mouse_pos: return
 	var grid : Grid = get_tree().get_first_node_in_group("Grid")
 	var mouse_pos : Vector2i = grid.local_to_map(get_global_mouse_position())
 	label_mouse_pos.text = str(mouse_pos)
@@ -31,6 +34,15 @@ func show_mouse_pos():
 			label_mouse_pos.text = str(mouse_pos) + " - is path: " + str(obs)
 	else:
 		print("Display: Cannot find mouse_pos in cells")
+
+func handle_event_UI():
+	if $PauseUI.visible or $LossUI.visible or $WinUI.visible:
+		$DebugUI/PauseButton.visible = false
+	elif !$PauseUI.visible and !$LossUI.visible and !$WinUI.visible:
+		$DebugUI/PauseButton.visible = true
+
+#func _on_pause_button_pressed() -> void:
+	#level_manager.emit_pause()
 
 func _on_show_animal_path_btn_button_down() -> void:
 	is_showing_animal_path = not is_showing_animal_path

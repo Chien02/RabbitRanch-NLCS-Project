@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=31 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
+[ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
 [ext_resource type="PackedScene" uid="uid://wstv8voo4ymo" path="res://Scenes/TurnBased/turn_based_manager.tscn" id="1_t7rht"]
 [ext_resource type="Script" uid="uid://bxgngqdjbv6hg" path="res://Scripts/Grid/Grid.gd" id="1_vo475"]
 [ext_resource type="Texture2D" uid="uid://bmafeh41mv4ja" path="res://Sprites/Prototype/select-cursor.png" id="2_a4oga"]
@@ -13,9 +14,12 @@
 [ext_resource type="Script" uid="uid://vo7v44bl816h" path="res://Scripts/Animation/CustomAnimation.gd" id="8_4gu7f"]
 [ext_resource type="PackedScene" uid="uid://c5icvfyyatrwy" path="res://Scenes/Destination/destination.tscn" id="8_hfh6p"]
 [ext_resource type="Texture2D" uid="uid://brqtp5aolsjvm" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="8_p6rji"]
-[ext_resource type="Script" uid="uid://c0lsf8dbbhh6w" path="res://Scripts/GUI/DisplayInput.gd" id="9_47kkx"]
+[ext_resource type="Script" uid="uid://c0lsf8dbbhh6w" path="res://Scripts/GUI/DisplayUI.gd" id="9_47kkx"]
 [ext_resource type="Texture2D" uid="uid://ftk0ln4h52ll" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="9_ect2t"]
 [ext_resource type="PackedScene" uid="uid://c7m7xvqv4d8pw" path="res://Scenes/Entity/obstacle_management.tscn" id="14_bnfqx"]
+[ext_resource type="PackedScene" uid="uid://dmd5dvtrp5x48" path="res://Scenes/GUI/pause_ui.tscn" id="18_75bkg"]
+[ext_resource type="PackedScene" uid="uid://cgbio51ohm2m8" path="res://Scenes/GUI/loss_ui.tscn" id="19_bke7g"]
+[ext_resource type="PackedScene" uid="uid://b21a6phknhiic" path="res://Scenes/GUI/win_ui.tscn" id="20_grvc7"]
 
 [sub_resource type="TileSet" id="TileSet_vue63"]
 
@@ -199,17 +203,20 @@ sources/5 = SubResource("TileSetAtlasSource_2uor1")
 sources/6 = SubResource("TileSetAtlasSource_ejhhv")
 sources/7 = SubResource("TileSetAtlasSource_bbte7")
 
-[node name="Sample_level" type="Node2D"]
+[node name="Sample_level" type="Node2D" groups=["LevelManager"]]
 texture_filter = 1
+script = ExtResource("1_bnfqx")
 
-[node name="TurnBasedManager" parent="." instance=ExtResource("1_t7rht")]
+[node name="TurnBasedManager" parent="." groups=["TurnBasedManager"] instance=ExtResource("1_t7rht")]
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(38, 87)
+position = Vector2(248, 136)
 grid = NodePath("../../TileMap")
 
 [node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]
-position = Vector2(136, 120)
+position = Vector2(264, 136)
+mode = "not_diagonal"
+option = "ignore"
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management") groups=["Grid"]]
@@ -223,7 +230,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAA
 tile_set = SubResource("TileSet_0axwb")
 
 [node name="Obstacle" type="TileMapLayer" parent="TileMap"]
-visible = false
 z_index = 1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAEAAcAAQAAAAAAAAAFAAcAAQAAAAAAAAAGAAcAAQAAAAAAAAARAAcAAQAAAAAAAAARAAgAAQAAAAAAAAARAAkAAQAAAAAAAAAQAAkAAQAAAAAAAAAPAAkAAQAAAAAAAAAGAAYAAQAAAAAAAAAMAAQAAQAAAAAAAAAMAAUAAQAAAAAAAAALAAUAAQAAAAAAAAALAAYAAQAAAAAAAAALAAcAAQAAAAAAAAAKAAcAAQAAAAAAAAAKAAgAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAMAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAMAAQAAAAAAAAAJAAQAAQAAAAAAAAAPAAQAAQAAAAAAAAAPAAMAAQAAAAAAAAAPAAIAAQAAAAAAAAAQAAQAAQAAAAAAAAAQAAUAAQAAAAAAAAAOAAIAAQAAAAAAAAALAAgAAQAAAAAAAAALAAkAAQAAAAAAAAADAAUAAQAAAAAAAAADAAQAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAADAAMAAQAAAAAAAAAGAAgAAQAAAAAAAAAKAAIAAQAAAAAAAAAMAAkAAQAAAAAAAAA=")
@@ -265,50 +271,110 @@ zoom = Vector2(2.64, 2.64)
 [node name="CustomTween" type="Node2D" parent="."]
 script = ExtResource("8_4gu7f")
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("label", "label_mouse_pos")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+follow_viewport_enabled = true
+
+[node name="GUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("label", "label_mouse_pos") groups=["GUI"]]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("9_47kkx")
-label = NodePath("Label")
-label_mouse_pos = NodePath("MousePosition")
+label = NodePath("DebugUI/Panel/Label")
+label_mouse_pos = NodePath("DebugUI/MousePosition")
 
-[node name="Panel" type="Panel" parent="Control"]
-layout_mode = 0
-offset_left = -51.0
-offset_top = 184.0
-offset_right = -5.0
-offset_bottom = 208.0
-scale = Vector2(0.978941, 1.02962)
+[node name="PauseUI" parent="CanvasLayer/GUI" instance=ExtResource("18_75bkg")]
+visible = false
+layout_mode = 1
+offset_left = -421.0
+offset_top = -225.0
+offset_right = -421.0
+offset_bottom = -225.0
+scale = Vector2(0.615051, 0.561775)
 
-[node name="Label" type="Label" parent="Control"]
+[node name="LossUI" parent="CanvasLayer/GUI" instance=ExtResource("19_bke7g")]
+visible = false
+layout_mode = 1
+offset_left = -421.0
+offset_top = -225.0
+offset_right = -421.0
+offset_bottom = -225.0
+scale = Vector2(0.624123, 0.538859)
+
+[node name="WinUI" parent="CanvasLayer/GUI" instance=ExtResource("20_grvc7")]
+visible = false
+layout_mode = 1
+offset_left = -421.0
+offset_top = -225.0
+offset_right = -421.0
+offset_bottom = -225.0
+scale = Vector2(0.544628, 0.54979)
+
+[node name="DebugUI" type="Control" parent="CanvasLayer/GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/GUI/DebugUI"]
 layout_mode = 0
-offset_left = -45.0
-offset_top = 186.0
-offset_right = -3.0
-offset_bottom = 209.0
+offset_left = -603.0
+offset_top = -125.0
+offset_right = -557.0
+offset_bottom = -101.0
+scale = Vector2(0.915264, 0.715733)
+
+[node name="Label" type="Label" parent="CanvasLayer/GUI/DebugUI/Panel"]
+layout_mode = 0
+offset_left = 6.12909
+offset_top = 1.94247
+offset_right = 48.1291
+offset_bottom = 24.9425
 scale = Vector2(0.753247, 0.837209)
 text = "Input"
 horizontal_alignment = 1
 
-[node name="ShowAnimalPathBtn" type="Button" parent="Control"]
+[node name="ShowAnimalPathBtn" type="Button" parent="CanvasLayer/GUI/DebugUI"]
 layout_mode = 0
-offset_left = -53.0
-offset_top = 148.0
-offset_right = 95.0
-offset_bottom = 179.0
-scale = Vector2(0.76, 0.76)
+offset_left = -603.0
+offset_top = -147.0
+offset_right = -455.0
+offset_bottom = -116.0
+scale = Vector2(0.633583, 0.571775)
 text = "Show Animal Path"
 
-[node name="MousePosition" type="Label" parent="Control"]
+[node name="PauseButton" type="Button" parent="CanvasLayer/GUI/DebugUI"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 188.0
-offset_right = 127.0
-offset_bottom = 211.0
-scale = Vector2(0.660705, 0.913468)
+offset_left = -245.0
+offset_top = -317.0
+offset_right = -190.0
+offset_bottom = -286.0
+scale = Vector2(0.810016, 0.860644)
+pivot_offset = Vector2(29.4534, 16.196)
+text = "Pause"
+
+[node name="MousePosition" type="Label" parent="CanvasLayer/GUI/DebugUI"]
+layout_mode = 0
+offset_left = -603.0
+offset_top = -169.0
+offset_right = -484.0
+offset_bottom = -146.0
+scale = Vector2(0.688307, 0.807805)
 text = "Mouse position"
 horizontal_alignment = 1
 
-[connection signal="button_down" from="Control/ShowAnimalPathBtn" to="Control" method="_on_show_animal_path_btn_button_down"]
+[connection signal="button_down" from="CanvasLayer/GUI/DebugUI/ShowAnimalPathBtn" to="CanvasLayer/GUI" method="_on_show_animal_path_btn_button_down"]
+[connection signal="pressed" from="CanvasLayer/GUI/DebugUI/PauseButton" to="." method="_on_pause_button_pressed"]

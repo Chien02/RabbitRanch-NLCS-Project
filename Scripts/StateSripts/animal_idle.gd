@@ -7,7 +7,7 @@ var flag : bool = false
 
 func enter_state():
 	flag = false
-	print("IdleAnimal: --- mode: ", character.mode, " option: ", character.option)
+	#print("IdleAnimal: --- mode: ", character.mode, " option: ", character.option)
 
 func exit_state():
 	character.grid.clear_layer(4)
@@ -20,6 +20,7 @@ func update_state(): # Overriding
 	
 	if paths.is_empty():
 		print("From idle animal: Could not find the paths") # For debugging
+		SwitchState.emit(self, "wondering")
 	
 	elif !paths.is_empty() and !flag:
 		if character is Animal:
@@ -31,9 +32,19 @@ func update_state(): # Overriding
 			#print(path.position, " is_path: ", path.is_path)
 			character.grid.get_child(4).set_cell(path.position, 3, Vector2i(0, 0))
 		flag = true # Turn on flag for stopping the loop of find path
+		switch_to("walking")
 	
 	# Check the next step is a breakable object or not
 	# If it's true then switch to special state, else just ignore it
+
+func switch_to(state_name: String):
+	if !paths.is_empty() and flag:
+		var duration = 0.5
+		var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)
+		if character is Animal:
+			character.character_controller.move_to(character, next_pos, duration)
+			if character.character_controller.is_walking:
+				SwitchState.emit(self, state_name)
 
 func finding_path():
 	if character is Animal:

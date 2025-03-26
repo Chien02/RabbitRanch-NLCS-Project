@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgbio51ohm2m8"]
+
+[ext_resource type="Script" uid="uid://cc4v8u5wtce8u" path="res://Scripts/Level/loss_event.gd" id="1_pwvk2"]
+
+[node name="LossUI" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pwvk2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.5
+offset_top = -134.0
+offset_right = 203.5
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -34.0
+offset_right = 32.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Loss"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 0
+offset_left = -34.0
+offset_top = 59.0
+offset_right = 31.0
+offset_bottom = 90.0
+text = "Restart"
+
+[node name="LevelSelection" type="Button" parent="."]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 58.0
+offset_right = 180.0
+offset_bottom = 89.0
+text = "Level Selection"
+
+[node name="MainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = -161.0
+offset_top = 60.0
+offset_right = -65.0
+offset_bottom = 91.0
+text = "Main Menu"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="LevelSelection" to="." method="_on_level_selection_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]

@@ -21,9 +21,8 @@ func _ready() -> void:
 	turnbase_actor._new(self)
 	character_controller = CharacterController.new()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !turnbase_actor.is_active: return
-	character_controller.movement(self, delta)
 
 func is_mode_diagonal() -> bool:
 	return mode=="diagonal"

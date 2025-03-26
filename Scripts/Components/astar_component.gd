@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Astar
 
+const MAX : float = 9999999.0
+
 var character
 var grid : Grid
 var paths : Array[TilePath] = []
@@ -20,6 +22,11 @@ func reset():
 	close.clear()
 
 func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
+	paths.clear()
+	
+	if grid.destination == Vector2i.ZERO:
+		print("Could not find destination")
+		return paths
 	astar_ignore(option, mode)
 	
 	if close.is_empty(): return
@@ -76,25 +83,21 @@ func check_in_close(tile: TilePath) -> bool:
 	return false
 
 func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _mode: String = "not_diagonal") -> Array[TilePath]:
-	var surrounding_position
+	var surrounding_position = []
 	var surrounding_tile : Array[TilePath]= []
 	
 	if _mode=="not_diagonal":
 		surrounding_position = grid.get_surrounding_cells(current_tile.position)
 	elif _mode == "diagonal":
-		surrounding_position = grid.get_surrounding_cells(current_tile.position)
-		
 		# Adding four corner
 		for x in range(current_tile.position.x - 1, current_tile.position.x + 2):
 			for y in range(current_tile.position.y - 1, current_tile.position.y + 2):
-				if x == y:
-					surrounding_position.append(Vector2i(x, y))
-				elif x == current_tile.position.x + 1 and y == current_tile.position.y - 1:
-					surrounding_position.append(Vector2i(x, y))
-				elif x == current_tile.position.x - 1 and y == current_tile.position.y + 1:
-					surrounding_position.append(Vector2i(x, y))
+				var _pos = current_tile.position
+				if x == _pos.x and y == _pos.y:
+					continue
+				surrounding_position.append(Vector2i(x, y))
 	
-	
+	print("-------------")
 	for index in range(0, surrounding_position.size()):
 		var tile = TilePath.new()
 		#surrounding_tile[index] = TilePath.new()
@@ -107,7 +110,8 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 			tile.is_player_zone = grid.is_player_zone(tile.position)
 		
 		# Compute the f value for each child
-		calculate_cost(tile, _mode, _option)
+		var is_cornered = is_corner(index) if surrounding_position.size() == 8 else false
+		calculate_cost(tile, is_cornered, _mode, _option)
 		calculate_heuristic(tile, _mode, _option)
 		tile.calculate_f()
 		
@@ -122,13 +126,15 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 				if tile.is_path and !tile.is_player_zone:
 					surrounding_tile.append(tile)
 			
-			#print("Surrounding tile: tile at ", tile.position, " with f: ", tile.f)
+			#print("tile[", tile.position,"]: cost = ", tile.cost, " heuristic = ", tile.heuristic, " f = ", tile.f)
 	
 	return surrounding_tile
 
 func calculate_heuristic(current_tile: TilePath, mode: String = "not_diagonal", option: String = "ignore"):
 	if option == "ignore":
-		if not current_tile.is_path: return
+		if not current_tile.is_path:
+			current_tile.heuristic = MAX
+			return
 	
 	if mode == "diagonal":
 		# Using Diagonal Distance
@@ -139,16 +145,24 @@ func calculate_heuristic(current_tile: TilePath, mode: String = "not_diagonal", 
 		current_tile.heuristic = d1 * (dx + dy) + (d2 - 2 * d1) * min(dx, dy)
 	else:
 		# Using Mahattan Distance
-		current_tile.heuristic = abs(current_tile.position.x + grid.destination.x) + abs(current_tile.position.y + grid.destination.y)
+		current_tile.heuristic = abs(current_tile.position.x - grid.destination.x) + abs(current_tile.position.y - grid.destination.y)
 
-func calculate_cost(current_tile: TilePath, mode: String = "not_diagonal", option: String = "ignore"):
-	if option == "not_ignore":
-		if not current_tile.is_path: return
+func calculate_cost(current_tile: TilePath, is_cornered: bool, mode: String = "not_diagonal", option: String = "ignore"):
+	if option == "ignore":
+		if not current_tile.is_path:
+			current_tile.cost = MAX
+			return
 	
 	if mode == "diagonal":
-		current_tile.cost = current_tile.parent.cost + grid.tile_size * sqrt(2.0)
-	else:
-		current_tile.cost = current_tile.parent.cost + grid.tile_size
+		if is_cornered:
+			current_tile.cost = current_tile.parent.cost + grid.tile_size * sqrt(2.0)
+		else:
+			current_tile.cost = current_tile.parent.cost + grid.tile_size
+
+func is_corner(index: int):
+	match index:
+		0, 2, 5, 7: return true
+	return false
 
 func get_min_f(array: Array[TilePath]):
 	var temp_min : TilePath = array[0]

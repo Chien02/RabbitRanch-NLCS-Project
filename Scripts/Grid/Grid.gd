@@ -130,10 +130,10 @@ func string_to_vector2(string := "") -> Vector2i:
 
 	return Vector2i.ZERO
 
-func change_tile_property(_pos: Vector2i, is_path: bool = true, player_zone: bool = false):
+func change_tile_property(_pos: Vector2i, _is_path: bool = true, player_zone: bool = false):
 	if cells.has(str(_pos)):
 		cells[str(_pos)] = {
-			"is_path": is_path,
+			"is_path": _is_path,
 			"player_zone": player_zone
 		}
 	
