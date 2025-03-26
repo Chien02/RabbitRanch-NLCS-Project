@@ -23,6 +23,8 @@ func _process(delta: float) -> void:
 	if !turnbase_actor.is_active: return
 	character_controller.movement(self, delta)
 	push.pushing_check()
+	# Debugging
+	debug_canwalk()
 
 func init_player_zone():
 	player_zone.clear()
@@ -39,3 +41,11 @@ func init_player_zone():
 	
 	for zone in player_zone:
 		grid.get_node("PlayerZone").set_cell(zone, 2, Vector2i(0, 0))
+
+func debug_canwalk():
+	#debug
+	var mouse_position = grid.local_to_map(get_global_mouse_position())
+	if mouse_position == grid.local_to_map(position):
+		$Control/Label.text = "can_walk: " + str(character_controller.can_walk)
+	else:
+		$Control/Label.text = ""

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnh30ymx8toc5"]
+
+[ext_resource type="PackedScene" uid="uid://b5u5ne14eladx" path="res://Scenes/Entity/obstacle.tscn" id="1_8n6a4"]
+[ext_resource type="Texture2D" uid="uid://pah1egnyyp0m" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/fench.png" id="2_81srn"]
+
+[node name="Fench" instance=ExtResource("1_8n6a4")]
+pushable = false
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_81srn")

@@ -27,22 +27,21 @@ func pushing_check() -> void:
 	if not grid.is_within_grid(local_next_pos): return
 	if grid.is_path(local_next_pos): return
 	
-	var obstacles = grid.obstacles_management.obstacles
-	for obs in obstacles:
-		if local_next_pos != obs.local_position: continue
+	var obstacles = grid.obstacles
+	var next_pos_push = local_next_pos + Vector2i(direction)
+	
+	if !obstacles.has(str(local_next_pos)): return
+	if not grid.is_path(next_pos_push): return
+	if is_overlap_actor(next_pos_push): return
 		
-		var next_pos_push = local_next_pos + Vector2i(direction)
-		if not grid.is_path(next_pos_push): return
-		if is_overlap_actor(next_pos_push): return
-		temp_obstacle = obs
-		
-		if pushable_direction != direction:
-			pushable_direction = direction
-		
-		can_push = true if pushable_direction == direction and temp_obstacle.is_pushable() else false
-		if can_push:
-			var global_next_pos = character.grid.map_to_local(next_pos_push)
-			push(temp_obstacle, global_next_pos)
+	if pushable_direction != direction:
+		pushable_direction = direction
+	
+	can_push = true if pushable_direction == direction and obstacles[str(local_next_pos)]["pushable"] else false
+	if can_push:
+		temp_obstacle = set_temp_obstacle(local_next_pos)
+		var global_next_pos = character.grid.map_to_local(next_pos_push)
+		push(temp_obstacle, global_next_pos)
 
 func is_overlap_actor(pos: Vector2i):
 	for actor in turnbase_manager.actor:
@@ -50,6 +49,13 @@ func is_overlap_actor(pos: Vector2i):
 		if local_actor == pos:
 			return true
 	return false
+
+func set_temp_obstacle(local_next_pos: Vector2i):
+	var obsstacleM : ObstacleManagement = character.get_tree().get_first_node_in_group("ObsManager")
+	for obs in obsstacleM.obstacles:
+		if obs.local_position == local_next_pos:
+			return obs
+	
 
 func push(_obs: Obstacle, next_pos: Vector2):
 	if is_pushing: return

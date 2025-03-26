@@ -22,8 +22,7 @@ func reset():
 
 func init_pushable_diretion():
 	reset()
-	var pos = grid.local_to_map(position)
-	var temp_array = grid.get_surrounding_cells(pos)
+	var temp_array = grid.get_surrounding_cells(local_position)
 	for dir in temp_array:
 		if grid.is_within_grid(dir) and grid.is_path(dir):
 			pushable_direction.append(dir)
@@ -44,9 +43,3 @@ func destroy(duration: float):
 
 func _on_body_entered(_body: Node) -> void:
 	pass
-	#if body is MainCharacter:
-		#var _direction : Vector2 = body.character_controller.direction
-		#if pushable_direction.find(_direction) != -1:
-			#var index =  pushable_direction.find(_direction)
-			#var next_pos =  pushable_direction.get(index)
-			#characterController.move_to(position, next_pos)

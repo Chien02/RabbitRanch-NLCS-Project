@@ -28,7 +28,7 @@ func movement(_object, _delta: float):
 			can_walk = _object.grid.is_within_grid(local_next_pos) and _object.grid.is_path(local_next_pos)
 		else:
 			can_walk = false
-		
+		print("From CharacterController: Checking can_walk and next_local_pos ", local_next_pos, " is_path: ", _object.grid.is_path(local_next_pos))
 	is_walking = true if can_walk else false
 	if !is_walking: return
 	

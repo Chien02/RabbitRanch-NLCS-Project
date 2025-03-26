@@ -4,14 +4,16 @@ class_name Grid
 
 @export var max_x_size : int = 20
 @export var max_y_size : int = 12
-@export var obstale_source_id : int = 1
 @export var destination_source_id : int = 5
 @export var tile_size : int = 16
 @export var obstacles_management : ObstacleManagement
 
 var cells = {}
-var obstacles : Array[Vector2i] = []
+var obstacles = {}
 var destination : Vector2i = Vector2i.ZERO
+var barrel_id : int = 6
+var fench_id : int = 8
+var obstacle_source_id : Array[int] = [barrel_id, fench_id]
 
 func _ready() -> void:
 	init_grid()
@@ -77,22 +79,45 @@ func scan_obstacles(mode: String = ""):
 	if mode == "":
 		for x in range(0, max_x_size):
 			for y in range(0, max_y_size):
-				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == obstale_source_id:
+				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
+					obstacles[str(Vector2i(x, y))] = {
+						"pushable": false,
+						"breakable": true
+					}
 					cells[str(Vector2i(x, y))] = {
 						"is_path" = false,
 						"player_zone" = false,
 					}
-					obstacles.append(Vector2i(x, y))
+					
+				elif $Obstacle.get_cell_source_id(Vector2i(x, y)) == barrel_id:
+					obstacles[str(Vector2i(x, y))] = {
+						"pushable": true,
+						"breakable": true
+					}
+					cells[str(Vector2i(x, y))] = {
+						"is_path" = false,
+						"player_zone" = false,
+					}
 	else:
-		obstacles = obstacles_management.get_obstacles()
+		# Update the obstacle position and properties
+		obstacles = obstacles_management.get_obstacles_dictionary()
+		#scan_unpushable_obstacle()
 		if obstacles.is_empty():
 			return
-		for obs in obstacles:
-			cells[str(obs)] = {
-				"is_path" = false,
-				"player_zone" = false,
-			}
-	
+
+func scan_unpushable_obstacle():
+	for x in range(0, max_x_size):
+			for y in range(0, max_y_size):
+				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
+					obstacles[str(Vector2i(x, y))] = {
+						"pushable": false,
+						"breakable": true
+					}
+					cells[str(Vector2i(x, y))] = {
+						"is_path" = false,
+						"player_zone" = false,
+					}
+
 func scan_player_zone(player_zone: Array[Vector2i]):
 	if player_zone.is_empty(): return
 	for zone in player_zone:
@@ -114,7 +139,7 @@ func is_within_grid(_position: Vector2i) -> bool:
 	return inside_x and inside_y
 
 func is_path(local_pos: Vector2i):
-	return cells[str(local_pos)]["is_path"]
+	return not obstacles.has(str(local_pos))
 
 func is_player_zone(local_pos: Vector2i):
 	return cells[str(local_pos)]["player_zone"] and cells[str(local_pos)]["is_path"]
@@ -136,6 +161,3 @@ func change_tile_property(_pos: Vector2i, _is_path: bool = true, player_zone: bo
 			"is_path": _is_path,
 			"player_zone": player_zone
 		}
-	
-	if obstacles.has(_pos):
-		obstacles.erase(_pos)

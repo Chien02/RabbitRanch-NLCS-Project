@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=33 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://brqtp5aolsjvm" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="8_p6rji"]
 [ext_resource type="Script" uid="uid://c0lsf8dbbhh6w" path="res://Scripts/GUI/DisplayUI.gd" id="9_47kkx"]
 [ext_resource type="Texture2D" uid="uid://ftk0ln4h52ll" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="9_ect2t"]
+[ext_resource type="Texture2D" uid="uid://g57gj3nefdv3" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="14_bke7g"]
 [ext_resource type="PackedScene" uid="uid://c7m7xvqv4d8pw" path="res://Scenes/Entity/obstacle_management.tscn" id="14_bnfqx"]
 [ext_resource type="PackedScene" uid="uid://dmd5dvtrp5x48" path="res://Scenes/GUI/pause_ui.tscn" id="18_75bkg"]
 [ext_resource type="PackedScene" uid="uid://cgbio51ohm2m8" path="res://Scenes/GUI/loss_ui.tscn" id="19_bke7g"]
@@ -191,6 +192,25 @@ texture = ExtResource("9_ect2t")
 9:6/0 = 0
 10:6/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_grvc7"]
+texture = ExtResource("14_bke7g")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_0axwb"]
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 0
@@ -202,6 +222,7 @@ sources/3 = SubResource("TileSetAtlasSource_shg4g")
 sources/5 = SubResource("TileSetAtlasSource_2uor1")
 sources/6 = SubResource("TileSetAtlasSource_ejhhv")
 sources/7 = SubResource("TileSetAtlasSource_bbte7")
+sources/8 = SubResource("TileSetAtlasSource_grvc7")
 
 [node name="Sample_level" type="Node2D" groups=["LevelManager"]]
 texture_filter = 1
@@ -210,13 +231,11 @@ script = ExtResource("1_bnfqx")
 [node name="TurnBasedManager" parent="." groups=["TurnBasedManager"] instance=ExtResource("1_t7rht")]
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(248, 136)
+position = Vector2(250, 135)
 grid = NodePath("../../TileMap")
 
 [node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("3_bkwjg")]
-position = Vector2(264, 136)
-mode = "not_diagonal"
-option = "ignore"
+position = Vector2(296, 168)
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management") groups=["Grid"]]
@@ -232,7 +251,7 @@ tile_set = SubResource("TileSet_0axwb")
 [node name="Obstacle" type="TileMapLayer" parent="TileMap"]
 z_index = 1
 use_parent_material = true
-tile_map_data = PackedByteArray("AAAEAAcAAQAAAAAAAAAFAAcAAQAAAAAAAAAGAAcAAQAAAAAAAAARAAcAAQAAAAAAAAARAAgAAQAAAAAAAAARAAkAAQAAAAAAAAAQAAkAAQAAAAAAAAAPAAkAAQAAAAAAAAAGAAYAAQAAAAAAAAAMAAQAAQAAAAAAAAAMAAUAAQAAAAAAAAALAAUAAQAAAAAAAAALAAYAAQAAAAAAAAALAAcAAQAAAAAAAAAKAAcAAQAAAAAAAAAKAAgAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAMAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAMAAQAAAAAAAAAJAAQAAQAAAAAAAAAPAAQAAQAAAAAAAAAPAAMAAQAAAAAAAAAPAAIAAQAAAAAAAAAQAAQAAQAAAAAAAAAQAAUAAQAAAAAAAAAOAAIAAQAAAAAAAAALAAgAAQAAAAAAAAALAAkAAQAAAAAAAAADAAUAAQAAAAAAAAADAAQAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAADAAMAAQAAAAAAAAAGAAgAAQAAAAAAAAAKAAIAAQAAAAAAAAAMAAkAAQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAEAAcACAABAAMAAAAFAAcACAACAAMAAAAGAAcACAADAAMAAAARAAcACAAAAAAAAAARAAgACAAAAAEAAAARAAkACAADAAIAAAAQAAkACAACAAMAAAAPAAkACAABAAMAAAAGAAYABgAGAAUAAAAMAAQACAAAAAAAAAAMAAUACAADAAIAAAALAAUACAABAAAAAAALAAYACAAAAAEAAAALAAcACAADAAEAAAAKAAcABgAGAAUAAAAKAAgABgAIAAYAAAAGAAMACAACAAMAAAAHAAMACAACAAMAAAAIAAMACAACAAAAAAAJAAMACAACAAEAAAAJAAQACAADAAIAAAAPAAQACAAAAAEAAAAPAAMACAAAAAEAAAAPAAIABgAHAAUAAAAQAAQABgAHAAUAAAAQAAUACAADAAMAAAAOAAIABgAGAAUAAAALAAgACAADAAIAAAALAAkABgAHAAUAAAADAAUABgAHAAUAAAADAAQABgAGAAUAAAACAAMACAABAAAAAAACAAQABgAHAAUAAAADAAMACAADAAMAAAAGAAgABgAHAAUAAAAKAAIABgAGAAUAAAAMAAkACAAAAAMAAAAAAAAACAABAAAAAAACAAAACAACAAMAAAABAAAACAACAAMAAAADAAAACAACAAMAAAAEAAAACAACAAMAAAAFAAAACAACAAMAAAAGAAAACAACAAMAAAAHAAAACAACAAMAAAAIAAAACAACAAMAAAAJAAAACAACAAMAAAAKAAAACAACAAMAAAALAAAACAACAAMAAAAMAAAACAACAAMAAAANAAAACAACAAMAAAAOAAAACAACAAMAAAAPAAAACAACAAMAAAAQAAAACAACAAMAAAARAAAACAACAAMAAAASAAAACAACAAMAAAATAAAACAADAAAAAAATAAEACAAAAAEAAAATAAIACAAAAAEAAAATAAMACAAAAAEAAAATAAQACAAAAAEAAAATAAUACAAAAAEAAAATAAYACAAAAAEAAAATAAcACAAAAAEAAAATAAgACAAAAAEAAAATAAkACAAAAAEAAAATAAoACAAAAAEAAAABAAsACAACAAMAAAACAAsACAACAAMAAAADAAsACAACAAMAAAAEAAsACAACAAMAAAAFAAsACAACAAMAAAAGAAsACAACAAMAAAAHAAsACAACAAMAAAAIAAsACAACAAMAAAAJAAsACAACAAMAAAAKAAsACAACAAMAAAALAAsACAACAAMAAAAMAAsACAACAAMAAAANAAsACAACAAMAAAAOAAsACAACAAMAAAAPAAsACAACAAMAAAAQAAsACAACAAMAAAARAAsACAACAAMAAAASAAsACAACAAMAAAAAAAEACAAAAAEAAAAAAAIACAAAAAEAAAAAAAMACAAAAAEAAAAAAAQACAAAAAEAAAAAAAUACAAAAAEAAAAAAAYACAAAAAEAAAAAAAcACAAAAAEAAAAAAAgACAAAAAEAAAAAAAkACAAAAAEAAAAAAAoACAAAAAEAAAAAAAsACAABAAIAAAATAAsACAADAAIAAAAKAAMACAADAAMAAAAFAAMACAABAAMAAAAIAAQACAABAAIAAAAHAAQABgAGAAUAAAAPAAUACAABAAIAAAAOAAYABgAHAAUAAAAPAAYABgAGAAUAAAAMAAMABgAGAAUAAAAOAAUABgAHAAUAAAAMAAcABgAHAAUAAAAOAAgABgAHAAUAAAA=")
 tile_set = SubResource("TileSet_0axwb")
 
 [node name="Player_path" type="TileMapLayer" parent="TileMap"]
@@ -263,6 +282,7 @@ tile_set = SubResource("TileSet_0axwb")
 position = Vector2(200, 136)
 
 [node name="ObstacleManagement" parent="." instance=ExtResource("14_bnfqx")]
+z_index = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(155, 99)

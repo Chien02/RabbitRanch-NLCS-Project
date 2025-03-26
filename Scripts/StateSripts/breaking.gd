@@ -6,11 +6,10 @@ class_name Breaking
 var flag : bool = false
 
 func enter_state():
-	print("Enter Breaking state")
 	flag = false
 
 func exit_state():
-	print("Exit breaking state")
+	pass
 
 func update_state():
 	if flag: return

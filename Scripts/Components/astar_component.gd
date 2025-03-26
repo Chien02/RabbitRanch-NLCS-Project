@@ -23,15 +23,16 @@ func reset():
 
 func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
 	paths.clear()
-	
-	if grid.destination == Vector2i.ZERO:
+	if grid.destination == Vector2i.ZERO or !grid.is_path(grid.destination):
 		print("Could not find destination")
 		return paths
 	astar_ignore(option, mode)
 	
-	if close.is_empty(): return
-	paths.append(close[close.size() - 1])
+	if close.is_empty():
+		return paths
+	paths.append(close[close.size() - 1]) # Thêm node có vị trí đích đến
 	
+	# Dò ngược tìm đường đi
 	var index : int = 1
 	while (paths[index-1].parent != null):
 		paths.append(paths[index-1].parent)
@@ -67,6 +68,10 @@ func astar_ignore(_option: String, _mode: String):
 		
 		close.append(current_tile)
 		#print_list()
+	
+	if open.is_empty():
+		close.clear()
+		return
 
 func check_in_open(tile: TilePath) -> bool:
 	for node in open:
@@ -97,7 +102,6 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 					continue
 				surrounding_position.append(Vector2i(x, y))
 	
-	print("-------------")
 	for index in range(0, surrounding_position.size()):
 		var tile = TilePath.new()
 		#surrounding_tile[index] = TilePath.new()
