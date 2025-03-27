@@ -19,18 +19,24 @@ func _process(_delta: float) -> void:
 	direction = character.facing_direction
 	
 #	idle condition
-	if character.character_controller.is_walking:
+	if not character.is_tooling() and character.character_controller.is_walking:
 		animation_tree["parameters/conditions/is_walking"] = true
 		animation_tree["parameters/conditions/is_idling"] = false
-		
+		animation_tree["parameters/conditions/is_tooling"] = false
 		
 #	walking condition
-	elif not character.character_controller.is_walking:
+	elif not character.is_tooling() and not character.character_controller.is_walking:
 		animation_tree["parameters/conditions/is_walking"] = false
 		animation_tree["parameters/conditions/is_idling"] = true
-		
+		animation_tree["parameters/conditions/is_tooling"] = false
+	
+	elif character.is_tooling():
+		animation_tree["parameters/conditions/is_walking"] = false
+		animation_tree["parameters/conditions/is_idling"] = false
+		animation_tree["parameters/conditions/is_tooling"] = true
 		
 	if direction != Vector2.ZERO: 
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walking/blend_position"] = direction
+		animation_tree["parameters/axe/blend_position"] = direction
 		

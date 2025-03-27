@@ -5,12 +5,16 @@ class_name MainCharacter
 @export var speed : float = 10.0
 var player_zone : Array[Vector2i] = []
 var facing_direction : Vector2 = Vector2(0, 1)
+var tooling : bool = false
 
 # Component variables
 @export var grid : Grid
 var push : PushComponent
 var turnbase_actor : TurnBaseActor
 var character_controller : CharacterController
+
+# For simulation demo for main_item in inventory
+var main_item_input: String = "tool"
 
 func _ready() -> void:
 	character_controller = CharacterController.new()
@@ -41,6 +45,9 @@ func init_player_zone():
 	
 	for zone in player_zone:
 		grid.get_node("PlayerZone").set_cell(zone, 2, Vector2i(0, 0))
+
+func is_tooling():
+	return tooling
 
 func debug_canwalk():
 	#debug

@@ -9,34 +9,29 @@ var do_special: bool = false
 func enter_state():
 	flag = false
 	character.grid.rescan()
-	#print("IdleAnimal: --- mode: ", character.mode, " option: ", character.option)
+	print("-----From Animal Idle: Enter Idle state")
 
 func exit_state():
 	character.grid.clear_layer(4)
+	print("From Animal Idle: Exit Idle state")
 
 func update_state(): # Overriding
 	if character is Animal:
-		if !character.turnbase_actor.is_active or flag: return
-		finding_path()
-		
-		if character.is_finished_special:
-			switch_to("walking")
+		if !character.turnbase_actor.is_active or flag:
 			return
 	
+	finding_path()
 	if paths.is_empty():
 		print("From idle animal: Could not find the paths") # For debugging
 		SwitchState.emit(self, "wondering")
 	
-	elif !paths.is_empty() and !flag:
+	elif !paths.is_empty():
 		if character is Animal:
 			if not character.is_option_ignore():
 				check_next_step()
 			else:
 				switch_to("walking")
 		# For debugging
-		for path in paths:
-			#print(path.position, " is_path: ", path.is_path)
-			character.grid.get_child(4).set_cell(path.position, 3, Vector2i(0, 0))
 		flag = true # Turn on flag for stopping the loop of find path
 	
 	# Check the next step is a breakable object or not
@@ -51,6 +46,7 @@ func switch_to(state_name: String):
 				SwitchState.emit(self, state_name)
 
 func finding_path():
+	paths.clear()
 	if character is Animal:
 		var animal = character
 		paths = animal.astar.get_the_path(animal.option, animal.mode)

@@ -18,6 +18,6 @@ func special_move():
 
 func finished_special():
 	if character is Animal:
-		character.grid.change_tile_property(character.breakable_obstacle.local_position)
+		character.grid.rescan()
 		character.breakable_obstacle = null
 		character.is_finished_special = true
