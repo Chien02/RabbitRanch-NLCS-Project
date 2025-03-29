@@ -11,4 +11,5 @@ func active():
 
 func emit_endturn():
 	active()
+	print("---------------[End turn: MainCaracter]---------------")
 	EndTurn.emit()

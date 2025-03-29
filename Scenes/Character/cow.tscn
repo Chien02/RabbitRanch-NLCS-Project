@@ -1,0 +1,186 @@
+[gd_scene load_steps=23 format=3 uid="uid://ce3xwr67jo63y"]
+
+[ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_jniy7"]
+[ext_resource type="Texture2D" uid="uid://b5loi7omk4uyg" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="2_5rta3"]
+[ext_resource type="Script" uid="uid://woopor4825kk" path="res://Scripts/StateSripts/animal_idle.gd" id="3_ab133"]
+[ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="3_xasdf"]
+[ext_resource type="Script" uid="uid://bnc1ukqjrd8e1" path="res://Scripts/StateSripts/walking.gd" id="4_xasdf"]
+[ext_resource type="Script" uid="uid://dgkqmgjge1x4p" path="res://Scripts/StateSripts/wondering.gd" id="5_dpnad"]
+[ext_resource type="Script" uid="uid://bdtcw5snkc1mv" path="res://Scripts/StateSripts/breaking.gd" id="6_qu8rs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjspb"]
+atlas = ExtResource("2_5rta3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ree0s"]
+atlas = ExtResource("2_5rta3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5oep"]
+atlas = ExtResource("2_5rta3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab133"]
+atlas = ExtResource("2_5rta3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xasdf"]
+atlas = ExtResource("2_5rta3")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dpnad"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjspb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ree0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5oep")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab133")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xasdf")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_5rta3"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+
+[sub_resource type="Animation" id="Animation_kjspb"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["walking"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ree0s"]
+_data = {
+&"idle": SubResource("Animation_5rta3"),
+&"walking": SubResource("Animation_kjspb")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b5oep"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ab133"]
+animation = &"walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xasdf"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dpnad"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qu8rs"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3prio"]
+states/Start/position = Vector2(199, 92)
+states/idle/node = SubResource("AnimationNodeAnimation_b5oep")
+states/idle/position = Vector2(372, 92)
+states/walking/node = SubResource("AnimationNodeAnimation_ab133")
+states/walking/position = Vector2(525, 92)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_xasdf"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_dpnad"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_qu8rs")]
+
+[node name="Cow" node_paths=PackedStringArray("astar") instance=ExtResource("1_jniy7")]
+astar = NodePath("AstarComponent")
+
+[node name="AnimationControl" parent="." index="2" node_paths=PackedStringArray("animation_tree")]
+animation_tree = NodePath("../AnimationTree")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
+sprite_frames = SubResource("SpriteFrames_dpnad")
+animation = &"idle"
+offset = Vector2(0, -4)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+&"": SubResource("AnimationLibrary_ree0s")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="6"]
+tree_root = SubResource("AnimationNodeStateMachine_3prio")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_idling = false
+parameters/conditions/is_walking = false
+
+[node name="StateMachine" type="Node2D" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_xasdf")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node2D" parent="StateMachine" index="0"]
+script = ExtResource("3_ab133")
+metadata/_custom_type_script = "uid://woopor4825kk"
+
+[node name="Walking" type="Node2D" parent="StateMachine" index="1"]
+script = ExtResource("4_xasdf")
+metadata/_custom_type_script = "uid://bnc1ukqjrd8e1"
+
+[node name="Wondering" type="Node2D" parent="StateMachine" index="2"]
+script = ExtResource("5_dpnad")
+metadata/_custom_type_script = "uid://dgkqmgjge1x4p"
+
+[node name="Special" type="Node2D" parent="StateMachine" index="3"]
+script = ExtResource("6_qu8rs")
+metadata/_custom_type_script = "uid://bluc2quc7md4n"

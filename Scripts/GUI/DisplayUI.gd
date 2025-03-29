@@ -37,9 +37,9 @@ func show_mouse_pos():
 
 func handle_event_UI():
 	if $PauseUI.visible or $LossUI.visible or $WinUI.visible:
-		$DebugUI/PauseButton.visible = false
+		$DebugUI/ButtonVBox/PauseButton.visible = false
 	elif !$PauseUI.visible and !$LossUI.visible and !$WinUI.visible:
-		$DebugUI/PauseButton.visible = true
+		$DebugUI/ButtonVBox/PauseButton.visible = true
 
 #func _on_pause_button_pressed() -> void:
 	#level_manager.emit_pause()

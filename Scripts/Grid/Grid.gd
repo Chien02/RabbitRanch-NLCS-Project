@@ -7,12 +7,16 @@ class_name Grid
 @export var destination_source_id : int = 5
 @export var tile_size : int = 16
 @export var obstacles_management : ObstacleManagement
+@export var item_manager : ItemManager
 
+# Dictionaries
 var cells = {}
 var obstacles = {}
+var foods_on_field = {}
+
 var destination : Vector2i = Vector2i.ZERO
 var barrel_id : int = 6
-var fench_id : int = 8
+var fench_id : int = 6
 var obstacle_source_id : Array[int] = [barrel_id, fench_id]
 
 func _ready() -> void:
@@ -21,6 +25,7 @@ func _ready() -> void:
 	scan_destination()
 	obstacles_management.set_grid(self)
 	obstacles_management.spawn_obstacle()
+	item_manager.get_items()
 
 func _process(_delta: float) -> void:
 	display_mouse_hover()
@@ -30,6 +35,7 @@ func rescan(player_zone: Array[Vector2i] = []):
 	obstacles_management.init_obstacle()
 	scan_obstacles("object")
 	scan_player_zone(player_zone)
+	item_manager.get_items()
 
 func init_grid():
 	# Init for the path
@@ -77,27 +83,7 @@ func clear_layer(layer_id: int):
 func scan_obstacles(mode: String = ""):
 	obstacles.clear()
 	if mode == "":
-		for x in range(0, max_x_size):
-			for y in range(0, max_y_size):
-				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
-					obstacles[str(Vector2i(x, y))] = {
-						"pushable": false,
-						"breakable": true
-					}
-					cells[str(Vector2i(x, y))] = {
-						"is_path" = false,
-						"player_zone" = false,
-					}
-					
-				elif $Obstacle.get_cell_source_id(Vector2i(x, y)) == barrel_id:
-					obstacles[str(Vector2i(x, y))] = {
-						"pushable": true,
-						"breakable": true
-					}
-					cells[str(Vector2i(x, y))] = {
-						"is_path" = false,
-						"player_zone" = false,
-					}
+		scan_barrel_and_fench()
 	else:
 		# Update the obstacle position and properties
 		obstacles = obstacles_management.get_obstacles_dictionary()
@@ -108,7 +94,7 @@ func scan_obstacles(mode: String = ""):
 func scan_unpushable_obstacle():
 	for x in range(0, max_x_size):
 			for y in range(0, max_y_size):
-				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
+				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id and $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(8, 6):
 					obstacles[str(Vector2i(x, y))] = {
 						"pushable": false,
 						"breakable": true
@@ -117,6 +103,30 @@ func scan_unpushable_obstacle():
 						"is_path" = false,
 						"player_zone" = false,
 					}
+
+func scan_barrel_and_fench():
+	for x in range(0, max_x_size):
+			for y in range(0, max_y_size):
+				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
+					if $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(8, 6):
+						obstacles[str(Vector2i(x, y))] = {
+							"pushable": false,
+							"breakable": true
+						}
+						cells[str(Vector2i(x, y))] = {
+							"is_path" = false,
+							"player_zone" = false,
+						}
+					
+					elif $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(7, 5) or $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(6, 5):
+						obstacles[str(Vector2i(x, y))] = {
+							"pushable": true,
+							"breakable": true
+						}
+						cells[str(Vector2i(x, y))] = {
+							"is_path" = false,
+							"player_zone" = false,
+						}
 
 func scan_player_zone(player_zone: Array[Vector2i]):
 	if player_zone.is_empty(): return

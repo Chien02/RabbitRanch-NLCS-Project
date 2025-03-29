@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://t8vm843xedhj"]
+
+[ext_resource type="Script" uid="uid://bxvgnhl5ttu5y" path="res://Scripts/Items/item_resource.gd" id="1_f0bei"]
+[ext_resource type="Texture2D" uid="uid://debforko8ee2e" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/axe_texture.png" id="2_34bxa"]
+
+[resource]
+script = ExtResource("1_f0bei")
+name = "Axe"
+description = "This tool can break obstacle that can be break or made by wood"
+duration = 0.5
+texture = ExtResource("2_34bxa")
+metadata/_custom_type_script = "uid://bxvgnhl5ttu5y"

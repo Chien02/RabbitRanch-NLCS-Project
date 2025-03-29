@@ -6,6 +6,7 @@ class_name AnimationControl
 @export var animation_tree : AnimationTree
 var character : MainCharacter
 var direction : Vector2
+var tool : String = ""
 
 func _ready() -> void:
 	if get_parent().is_in_group("Entity"):
@@ -35,8 +36,13 @@ func _process(_delta: float) -> void:
 		animation_tree["parameters/conditions/is_idling"] = false
 		animation_tree["parameters/conditions/is_tooling"] = true
 		
+		var is_axe : bool = true
+		animation_tree["parameters/tool/conditions/is_axe"] = is_axe
+		animation_tree["parameters/tool/conditions/is_food"] = !is_axe
+		
 	if direction != Vector2.ZERO: 
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walking/blend_position"] = direction
-		animation_tree["parameters/axe/blend_position"] = direction
-		
+		# Inside tool state machine
+		animation_tree["parameters/tool/axe/blend_position"] = direction
+		animation_tree["parameters/tool/food/blend_position"] = direction
