@@ -24,8 +24,7 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_vm1lg")
 
-[node name="AnimationControl" type="Node2D" parent="." node_paths=PackedStringArray("animation_tree")]
+[node name="AnimationControl" type="Node2D" parent="."]
 script = ExtResource("2_vm1lg")
-animation_tree = NodePath("")
 
 [node name="AstarComponent" parent="." instance=ExtResource("4_u6t0b")]

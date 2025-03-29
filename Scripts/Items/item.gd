@@ -5,8 +5,12 @@ class_name Item
 @onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
 @onready var character : MainCharacter = get_tree().get_first_node_in_group("MainCharacter")
 
-@export var duration : float = 0.5
 @export var resource : ItemResource
+
+func init(_grid, _character, _resource):
+	grid = _grid
+	character = _character
+	resource = _resource
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is MainCharacter:
@@ -15,8 +19,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		print("From Item: collide with Animal")
 
 func active():
-	print("From ", str(name).to_lower(), ": is just activated!")
+	print("From ", resource.name, ": is just activated!")
 
 func disappear():
-	await CustomTween.explode(self, duration)
+	await CustomTween.explode(self, resource.duration)
 	queue_free()

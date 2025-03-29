@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://m1uquohk2ebc"]
+
+[ext_resource type="Script" uid="uid://csb0l1q2gdqsc" path="res://Scripts/GUI/SlotUI.gd" id="1_kunwb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ytx8n"]
+bg_color = Color(0.138862, 0.1829, 0.216767, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.97802, 0.756167, 0.445187, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Slot" type="Control"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 18.0
+offset_bottom = 18.0
+pivot_offset = Vector2(8.5, 8.5)
+script = ExtResource("1_kunwb")
+
+[node name="SlotPanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+offset_right = 18.0
+offset_bottom = 18.0
+pivot_offset = Vector2(9, 9)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_ytx8n")
+
+[node name="TextureRect" type="TextureRect" parent="SlotPanelContainer"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+
+[node name="InputPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = -2.0
+offset_right = 42.0
+offset_bottom = 28.0
+scale = Vector2(0.2, 0.2)
+
+[node name="Label" type="Label" parent="InputPanelContainer"]
+layout_mode = 2
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1

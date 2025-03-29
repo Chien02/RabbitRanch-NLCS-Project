@@ -10,6 +10,7 @@ var tooling : bool = false
 # Component variables
 @export var grid : Grid
 @export var inventory : Inventory
+@export var camera : Camera2D
 var push : PushComponent
 var turnbase_actor : TurnBaseActor
 var character_controller : CharacterController

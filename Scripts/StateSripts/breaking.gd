@@ -30,6 +30,5 @@ func update_state():
 
 func switch_to_walking(next_pos: Vector2i):
 	var next_global_pos = character.grid.map_to_local(next_pos)
-	var duration : float = 0.5
 	character.character_controller.move_to(character, next_global_pos, duration)
 	SwitchState.emit(self, "walking")

@@ -36,6 +36,7 @@ func rescan(player_zone: Array[Vector2i] = []):
 	scan_obstacles("object")
 	scan_player_zone(player_zone)
 	item_manager.get_items()
+	print("From Grid: Grid rescaned")
 
 func init_grid():
 	# Init for the path
@@ -91,10 +92,11 @@ func scan_obstacles(mode: String = ""):
 		if obstacles.is_empty():
 			return
 
-func scan_unpushable_obstacle():
+func scan_barrel_and_fench():
 	for x in range(0, max_x_size):
-			for y in range(0, max_y_size):
-				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id and $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(8, 6):
+		for y in range(0, max_y_size):
+			if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
+				if $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(8, 6):
 					obstacles[str(Vector2i(x, y))] = {
 						"pushable": false,
 						"breakable": true
@@ -103,30 +105,16 @@ func scan_unpushable_obstacle():
 						"is_path" = false,
 						"player_zone" = false,
 					}
-
-func scan_barrel_and_fench():
-	for x in range(0, max_x_size):
-			for y in range(0, max_y_size):
-				if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
-					if $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(8, 6):
-						obstacles[str(Vector2i(x, y))] = {
-							"pushable": false,
-							"breakable": true
-						}
-						cells[str(Vector2i(x, y))] = {
-							"is_path" = false,
-							"player_zone" = false,
-						}
 					
-					elif $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(7, 5) or $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(6, 5):
-						obstacles[str(Vector2i(x, y))] = {
-							"pushable": true,
-							"breakable": true
-						}
-						cells[str(Vector2i(x, y))] = {
-							"is_path" = false,
-							"player_zone" = false,
-						}
+				elif $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(7, 5) or $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(6, 5):
+					obstacles[str(Vector2i(x, y))] = {
+						"pushable": true,
+						"breakable": true
+					}
+					cells[str(Vector2i(x, y))] = {
+						"is_path" = false,
+						"player_zone" = false,
+					}
 
 func scan_player_zone(player_zone: Array[Vector2i]):
 	if player_zone.is_empty(): return

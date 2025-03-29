@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=38 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cc5bw2kx4etgr" path="res://Scenes/Items/axe.tscn" id="18_e4p5l"]
 [ext_resource type="PackedScene" uid="uid://cgbio51ohm2m8" path="res://Scenes/GUI/loss_ui.tscn" id="19_bke7g"]
 [ext_resource type="PackedScene" uid="uid://nm8jncg3i1ns" path="res://Scenes/Items/rice.tscn" id="19_hk4wk"]
+[ext_resource type="Script" uid="uid://bdi1mv23c1ce6" path="res://Scenes/Components/cameraControl.gd" id="20_7dggv"]
 [ext_resource type="PackedScene" uid="uid://b21a6phknhiic" path="res://Scenes/GUI/win_ui.tscn" id="20_grvc7"]
 [ext_resource type="PackedScene" uid="uid://36nqftkot5iv" path="res://Scenes/GUI/inventoryUI.tscn" id="22_3oxg0"]
 [ext_resource type="Script" uid="uid://1j4uugt5gaq3" path="res://Scripts/Items/item_manager.gd" id="22_grvc7"]
@@ -305,22 +306,20 @@ position = Vector2(217, 152)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(160, 96)
 zoom = Vector2(2.31, 2.31)
+script = ExtResource("20_7dggv")
 
 [node name="CustomTween" type="Node2D" parent="."]
 script = ExtResource("8_4gu7f")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-follow_viewport_enabled = true
 
 [node name="GUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("label", "label_mouse_pos") groups=["GUI"]]
 texture_filter = 1
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_47kkx")
@@ -329,38 +328,38 @@ label_mouse_pos = NodePath("DebugUI/VBoxContainer/Panel2/MousePosition")
 
 [node name="InventoryUI" parent="CanvasLayer/GUI" instance=ExtResource("22_3oxg0")]
 layout_mode = 1
-offset_left = -227.0
-offset_top = -202.0
-offset_right = -227.0
-offset_bottom = -202.0
-scale = Vector2(1.5, 1.5)
+offset_left = -129.0
+offset_top = -192.0
+offset_right = -129.0
+offset_bottom = -192.0
+scale = Vector2(3.5, 3.5)
 
 [node name="PauseUI" parent="CanvasLayer/GUI" instance=ExtResource("18_75bkg")]
 visible = false
 layout_mode = 1
-offset_left = -421.0
-offset_top = -225.0
-offset_right = -421.0
-offset_bottom = -225.0
-scale = Vector2(0.615051, 0.561775)
+offset_left = 3.0
+offset_top = -5.0
+offset_right = 3.0
+offset_bottom = -5.0
+scale = Vector2(1.38489, 1.22924)
 
 [node name="LossUI" parent="CanvasLayer/GUI" instance=ExtResource("19_bke7g")]
 visible = false
 layout_mode = 1
-offset_left = -421.0
-offset_top = -225.0
-offset_right = -421.0
-offset_bottom = -225.0
-scale = Vector2(0.624123, 0.538859)
+offset_left = 3.0
+offset_top = -5.0
+offset_right = 3.0
+offset_bottom = -5.0
+scale = Vector2(1.40532, 1.17909)
 
 [node name="WinUI" parent="CanvasLayer/GUI" instance=ExtResource("20_grvc7")]
 visible = false
 layout_mode = 1
-offset_left = -421.0
-offset_top = -225.0
-offset_right = -421.0
-offset_bottom = -225.0
-scale = Vector2(0.544628, 0.54979)
+offset_left = 3.0
+offset_top = -5.0
+offset_right = 3.0
+offset_bottom = -5.0
+scale = Vector2(1.22632, 1.20301)
 
 [node name="DebugUI" type="Control" parent="CanvasLayer/GUI"]
 layout_mode = 1
@@ -378,11 +377,11 @@ grow_vertical = 2
 
 [node name="ButtonVBox" type="VBoxContainer" parent="CanvasLayer/GUI/DebugUI"]
 layout_mode = 0
-offset_left = -217.0
-offset_top = -331.0
-offset_right = -162.0
-offset_bottom = -288.0
-scale = Vector2(0.995276, 0.956496)
+offset_left = 441.0
+offset_top = -266.0
+offset_right = 496.0
+offset_bottom = -223.0
+scale = Vector2(2, 2)
 
 [node name="PauseButton" type="Button" parent="CanvasLayer/GUI/DebugUI/ButtonVBox"]
 layout_mode = 2
@@ -391,10 +390,11 @@ text = "Pause"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/DebugUI"]
 layout_mode = 0
-offset_left = -633.0
-offset_top = -152.0
-offset_right = -523.0
-offset_bottom = -82.0
+offset_left = -513.0
+offset_top = 173.0
+offset_right = -403.0
+offset_bottom = 243.0
+scale = Vector2(2, 2)
 alignment = 1
 
 [node name="Panel" type="PanelContainer" parent="CanvasLayer/GUI/DebugUI/VBoxContainer"]

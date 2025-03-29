@@ -17,9 +17,9 @@ func scan_items():
 			items.append(child)
 			
 			var item_local_pos : Vector2i = grid.local_to_map(child.position)
-			var is_food : bool = true if child is Food else false
+			var is_food : bool = true if child.resource.is_food else false
 			items_on_field[str(item_local_pos)] = {
-				"is_food": is_food
+				"is_food": child.resource.is_food
 			}
 	print("From Item Manager: items_on_field: ", items_on_field)
 

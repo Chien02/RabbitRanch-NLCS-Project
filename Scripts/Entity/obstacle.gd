@@ -38,6 +38,7 @@ func is_pushable() -> bool:
 
 func destroy(duration: float):
 	CustomTween.explode(self, duration)
+	grid.obstacles.erase(local_position)
 	if !CustomTween.is_connected("finished", queue_free):
 		CustomTween.connect("finished", queue_free)
 

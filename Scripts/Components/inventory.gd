@@ -16,14 +16,26 @@ var item_using: Item = null
 signal AddItem
 signal ActivateItem
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("item_1"):
+		print("From Inventory: just pressed item_1 key")
+		if item_1:
+			print("From Inventory: active item_1")
+			item_1.active()
+		else:
+			print("From Inventory: cannot active item_1")
+	elif Input.is_action_just_pressed("item_2"):
+		print("From Inventory: just pressed item_2 key")
+		if item_2:
+			print("From Inventory: active item_2")
+			item_2.active()
+		else:
+			print("From Inventory: cannot active item_2")
+
 func add_item(item: Item):
 	slots.append(item)
-	item_manager.scan_items()
 	print("From Inventory: Added new item: ", item.resource.name)
-	
-	if slots.is_empty() or slots.size() == 1:
-		set_main_item(item)
-	
+	set_main_item()
 	print("From Inventory: Inventory's size: ", slots.size())
 	AddItem.emit(item)
 
@@ -33,13 +45,16 @@ func drop_item(item: Item):
 	item_manager.scan_items()
 	print("From Inventory: Dropped item ", item.resource.name)
 
-func set_main_item(item: Item):
-	if item_1 == null:
-		item_1 = item
-		print("From Inventory: Set item_1 = ", item.resource.name)
-	elif item_2 == null:
-		item_2 = item
-		print("From Inventory: Set item_2 = ", item.resource.name)
+func set_main_item():
+	if slots.is_empty(): return
+	for slot in slots:
+		if item_1 == null:
+			item_1 = slot
+			print("From Inventory: Set item_1 is ", slot.resource.name)
+		elif item_2 == null:
+			item_2 = slot
+			print("From Inventory: Set item_2 is ", slot.resource.name)
+		print("From Inventory: Item's name: ", slot.resource.name)
 
 func is_using_item():
 	return item_using != null

@@ -18,7 +18,6 @@ func exit_state():
 func update_state():
 	if character is MainCharacter:
 		if !character.turnbase_actor.is_active: return
-		check_for_tool_input()
 
 func physics_update():
 	if !character: return
@@ -38,9 +37,3 @@ func check_caught_animal():
 		for actor in actors:
 			if actor is Animal and grid.local_to_map(actor.position) == current_local_pos:
 				level_manager.caught_animal(actor.name)
-
-func check_for_tool_input():
-	if character is MainCharacter:
-		if Input.is_action_just_pressed(character.main_item_input):
-			SwitchState.emit(self, "tooling")
-	return

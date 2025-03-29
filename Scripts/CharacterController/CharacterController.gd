@@ -19,7 +19,7 @@ func movement(_object, _delta: float):
 	if direction == Vector2.ZERO or direction.x != 0 and direction.y != 0:
 		return
 	
-	var next_position : Vector2 = _object.position.floor() + direction * tile_size
+	var next_position : Vector2 = _object.position + direction * tile_size
 	var local_next_pos : Vector2i = _object.grid.local_to_map(next_position)
 	# Check if next_position is a obstacle or the bound then player can move to that next_position
 	if _object.grid:
@@ -28,7 +28,7 @@ func movement(_object, _delta: float):
 			can_walk = _object.grid.is_within_grid(local_next_pos) and _object.grid.is_path(local_next_pos)
 		else:
 			can_walk = false
-		print("From CharacterController: Checking can_walk and next_local_pos ", local_next_pos, " is_path: ", _object.grid.is_path(local_next_pos))
+		print("From CharacterController: Checking can_walk: ", can_walk,"and next_local_pos: ", local_next_pos, " is_path: ", _object.grid.is_path(local_next_pos))
 	is_walking = true if can_walk else false
 	if !is_walking: return
 	

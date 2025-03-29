@@ -11,6 +11,7 @@ var is_finished_special : bool = false
 @export_category("Components")
 @export var grid : Grid
 @export var astar : Astar
+@export var camera : Camera2D
 
 var turnbase_actor : TurnBaseActor
 var character_controller : CharacterController
@@ -23,10 +24,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if !turnbase_actor.is_active: return
-
-func central_of_the_tile():
-	var center_pos : float = sqrt(grid.tile_size)/2
-	
 
 func is_mode_diagonal() -> bool:
 	return mode=="diagonal"

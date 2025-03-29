@@ -53,12 +53,13 @@ func is_overlap_actor(pos: Vector2i):
 func set_temp_obstacle(local_next_pos: Vector2i):
 	var obsstacleM : ObstacleManagement = character.get_tree().get_first_node_in_group("ObsManager")
 	for obs in obsstacleM.obstacles:
-		if obs.local_position == local_next_pos:
+		if obs != null and obs.local_position == local_next_pos:
 			return obs
 	
 
 func push(_obs: Obstacle, next_pos: Vector2):
 	if is_pushing: return
+	if _obs == null: print("From Push: Obstacle is disappeared")
 	turn_flag()
 	_obs.character_controller.move_to(_obs, next_pos, push_duration)
 	await character.get_tree().create_timer(push_duration).timeout

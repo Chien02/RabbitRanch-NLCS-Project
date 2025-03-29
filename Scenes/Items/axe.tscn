@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cc5bw2kx4etgr"]
 
 [ext_resource type="Script" uid="uid://0mjxkcf5pptn" path="res://Scripts/Items/axe.gd" id="1_llny5"]
-[ext_resource type="Resource" uid="uid://t8vm843xedhj" path="res://Scripts/Items/axe_resource.tres" id="2_4jif8"]
+[ext_resource type="Resource" uid="uid://t8vm843xedhj" path="res://Scripts/Items/ItemResources/axe_resource.tres" id="2_4jif8"]
 [ext_resource type="Texture2D" uid="uid://dj6w574o42j55" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_tools_and_meterials.png" id="2_gt7b3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gt7b3"]

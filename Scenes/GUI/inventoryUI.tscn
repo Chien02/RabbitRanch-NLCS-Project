@@ -1,125 +1,47 @@
-[gd_scene load_steps=2 format=3 uid="uid://36nqftkot5iv"]
+[gd_scene load_steps=3 format=3 uid="uid://36nqftkot5iv"]
 
 [ext_resource type="Script" uid="uid://bk78pjigmbko4" path="res://Scripts/GUI/inventoryUI.gd" id="1_votko"]
+[ext_resource type="PackedScene" uid="uid://m1uquohk2ebc" path="res://Scenes/GUI/slot.tscn" id="2_ytx8n"]
 
 [node name="Inventory" type="Control" node_paths=PackedStringArray("item_vbox_container", "tool_vbox_container", "main_slot_1", "main_slot_2") groups=["InventoryUI"]]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("1_votko")
 item_vbox_container = NodePath("ItemVBoxContainer")
 tool_vbox_container = NodePath("ToolVBoxContainer")
-main_slot_1 = NodePath("ItemSlot/TextureRect")
-main_slot_2 = NodePath("ToolSlot/TextureRect")
-
-[node name="ItemSlot" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-offset_left = 12.0
-offset_right = 30.0
-offset_bottom = 18.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureRect" type="TextureRect" parent="ItemSlot"]
-custom_minimum_size = Vector2(14, 14)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="ToolSlot" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-offset_left = 12.0
-offset_top = 20.0
-offset_right = 30.0
-offset_bottom = 38.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureRect" type="TextureRect" parent="ToolSlot"]
-custom_minimum_size = Vector2(14, 14)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+main_slot_1 = NodePath("Slot")
+main_slot_2 = NodePath("Slot1")
 
 [node name="ItemVBoxContainer" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 2
-offset_left = -11.0
+offset_left = -23.0
 offset_top = -23.0
-offset_right = 5.0
+offset_right = -7.0
 offset_bottom = 40.0
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="Panel" type="Panel" parent="ItemVBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ItemVBoxContainer/Panel"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
-
-[node name="Panel2" type="Panel" parent="ItemVBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ItemVBoxContainer/Panel2"]
-layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
-
-[node name="Panel3" type="Panel" parent="ItemVBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ItemVBoxContainer/Panel3"]
-layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
-
 [node name="ToolVBoxContainer" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 2
-offset_left = -11.0
+offset_left = -23.0
 offset_top = -3.0
-offset_right = 5.0
+offset_right = -7.0
 offset_bottom = 60.0
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="Panel" type="Panel" parent="ToolVBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
+[node name="Slot" parent="." instance=ExtResource("2_ytx8n")]
+offset_top = 20.0
+offset_bottom = 38.0
+input_key = "E"
 
-[node name="TextureRect" type="TextureRect" parent="ToolVBoxContainer/Panel"]
-layout_mode = 0
-offset_right = 30.0
-offset_bottom = 30.0
-
-[node name="Panel2" type="Panel" parent="ToolVBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ToolVBoxContainer/Panel2"]
-layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
-
-[node name="Panel3" type="Panel" parent="ToolVBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ToolVBoxContainer/Panel3"]
-layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
-
-[connection signal="gui_input" from="ItemSlot" to="." method="_on_item_slot_gui_input"]
-[connection signal="gui_input" from="ToolSlot" to="." method="_on_tool_slot_gui_input"]
+[node name="Slot1" parent="." instance=ExtResource("2_ytx8n")]
+input_key = "R"
