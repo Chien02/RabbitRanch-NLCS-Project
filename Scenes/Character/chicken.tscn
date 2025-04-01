@@ -149,11 +149,10 @@ states/walking/node = SubResource("AnimationNodeAnimation_kvrmc")
 states/walking/position = Vector2(507, 106)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1m1bk"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_rytwk"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_krst6")]
 
-[node name="Chicken" node_paths=PackedStringArray("astar", "camera") instance=ExtResource("1_iuf54")]
+[node name="Chicken" node_paths=PackedStringArray("astar") instance=ExtResource("1_iuf54")]
 mode = "diagonal"
 option = "not_ignore"
 astar = NodePath("AstarComponent")
-camera = NodePath("")
 
 [node name="AnimationControl" parent="." index="2" node_paths=PackedStringArray("animation_tree")]
 animation_tree = NodePath("../AnimationTree")

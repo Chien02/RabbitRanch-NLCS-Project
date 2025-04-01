@@ -767,7 +767,6 @@ z_index = 5
 texture_filter = 1
 platform_wall_layers = 2
 script = ExtResource("1_x1ua0")
-speed = null
 inventory = NodePath("Inventory")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

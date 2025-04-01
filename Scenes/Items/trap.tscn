@@ -1,0 +1,182 @@
+[gd_scene load_steps=16 format=3 uid="uid://0fatihwqgv8e"]
+
+[ext_resource type="Script" uid="uid://g8momj68hied" path="res://Scripts/Items/trap.gd" id="1_tleqv"]
+[ext_resource type="Resource" uid="uid://c8o8ofrl8cp8y" path="res://Scripts/Items/ItemResources/trap_resource.tres" id="2_gsijl"]
+[ext_resource type="Texture2D" uid="uid://b1kda16jgnuvi" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/trap_spritesheet.png" id="4_exffr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4lpw"]
+size = Vector2(12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1nvp"]
+atlas = ExtResource("4_exffr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43sm1"]
+atlas = ExtResource("4_exffr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5ce3"]
+atlas = ExtResource("4_exffr")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7j3f"]
+atlas = ExtResource("4_exffr")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e380t"]
+atlas = ExtResource("4_exffr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exffr"]
+atlas = ExtResource("4_exffr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e380t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1nvp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43sm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5ce3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7j3f")
+}],
+"loop": true,
+"name": &"trap_close",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e380t")
+}],
+"loop": true,
+"name": &"trap_item",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exffr")
+}],
+"loop": true,
+"name": &"trap_open",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_7ukpq"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["trap_close"]
+}
+
+[sub_resource type="Animation" id="Animation_o3itq"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["trap_item"]
+}
+
+[sub_resource type="Animation" id="Animation_jg6xk"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["trap_open"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3omd"]
+_data = {
+&"trap_close": SubResource("Animation_7ukpq"),
+&"trap_item": SubResource("Animation_o3itq"),
+&"trap_open": SubResource("Animation_jg6xk")
+}
+
+[node name="Trap" type="Node2D" node_paths=PackedStringArray("animation_player", "area")]
+texture_filter = 1
+script = ExtResource("1_tleqv")
+animation_player = NodePath("AnimationPlayer")
+area = NodePath("Area2D")
+resource = ExtResource("2_gsijl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_e4lpw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e380t")
+animation = &"trap_close"
+offset = Vector2(0, 1.05)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o3omd")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

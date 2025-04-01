@@ -15,7 +15,6 @@ var item_using: Item = null
 
 # Signals
 signal AddItem
-signal ActivateItem
 signal DropItem
 
 func _process(_delta: float) -> void:
@@ -49,15 +48,15 @@ func add_item(item: Item):
 
 func drop_item(item: Item, pos: Vector2):
 	if !slots.has(item): return
-	if item.resource.name == item_1.resource.name: item_1 = null
-	elif item.resource.name == item_2.resource.name: item_2 = null
+	if item_1 != null and item.resource.name == item_1.resource.name: item_1 = null
+	elif item_2 != null and item.resource.name == item_2.resource.name: item_2 = null
 	slots.erase(item)
 	DropItem.emit(item)
-	# Create new instance of this item
-	var new_food : Food = load(item.resource.link).instantiate()
-	new_food.init(item.grid, item.character, item.resource)
-	new_food.position = pos
-	item_manager.call_deferred("add_child", new_food)
+	# Add new item to the field
+	var new_item : Item = load(item.resource.link).instantiate()
+	new_item.init(item.grid, item.character, item.resource)
+	new_item.position = pos
+	item_manager.call_deferred("add_child", new_item)
 	# Release old item in inventory
 	item.queue_free()
 	# Scan new item on the field

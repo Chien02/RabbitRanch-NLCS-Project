@@ -2,7 +2,7 @@ extends Special
 
 class_name Breaking
 
-@export var duration : float = 1.5
+@export var duration : float = 1
 var flag : bool = false
 
 func enter_state():

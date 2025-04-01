@@ -17,7 +17,9 @@ func exit_state():
 
 func update_state(): # Overriding
 	if character is Animal:
-		if !character.turnbase_actor.is_active or flag:
+		if !character.turnbase_actor.is_active or flag: return
+		if character.is_stun: 
+			character.turnbase_actor.emit_endturn()
 			return
 	
 	finding_path()

@@ -17,7 +17,7 @@ func init_variable(_character: MainCharacter, _grid: Grid):
 	grid = _grid
 	turnbase_manager = character.get_tree().get_first_node_in_group("TurnBasedManager")
 
-func pushing_check(event) -> void:
+func pushing_check() -> void:
 	if !character.character_controller.is_just_type_input(): return
 	var direction = Input.get_vector("left", "right", "up", "down")
 	var next_position : Vector2 = character.position.floor() + direction * grid.tile_size

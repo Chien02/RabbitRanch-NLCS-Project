@@ -18,10 +18,14 @@ func exit_state():
 func update_state():
 	if character is MainCharacter:
 		if !character.turnbase_actor.is_active: return
+		if character.is_stun:
+			character.turnbase_actor.emit_endturn()
+			return
 
 func physics_update():
 	if !character: return
 	if !character.turnbase_actor.is_active: return
+	if character.is_stun: return
 	check_caught_animal()
 	if character.character_controller.is_walking:
 		SwitchState.emit(self, "walking")

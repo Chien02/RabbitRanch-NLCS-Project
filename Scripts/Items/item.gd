@@ -2,10 +2,12 @@ extends Node2D
 
 class_name Item
 
-@onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
-@onready var character : MainCharacter = get_tree().get_first_node_in_group("MainCharacter")
+signal Disappear
 
+@onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
 @export var resource : ItemResource
+var character : MainCharacter = null
+
 
 func init(_grid, _character, _resource):
 	grid = _grid
@@ -23,4 +25,5 @@ func active():
 
 func disappear():
 	await CustomTween.explode(self, resource.duration)
+	Disappear.emit()
 	queue_free()

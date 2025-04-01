@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Character
 
 class_name MainCharacter
 
@@ -11,17 +11,15 @@ var tooling : bool = false
 # Component variables
 @export var grid : Grid
 @export var inventory : Inventory
-@export var camera : Camera2D
 var push : PushComponent
-var turnbase_actor : TurnBaseActor
 var character_controller : CharacterController
 
 # For simulation demo for main_item in inventory
 var main_item_input: String = "tool"
 
 func _ready() -> void:
+	super()
 	character_controller = CharacterController.new()
-	turnbase_actor = TurnBaseActor.new()
 	push = PushComponent.new()
 	push.init_variable(self, grid)
 	call_deferred("init_player_zone")
@@ -34,8 +32,7 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		push.pushing_check(event)
-		
+		push.pushing_check()
 
 func init_player_zone():
 	player_zone.clear()

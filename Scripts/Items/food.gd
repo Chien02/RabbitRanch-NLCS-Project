@@ -5,12 +5,13 @@ class_name Food
 var is_selecting : bool = false
 var throwable_slot : Array[Vector2i] = []
 
-func _process(delta: float) -> void:
-	if character.character_controller.is_walking:
+func _process(_delta: float) -> void:
+	if !character: return
+	if character.character_controller.is_walking and is_selecting:
 		is_selecting = false
 
 func _input(event: InputEvent) -> void:
-	if !is_selecting:
+	if !is_selecting and character != null:
 		character.is_look_at_mouse = false
 		return
 	if event is InputEventMouseButton and event.is_pressed():
@@ -41,15 +42,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func active():
 	if is_selecting: return
-	print("From Food: Activate Food")
 	is_selecting = true # If player move or press key ESC then cancel
+	character.is_look_at_mouse = true
+	print("From Food: Activate Food")
 	print("From Food: Active is_selecting: ", is_selecting)
 #	// Generate zone that player can throw item
 	throwable_zone()
 #	Let character look at the mouse and play look at animation
-	character.is_look_at_mouse = true
 	set_process(is_selecting)
-	set_process_input(is_selecting)
 
 func throwable_zone():
 	print("From Food: Generate throwable zone")
@@ -64,4 +64,6 @@ func throwable_zone():
 				grid.get_node("Destination").set_cell(Vector2i(x, y), 4, Vector2i(0, 0))
 
 func throw_item(pos: Vector2):
+	print("From Food: thrown item in ", pos)
+	# Create new instance of this item
 	character.inventory.drop_item(self, pos)

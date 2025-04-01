@@ -15,7 +15,9 @@ func scan_items():
 	for child in get_children():
 		if child is Item:
 			items.append(child)
-			
+			# Connect to disappear signal
+			if child.Disappear.is_connected(scan_items):
+				child.Disappear.connect(scan_items)
 			var item_local_pos : Vector2i = grid.local_to_map(child.position)
 			var is_food : bool = true if child.resource.is_food else false
 			items_on_field[str(item_local_pos)] = {

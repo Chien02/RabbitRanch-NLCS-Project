@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Character
 
 class_name Animal
 @export_category("Properties")
@@ -11,15 +11,15 @@ var is_finished_special : bool = false
 @export_category("Components")
 @export var grid : Grid
 @export var astar : Astar
-@export var camera : Camera2D
 
-var turnbase_actor : TurnBaseActor
 var character_controller : CharacterController
 var facing_direction : Vector2 = Vector2(0, 1)
 
 func _ready() -> void:
-	turnbase_actor = AnimalTurnBaseActor.new()
-	turnbase_actor._new(self)
+	var animal_turnbase_actor = AnimalTurnBaseActor.new()
+	turnbase_actor = animal_turnbase_actor
+	turnbase_actor.EnterTurn.connect(_on_enter_turn)
+	turnbase_actor.init(self)
 	character_controller = CharacterController.new()
 
 func _process(_delta: float) -> void:
