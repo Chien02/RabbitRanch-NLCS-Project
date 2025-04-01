@@ -41,8 +41,12 @@ func _process(_delta: float) -> void:
 		animation_tree["parameters/tool/conditions/is_food"] = !is_axe
 		
 	if direction != Vector2.ZERO: 
-		animation_tree["parameters/idle/blend_position"] = direction
+		var mouse_pos = character.get_local_mouse_position()
+		animation_tree["parameters/idle/blend_position"] = direction if !character.is_look_at_mouse else mouse_pos
 		animation_tree["parameters/walking/blend_position"] = direction
 		# Inside tool state machine
 		animation_tree["parameters/tool/axe/blend_position"] = direction
 		animation_tree["parameters/tool/food/blend_position"] = direction
+
+func look_at_mouse(pos: Vector2):
+	animation_tree["parameters/idle/blend_position"] = pos

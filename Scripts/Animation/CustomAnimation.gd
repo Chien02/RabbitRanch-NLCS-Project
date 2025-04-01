@@ -26,3 +26,8 @@ func pop_up(_object, new_scale: Vector2, duration: float):
 	tween.tween_property(_object, "scale", new_scale, duration)
 	await get_tree().create_timer(duration).timeout
 	finished.emit()
+
+func disappear(_object, duration: float):
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(_object, "scale", Vector2.ZERO, duration)
+	await get_tree().create_timer(duration).timeout

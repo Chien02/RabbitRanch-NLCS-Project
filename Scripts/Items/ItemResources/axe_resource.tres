@@ -12,4 +12,5 @@ is_food = false
 duration = 0.5
 texture = ExtResource("2_kamaj")
 item_script = ExtResource("1_kamaj")
+link = "res://Scenes/Items/axe.tscn"
 metadata/_custom_type_script = "uid://bxvgnhl5ttu5y"

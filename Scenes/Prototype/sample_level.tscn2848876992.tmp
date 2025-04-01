@@ -237,7 +237,6 @@ script = ExtResource("1_bnfqx")
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
 position = Vector2(247, 136)
-speed = null
 grid = NodePath("../../TileMap")
 
 [node name="Cow" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_bke7g")]

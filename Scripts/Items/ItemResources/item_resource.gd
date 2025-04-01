@@ -8,3 +8,4 @@ class_name ItemResource
 @export var duration : float
 @export var texture : Texture2D
 @export var item_script : GDScript
+@export var link : String

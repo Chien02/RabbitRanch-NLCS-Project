@@ -12,6 +12,7 @@ class_name InventoryUI
 func _ready() -> void:
 	if inventory:
 		inventory.AddItem.connect(set_slot_texture)
+		inventory.DropItem.connect(hide_slot_texture)
 
 func _process(_delta: float) -> void:
 	if inventory.slots.is_empty(): return
@@ -38,8 +39,20 @@ func set_slot_texture(item: Item):
 		slot = main_slot_1
 	elif main_slot_2.texture_rect.texture == null:
 		slot = main_slot_2
-	
+	if !slot: return
 	slot.visible = true
 	slot.texture_rect.texture = item.resource.texture
 	await CustomTween.pop_up(slot.slot_panel, Vector2(1, 1), duration)
 	slot.input_panel.visible = true
+
+func hide_slot_texture(item: Item):
+	var slot : SlotUI
+	if main_slot_1.texture_rect.texture == item.resource.texture:
+		slot = main_slot_1
+	elif main_slot_2.texture_rect.texture == item.resource.texture:
+		slot = main_slot_2
+	if !slot: return
+	slot.texture_rect.texture = null
+	var duration = 1.0
+	await CustomTween.disappear(slot.slot_panel, duration)
+	slot.visible = false

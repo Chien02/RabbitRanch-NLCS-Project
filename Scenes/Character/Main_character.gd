@@ -5,6 +5,7 @@ class_name MainCharacter
 @export var speed : float = 10.0
 var player_zone : Array[Vector2i] = []
 var facing_direction : Vector2 = Vector2(0, 1)
+var is_look_at_mouse: bool = false
 var tooling : bool = false
 
 # Component variables
@@ -28,9 +29,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !turnbase_actor.is_active: return
 	character_controller.movement(self, delta)
-	push.pushing_check()
 	# Debugging
 	debug_canwalk()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		push.pushing_check(event)
+		
 
 func init_player_zone():
 	player_zone.clear()
@@ -54,7 +59,11 @@ func is_tooling():
 func debug_canwalk():
 	#debug
 	var mouse_position = grid.local_to_map(get_global_mouse_position())
-	if mouse_position == grid.local_to_map(position):
-		$Control/Label.text = "can_walk: " + str(character_controller.can_walk)
+	if is_look_at_mouse:
+		$Control/Label.text = "Click on white border field to throw item"
 	else:
-		$Control/Label.text = ""
+		if mouse_position == grid.local_to_map(position):
+			$Control/Label.text = "can_walk: " + str(character_controller.can_walk)
+		else:
+			$Control/Label.text = ""
+	

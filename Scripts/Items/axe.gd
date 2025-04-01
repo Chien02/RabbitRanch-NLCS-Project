@@ -6,7 +6,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is MainCharacter:
 		print("From Item: collide with Main Character")
 		var new_axe = Axe.new()
-		new_axe.init(grid, character, resource)
+		new_axe.init(grid, body, resource)
 		body.inventory.add_item(new_axe)
 		disappear()
 

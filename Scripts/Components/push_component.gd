@@ -17,10 +17,9 @@ func init_variable(_character: MainCharacter, _grid: Grid):
 	grid = _grid
 	turnbase_manager = character.get_tree().get_first_node_in_group("TurnBasedManager")
 
-func pushing_check() -> void:
+func pushing_check(event) -> void:
 	if !character.character_controller.is_just_type_input(): return
-	
-	var direction = character.facing_direction
+	var direction = Input.get_vector("left", "right", "up", "down")
 	var next_position : Vector2 = character.position.floor() + direction * grid.tile_size
 	var local_next_pos : Vector2i = grid.local_to_map(next_position)
 	
@@ -37,7 +36,7 @@ func pushing_check() -> void:
 	if pushable_direction != direction:
 		pushable_direction = direction
 	
-	can_push = true if pushable_direction == direction and obstacles[str(local_next_pos)]["pushable"] else false
+	can_push = true if direction == character.facing_direction and pushable_direction == direction and obstacles[str(local_next_pos)]["pushable"] else false
 	if can_push:
 		temp_obstacle = set_temp_obstacle(local_next_pos)
 		var global_next_pos = character.grid.map_to_local(next_pos_push)

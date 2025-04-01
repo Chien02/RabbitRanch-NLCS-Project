@@ -26,7 +26,8 @@ func show_input():
 func show_mouse_pos():
 	if !label_mouse_pos: return
 	var grid : Grid = get_tree().get_first_node_in_group("Grid")
-	var mouse_pos : Vector2i = grid.local_to_map(get_global_mouse_position())
+	var global_mouse_pos = grid.get_global_mouse_position()
+	var mouse_pos : Vector2i = grid.local_to_map(global_mouse_pos)
 	label_mouse_pos.text = str(mouse_pos)
 	if !grid.cells.is_empty():
 		if grid.cells.has(str(mouse_pos)):
