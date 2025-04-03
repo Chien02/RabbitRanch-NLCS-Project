@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://f4ximnv2mmov"]
+
+[ext_resource type="Texture2D" uid="uid://day1yd33654h0" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/big_tree.png" id="1_m3ibr"]
+
+[node name="BigTree" type="Node2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m3ibr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

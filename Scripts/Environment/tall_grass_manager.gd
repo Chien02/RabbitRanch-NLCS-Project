@@ -69,26 +69,36 @@ func stop_hide_player(body: Character):
 	
 	print("From TallGrassManager: Stop hide player")
 	body.set_modulate(Color(1, 1, 1, 1))
-	if !animals_inside.is_empty(): return
+	if animals_inside.is_empty(): return
 	for animal in animals_inside:
 		animal.set_visible(false)
 
 func check_animal_inside(is_animal: bool, pos : Vector2i = Vector2i.ZERO):
 	for player in player_inside:
 		for animal in animals_inside:
-			var animal_pos = player.grid.local_to_map(animal.position) if pos == Vector2i.ZERO and is_animal == false else pos
-			var player_pos = player.grid.local_to_map(player.position) if pos == Vector2i.ZERO and is_animal == true else pos
+			var animal_pos : Vector2i
+			var player_pos : Vector2i
+			if is_animal and pos != Vector2i.ZERO:
+				animal_pos = pos
+				player_pos = player.grid.local_to_map(player.position)
+			elif !is_animal and pos != Vector2i.ZERO:
+				player_pos = pos
+				animal_pos = animal.grid.local_to_map(animal.position)
+			else:
+				animal_pos = player.grid.local_to_map(animal.position)
+				player_pos = player.grid.local_to_map(player.position)
+			
 			var animal_grass = get_grass_at(animal_pos)
 			var player_grass = get_grass_at(player_pos)
 			if !animal_grass or !player_grass:
 				print("From TGM: Cannot get grass at player:",player_pos, " or animal:", animal_pos)
 				continue
-			print("From TallGrassManager: Hide player at bushed has root: ", get_root(player_grass).position)
 			var animal_root = get_root(animal_grass)
 			var player_root = get_root(player_grass)
 			if animal_root != player_root:
 				print("From TGM: Can't get animal root: ", animal_root.local_position, " player root: ", player_root.local_position)
 				continue
+			print("From TGM: animal at pos:", animal_pos," root: ", animal_root.name, " player at pos: ", player_pos,"root: ", player_root.name)
 			animal.set_visible(true)
 			animal.set_modulate(Color(1, 1, 1, 0.65))
 
