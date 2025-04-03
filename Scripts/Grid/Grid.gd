@@ -11,7 +11,6 @@ class_name Grid
 
 # Dictionaries
 var cells = {}
-var obstacles = {}
 var foods_on_field = {}
 
 var destination : Vector2i = Vector2i.ZERO
@@ -21,10 +20,7 @@ var obstacle_source_id : Array[int] = [barrel_id, fench_id]
 
 func _ready() -> void:
 	init_grid()
-	scan_obstacles()
 	scan_destination()
-	obstacles_management.set_grid(self)
-	obstacles_management.spawn_obstacle()
 	item_manager.get_items()
 
 func _process(_delta: float) -> void:
@@ -32,8 +28,7 @@ func _process(_delta: float) -> void:
 
 func rescan(player_zone: Array[Vector2i] = []):
 	init_grid()
-	obstacles_management.init_obstacle()
-	scan_obstacles("object")
+	obstacles_management.scan_obstacle()
 	scan_player_zone(player_zone)
 	item_manager.get_items()
 	print("From Grid: Grid rescaned")
@@ -80,42 +75,6 @@ func clear_layer(layer_id: int):
 		for y in range(0, max_y_size):
 			layer.erase_cell(Vector2i(x, y))
 
-#Load in Obstacle Layer to find obstacles and add them to the Obstacles dictionary
-func scan_obstacles(mode: String = ""):
-	obstacles.clear()
-	if mode == "":
-		scan_barrel_and_fench()
-	else:
-		# Update the obstacle position and properties
-		obstacles = obstacles_management.get_obstacles_dictionary()
-		#scan_unpushable_obstacle()
-		if obstacles.is_empty():
-			return
-
-func scan_barrel_and_fench():
-	for x in range(0, max_x_size):
-		for y in range(0, max_y_size):
-			if $Obstacle.get_cell_source_id(Vector2i(x, y)) == fench_id:
-				if $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(8, 6):
-					obstacles[str(Vector2i(x, y))] = {
-						"pushable": false,
-						"breakable": true
-					}
-					cells[str(Vector2i(x, y))] = {
-						"is_path" = false,
-						"player_zone" = false,
-					}
-					
-				elif $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(7, 5) or $Obstacle.get_cell_atlas_coords(Vector2i(x, y)) == Vector2i(6, 5):
-					obstacles[str(Vector2i(x, y))] = {
-						"pushable": true,
-						"breakable": true
-					}
-					cells[str(Vector2i(x, y))] = {
-						"is_path" = false,
-						"player_zone" = false,
-					}
-
 func scan_player_zone(player_zone: Array[Vector2i]):
 	if player_zone.is_empty(): return
 	for zone in player_zone:
@@ -137,7 +96,7 @@ func is_within_grid(_position: Vector2i) -> bool:
 	return inside_x and inside_y
 
 func is_path(local_pos: Vector2i):
-	return not obstacles.has(str(local_pos))
+	return not obstacles_management.is_obstcle_pos(local_pos)
 
 func is_player_zone(local_pos: Vector2i):
 	return cells[str(local_pos)]["player_zone"] and cells[str(local_pos)]["is_path"]

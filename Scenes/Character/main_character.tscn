@@ -763,7 +763,7 @@ states/walking/position = Vector2(587, 60)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_qtihi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_tawdr"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_03l88"), "idle", "tool", SubResource("AnimationNodeStateMachineTransition_0uvkb"), "tool", "idle", SubResource("AnimationNodeStateMachineTransition_fee4t")]
 
 [node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory") groups=["Entity", "MainCharacter"]]
-z_index = 5
+z_index = 4
 texture_filter = 1
 platform_wall_layers = 2
 script = ExtResource("1_x1ua0")
@@ -788,6 +788,7 @@ script = ExtResource("5_4ktxd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qd1bx")
 animation = &"idle_down"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -822,12 +823,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -6.0
+offset_top = -14.0
+offset_right = 34.0
+offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.300943, 0.37569)
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 1

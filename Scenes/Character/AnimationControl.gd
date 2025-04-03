@@ -11,6 +11,7 @@ var tool : String = ""
 func _ready() -> void:
 	if get_parent().is_in_group("Entity"):
 		character = get_parent()
+		character.inventory.UsingItem.connect(tooling)
 	
 #	Initialize state
 	animation_tree["parameters/conditions/is_idling"] = true
@@ -47,3 +48,13 @@ func _process(_delta: float) -> void:
 		# Inside tool state machine
 		animation_tree["parameters/tool/axe/blend_position"] = direction
 		animation_tree["parameters/tool/food/blend_position"] = direction
+
+func tooling(item_name: String):
+	character.tooling = true
+	match item_name:
+		"axe": switch_to_axe()
+
+func switch_to_axe():
+	var is_axe : bool = true
+	animation_tree["parameters/tool/conditions/is_axe"] = is_axe
+	animation_tree["parameters/tool/conditions/is_food"] = !is_axe

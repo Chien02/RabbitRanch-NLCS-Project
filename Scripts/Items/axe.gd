@@ -23,11 +23,12 @@ func check_local_pos(local_pos: Vector2i):
 	if !grid.is_within_grid(local_pos): return
 	if !grid.is_path(local_pos):
 		for obstacle in grid.obstacles_management.obstacles:
-			if !obstacle: return
+			if obstacle == null: continue
 			if obstacle.local_position != local_pos: continue
 			if !obstacle.is_breakable(): continue
 			if obstacle is Obstacle:
+				character.inventory.UsingItem.emit(resource.name.to_lower())
 				obstacle.destroy(resource.duration)
 				print("From Axe: Destroyed this obstacle")
 				await character.get_tree().create_timer(resource.duration).timeout
-				grid.rescan(character.player_zone)
+				character.tooling = false

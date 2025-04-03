@@ -30,9 +30,8 @@ func show_mouse_pos():
 	var mouse_pos : Vector2i = grid.local_to_map(global_mouse_pos)
 	label_mouse_pos.text = str(mouse_pos)
 	if !grid.cells.is_empty():
-		if grid.cells.has(str(mouse_pos)):
-			var obs = grid.cells[str(mouse_pos)]["is_path"]
-			label_mouse_pos.text = str(mouse_pos) + " - is path: " + str(obs)
+		if grid.is_within_grid(mouse_pos):
+			label_mouse_pos.text = str(mouse_pos) + " - is path: " + str(grid.is_path(mouse_pos))
 	else:
 		print("Display: Cannot find mouse_pos in cells")
 

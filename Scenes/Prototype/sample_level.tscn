@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=48 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -9,20 +9,23 @@
 [ext_resource type="Texture2D" uid="uid://cppm06x3vkcub" path="res://Sprites/Prototype/main-character-path.png" id="3_vjtpf"]
 [ext_resource type="PackedScene" uid="uid://ce3xwr67jo63y" path="res://Scenes/Character/cow.tscn" id="4_bke7g"]
 [ext_resource type="Texture2D" uid="uid://40ywqg8vb31l" path="res://Sprites/Prototype/target-path.png" id="4_s1bld"]
-[ext_resource type="PackedScene" uid="uid://buix5n034hegi" path="res://Scenes/Character/chicken.tscn" id="5_5j4pf"]
 [ext_resource type="PackedScene" uid="uid://bg1iiqsskh3fn" path="res://Scenes/Character/main_character.tscn" id="7_2phpi"]
 [ext_resource type="Texture2D" uid="uid://ppkfba1v8m6g" path="res://Sprites/Prototype/destination.png" id="7_qxj2o"]
 [ext_resource type="Script" uid="uid://vo7v44bl816h" path="res://Scripts/Animation/CustomAnimation.gd" id="8_4gu7f"]
+[ext_resource type="Texture2D" uid="uid://bd43eyjrsgpkq" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_Grass_Biom_things.png" id="8_dd50j"]
 [ext_resource type="PackedScene" uid="uid://c5icvfyyatrwy" path="res://Scenes/Destination/destination.tscn" id="8_hfh6p"]
 [ext_resource type="Texture2D" uid="uid://brqtp5aolsjvm" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="8_p6rji"]
 [ext_resource type="Script" uid="uid://c0lsf8dbbhh6w" path="res://Scripts/GUI/DisplayUI.gd" id="9_47kkx"]
 [ext_resource type="Texture2D" uid="uid://ftk0ln4h52ll" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="9_ect2t"]
 [ext_resource type="Texture2D" uid="uid://g57gj3nefdv3" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="14_bke7g"]
 [ext_resource type="PackedScene" uid="uid://c7m7xvqv4d8pw" path="res://Scenes/Entity/obstacle_management.tscn" id="14_bnfqx"]
+[ext_resource type="Texture2D" uid="uid://plq6fsemg2tn" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_Plants.png" id="16_b443d"]
 [ext_resource type="PackedScene" uid="uid://dmd5dvtrp5x48" path="res://Scenes/GUI/pause_ui.tscn" id="18_75bkg"]
 [ext_resource type="PackedScene" uid="uid://cc5bw2kx4etgr" path="res://Scenes/Items/axe.tscn" id="18_e4p5l"]
+[ext_resource type="PackedScene" uid="uid://c3vehumkcl56q" path="res://Scenes/Environments/tall_grass.tscn" id="19_b443d"]
 [ext_resource type="PackedScene" uid="uid://cgbio51ohm2m8" path="res://Scenes/GUI/loss_ui.tscn" id="19_bke7g"]
 [ext_resource type="PackedScene" uid="uid://nm8jncg3i1ns" path="res://Scenes/Items/rice.tscn" id="19_hk4wk"]
+[ext_resource type="Script" uid="uid://drg1m2run6ema" path="res://Scripts/Environment/tall_grass_manager.gd" id="19_qd1it"]
 [ext_resource type="Script" uid="uid://bdi1mv23c1ce6" path="res://Scenes/Components/cameraControl.gd" id="20_7dggv"]
 [ext_resource type="PackedScene" uid="uid://b21a6phknhiic" path="res://Scenes/GUI/win_ui.tscn" id="20_grvc7"]
 [ext_resource type="PackedScene" uid="uid://0fatihwqgv8e" path="res://Scenes/Items/trap.tscn" id="20_ps7cf"]
@@ -38,6 +41,54 @@ texture = ExtResource("1_6ed6c")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0jy6g"]
 texture = ExtResource("2_gdea5")
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qd1it"]
+texture = ExtResource("8_dd50j")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_723cb"]
 texture = ExtResource("3_vjtpf")
@@ -218,6 +269,21 @@ texture = ExtResource("14_bke7g")
 2:3/0 = 0
 3:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ps2v"]
+texture = ExtResource("16_b443d")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_0axwb"]
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 0
@@ -230,27 +296,90 @@ sources/5 = SubResource("TileSetAtlasSource_2uor1")
 sources/6 = SubResource("TileSetAtlasSource_ejhhv")
 sources/7 = SubResource("TileSetAtlasSource_bbte7")
 sources/8 = SubResource("TileSetAtlasSource_grvc7")
+sources/9 = SubResource("TileSetAtlasSource_0ps2v")
+sources/10 = SubResource("TileSetAtlasSource_qd1it")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f5mpm"]
+texture = ExtResource("8_dd50j")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bimvk"]
+texture = ExtResource("16_b443d")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_c0hrr"]
+sources/0 = SubResource("TileSetAtlasSource_f5mpm")
+sources/1 = SubResource("TileSetAtlasSource_bimvk")
 
 [node name="Sample_level" type="Node2D" groups=["LevelManager"]]
 texture_filter = 1
 script = ExtResource("1_bnfqx")
 
 [node name="TurnBasedManager" parent="." groups=["TurnBasedManager"] instance=ExtResource("1_t7rht")]
+z_index = 5
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(247, 136)
-speed = 10.0
+position = Vector2(216, 168)
 grid = NodePath("../../TileMap")
 
 [node name="Cow" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_bke7g")]
-position = Vector2(279, 105)
+position = Vector2(120, 168)
 option = "not_ignore"
-grid = NodePath("../../TileMap")
-
-[node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("5_5j4pf")]
-position = Vector2(136, 151)
-mode = "not_diagonal"
-option = "ignore"
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management", "item_manager") groups=["Grid"]]
@@ -267,7 +396,7 @@ tile_set = SubResource("TileSet_0axwb")
 [node name="Obstacle" type="TileMapLayer" parent="TileMap"]
 z_index = 1
 use_parent_material = true
-tile_map_data = PackedByteArray("AAAEAAcABgAIAAYAAAAFAAcABgAIAAYAAAAGAAcABgAIAAYAAAARAAcABgAIAAYAAAARAAgABgAIAAYAAAARAAkABgAIAAYAAAAQAAkABgAIAAYAAAAPAAkABgAIAAYAAAAGAAYABgAGAAUAAAAMAAQABgAIAAYAAAAMAAUABgAIAAYAAAALAAUABgAIAAYAAAALAAYABgAIAAYAAAALAAcABgAIAAYAAAAKAAcABgAGAAUAAAAKAAgABgAIAAYAAAAGAAMABgAIAAYAAAAHAAMABgAIAAYAAAAIAAMABgAIAAYAAAAJAAMABgAIAAYAAAAJAAQABgAIAAYAAAAPAAQABgAIAAYAAAAPAAMABgAIAAYAAAAPAAIABgAHAAUAAAAQAAQABgAHAAUAAAAQAAUABgAIAAYAAAAOAAIABgAGAAUAAAALAAgABgAGAAUAAAALAAkABgAHAAUAAAADAAUABgAHAAUAAAADAAQABgAGAAUAAAACAAMABgAIAAYAAAACAAQABgAHAAUAAAADAAMABgAIAAYAAAAGAAgABgAHAAUAAAAKAAIABgAGAAUAAAAMAAkABgAIAAYAAAAAAAAABgAIAAYAAAACAAAABgAIAAYAAAABAAAABgAIAAYAAAADAAAABgAIAAYAAAAEAAAABgAIAAYAAAAFAAAABgAIAAYAAAAGAAAABgAIAAYAAAAHAAAABgAIAAYAAAAIAAAABgAIAAYAAAAJAAAABgAIAAYAAAAKAAAABgAIAAYAAAALAAAABgAIAAYAAAAMAAAABgAIAAYAAAANAAAABgAIAAYAAAAOAAAABgAIAAYAAAAPAAAABgAIAAYAAAAQAAAABgAIAAYAAAARAAAABgAIAAYAAAASAAAABgAIAAYAAAATAAAABgAIAAYAAAATAAEABgAIAAYAAAATAAIABgAIAAYAAAATAAMABgAIAAYAAAATAAQABgAIAAYAAAATAAUABgAIAAYAAAATAAYABgAIAAYAAAATAAcABgAIAAYAAAATAAgABgAIAAYAAAATAAkABgAIAAYAAAATAAoABgAIAAYAAAABAAsABgAIAAYAAAACAAsABgAIAAYAAAADAAsABgAIAAYAAAAEAAsABgAIAAYAAAAFAAsABgAIAAYAAAAGAAsABgAIAAYAAAAHAAsABgAIAAYAAAAIAAsABgAIAAYAAAAJAAsABgAIAAYAAAAKAAsABgAIAAYAAAALAAsABgAIAAYAAAAMAAsABgAIAAYAAAANAAsABgAIAAYAAAAOAAsABgAIAAYAAAAPAAsABgAIAAYAAAAQAAsABgAIAAYAAAARAAsABgAIAAYAAAASAAsABgAIAAYAAAAAAAEABgAIAAYAAAAAAAIABgAIAAYAAAAAAAMABgAIAAYAAAAAAAQABgAIAAYAAAAAAAUABgAIAAYAAAAAAAYABgAIAAYAAAAAAAcABgAIAAYAAAAAAAgABgAIAAYAAAAAAAkABgAIAAYAAAAAAAoABgAIAAYAAAAAAAsABgAIAAYAAAATAAsABgAIAAYAAAAKAAMABgAIAAYAAAAFAAMABgAIAAYAAAAIAAQABgAIAAYAAAAHAAQABgAGAAUAAAAPAAUABgAIAAYAAAAOAAYABgAHAAUAAAAPAAYABgAGAAUAAAAMAAMABgAGAAUAAAAOAAUABgAHAAUAAAAMAAcABgAHAAUAAAAOAAgABgAHAAUAAAA=")
+tile_map_data = PackedByteArray("AAAEAAcABgAIAAYAAAAFAAcABgAIAAYAAAAGAAcABgAIAAYAAAARAAcABgAIAAYAAAARAAgABgAIAAYAAAARAAkABgAIAAYAAAAQAAkABgAIAAYAAAAPAAkABgAIAAYAAAAGAAYABgAHAAUAAAAMAAQABgAIAAYAAAAMAAUABgAIAAYAAAALAAUABgAIAAYAAAALAAYABgAIAAYAAAALAAcABgAIAAYAAAAKAAcABgAHAAUAAAAKAAgABgAIAAYAAAAGAAMABgACAAUAAAAHAAMABgAAAAUAAAAIAAMABgAIAAYAAAAJAAMABgAIAAYAAAAJAAQABgAIAAYAAAAPAAQABgAIAAYAAAAPAAMABgACAAYAAAAPAAIABgAHAAUAAAAQAAQABgAHAAUAAAAQAAUABgAIAAYAAAAOAAIABgAHAAUAAAALAAgABgAHAAUAAAALAAkABgAHAAUAAAADAAUABgAHAAUAAAADAAQABgAHAAUAAAACAAMABgAIAAYAAAACAAQABgAHAAUAAAADAAMABgAIAAYAAAAGAAgABgAHAAUAAAAKAAIABgAHAAUAAAAMAAkABgAIAAYAAAAAAAAABgAIAAYAAAACAAAABgAIAAYAAAABAAAABgAIAAYAAAADAAAABgAIAAYAAAAEAAAABgAIAAYAAAAFAAAABgAIAAYAAAAGAAAABgAIAAYAAAAHAAAABgAIAAYAAAAIAAAABgAIAAYAAAAJAAAABgAIAAYAAAAKAAAABgAIAAYAAAALAAAABgAIAAYAAAAMAAAABgAIAAYAAAANAAAABgAIAAYAAAAOAAAABgAIAAYAAAAPAAAABgAIAAYAAAAQAAAABgAIAAYAAAARAAAABgAIAAYAAAASAAAABgAIAAYAAAATAAAABgAIAAYAAAATAAEABgAIAAYAAAATAAIABgAIAAYAAAATAAMABgAIAAYAAAATAAQABgAIAAYAAAATAAUABgAIAAYAAAATAAYABgAIAAYAAAATAAcABgAIAAYAAAATAAgABgAIAAYAAAATAAkABgAIAAYAAAATAAoABgAIAAYAAAABAAsABgAIAAYAAAACAAsABgAIAAYAAAADAAsABgAIAAYAAAAEAAsABgAIAAYAAAAFAAsABgAIAAYAAAAGAAsABgAIAAYAAAAHAAsABgAIAAYAAAAIAAsABgAIAAYAAAAJAAsABgAIAAYAAAAKAAsABgAIAAYAAAALAAsABgAIAAYAAAAMAAsABgAIAAYAAAANAAsABgAIAAYAAAAOAAsABgAIAAYAAAAPAAsABgAIAAYAAAAQAAsABgAIAAYAAAARAAsABgAIAAYAAAASAAsABgAIAAYAAAAAAAEABgAIAAYAAAAAAAIABgAIAAYAAAAAAAMABgAIAAYAAAAAAAQABgAIAAYAAAAAAAUABgAIAAYAAAAAAAYABgAIAAYAAAAAAAcABgAIAAYAAAAAAAgABgAIAAYAAAAAAAkABgAIAAYAAAAAAAoABgAIAAYAAAAAAAsABgAIAAYAAAATAAsABgAIAAYAAAAKAAMABgAIAAYAAAAFAAMABgABAAUAAAAIAAQABgAIAAYAAAAHAAQABgAHAAUAAAAPAAUABgAIAAYAAAAOAAYABgAHAAUAAAAPAAYABgAHAAUAAAAMAAMABgAHAAUAAAAOAAUABgAHAAUAAAAMAAcABgAHAAUAAAAOAAgABgAHAAUAAAACAAYABgAFAAUAAAACAAcABgABAAYAAAADAAkABgAFAAUAAAACAAoABgADAAUAAAAFAAQABgAAAAUAAAAIAAkABgABAAYAAAAJAAkABgACAAYAAAAJAAgABgAAAAYAAAAOAAMABgACAAYAAAARAAIABgACAAUAAAARAAoABgACAAUAAAAPAAoABgAAAAYAAAARAAYABgADAAUAAAADAAcABgAFAAYAAAARAAQABgAAAAYAAAABAAkABgAEAAUAAAADAAIABgAEAAUAAAACAAEABgAEAAUAAAAHAAIABgADAAUAAAABAAEABgADAAUAAAARAAEABgADAAUAAAAQAAEABgADAAUAAAALAAEABgADAAUAAAAFAAoABgADAAUAAAAEAAUABgADAAUAAAAEAAMABgADAAUAAAAEAAQABgABAAUAAAANAAYABgABAAUAAAANAAUABgADAAUAAAASAAkABgAEAAUAAAASAAcABgAEAAUAAAASAAIABgACAAUAAAASAAQABgACAAUAAAA=")
 tile_set = SubResource("TileSet_0axwb")
 
 [node name="Player_path" type="TileMapLayer" parent="TileMap"]
@@ -292,13 +421,41 @@ tile_set = SubResource("TileSet_0axwb")
 
 [node name="PlayerZone" type="TileMapLayer" parent="TileMap"]
 
+[node name="Environment" type="TileMapLayer" parent="TileMap"]
+z_index = 4
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAEAAkAAAAAAAAAAAAEAAoAAAAAAAEAAAARAAIAAAABAAAAAAARAAMAAAABAAEAAAASAAIAAAACAAAAAAASAAMAAAACAAEAAAAHAAgAAAAGAAEAAAAEAAYAAAAGAAEAAAANAAIAAAAGAAIAAAAEAAIAAAAGAAIAAAABAAUAAAAHAAIAAAARAAUAAAAGAAIAAAASAAgAAAAGAAIAAAAQAAIAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAAFAAIAAAABAAMAAAABAAcAAAABAAAAAAABAAgAAAABAAEAAAACAAcAAAACAAAAAAACAAgAAAACAAEAAAAMAAEAAAACAAAAAAALAAEAAAABAAAAAAALAAIAAAABAAEAAAAMAAIAAAACAAEAAAAGAAkAAAABAAAAAAAGAAoAAAABAAEAAAAHAAkAAAACAAAAAAAHAAoAAAACAAEAAAARAAkAAAADAAAAAAARAAoAAAADAAEAAAASAAkAAAAEAAAAAAASAAoAAAAEAAEAAAABAAIAAAAAAAAAAAABAAMAAAAAAAEAAAAQAAoAAAAHAAIAAAAKAAkAAAAHAAIAAAAHAAcAAAAHAAIAAAA=")
+tile_set = SubResource("TileSet_c0hrr")
+
 [node name="Objects" type="Node2D" parent="."]
 
 [node name="Destination" parent="Objects" groups=["Destination"] instance=ExtResource("8_hfh6p")]
 position = Vector2(200, 136)
 
 [node name="ObstacleManagement" parent="." instance=ExtResource("14_bnfqx")]
-z_index = 3
+z_index = 2
+
+[node name="TallGrassManager" type="Node2D" parent="."]
+z_index = 5
+script = ExtResource("19_qd1it")
+
+[node name="TallGrass" parent="TallGrassManager" instance=ExtResource("19_b443d")]
+position = Vector2(200, 168)
+
+[node name="TallGrass2" parent="TallGrassManager" instance=ExtResource("19_b443d")]
+position = Vector2(184, 168)
+
+[node name="TallGrass3" parent="TallGrassManager" instance=ExtResource("19_b443d")]
+position = Vector2(168, 168)
+
+[node name="TallGrass4" parent="TallGrassManager" instance=ExtResource("19_b443d")]
+position = Vector2(232, 168)
+
+[node name="TallGrass5" parent="TallGrassManager" instance=ExtResource("19_b443d")]
+position = Vector2(152, 168)
+
+[node name="TallGrass6" parent="TallGrassManager" instance=ExtResource("19_b443d")]
+position = Vector2(136, 168)
 
 [node name="ItemManager" type="Node2D" parent="." node_paths=PackedStringArray("grid") groups=["ItemManager"]]
 z_index = 7
@@ -310,7 +467,7 @@ metadata/_custom_type_script = "uid://1j4uugt5gaq3"
 position = Vector2(231, 152)
 
 [node name="Rice" parent="ItemManager" instance=ExtResource("19_hk4wk")]
-position = Vector2(247, 120)
+position = Vector2(248, 120)
 
 [node name="Trap" parent="ItemManager" instance=ExtResource("20_ps7cf")]
 position = Vector2(263, 136)

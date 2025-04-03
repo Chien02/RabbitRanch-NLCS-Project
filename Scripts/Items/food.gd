@@ -4,6 +4,7 @@ class_name Food
 
 var is_selecting : bool = false
 var throwable_slot : Array[Vector2i] = []
+var debug_layer : int = 4
 
 func _process(_delta: float) -> void:
 	if !character: return
@@ -29,6 +30,7 @@ func _input(event: InputEvent) -> void:
 		# Do the thing
 		var localize_position = grid.map_to_local(local_mouse_pos)
 		throw_item(localize_position)
+		grid.clear_layer(debug_layer)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is MainCharacter:
@@ -59,9 +61,16 @@ func throwable_zone():
 		for y in range(min_pos.y, max_pos.y):
 			if grid.is_within_grid(Vector2i(x, y)) and grid.is_path(Vector2i(x, y)):
 				throwable_slot.append(Vector2i(x, y))
-				
 				# for debug:
-				grid.get_node("Destination").set_cell(Vector2i(x, y), 4, Vector2i(0, 0))
+				grid.get_node("Destination").set_cell(Vector2i(x, y), debug_layer, Vector2i(0, 0))
+			elif !grid.is_path(Vector2i(x, y)):
+				var obstacle = grid.obstacles_management.get_obstacle_at(Vector2i(x, y))
+				if !obstacle.Destroyed.is_connected(_on_obstacle_destroyed):
+					obstacle.Destroyed.connect(_on_obstacle_destroyed)
+
+func _on_obstacle_destroyed(local_pos: Vector2i):
+	print("From Obstacle: Connected with obstacle, rescan throwable zone")
+	throwable_slot.append(local_pos)
 
 func throw_item(pos: Vector2):
 	print("From Food: thrown item in ", pos)

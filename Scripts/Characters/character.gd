@@ -19,6 +19,7 @@ func stunned(stun: bool, num_of_turn: int):
 	turn_counter = 0
 
 func _on_enter_turn(num: int):
+	if !is_stun: return
 	print("From ", name, ": Still be stunned and calculate turn_counter")
 	turn_counter += num
 	print("From ", name,": counting turn_counter to ", turn_counter)
@@ -29,3 +30,6 @@ func _on_enter_turn(num: int):
 		print("From ", name,": Out of stunned")
 		is_stun = false
 		OutOfStunned.emit()
+
+func set_character_visible(_bool: bool):
+	visible = _bool

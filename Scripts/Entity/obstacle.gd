@@ -11,16 +11,18 @@ var character_controller : CharacterController
 var global_spawn
 var local_position
 
+signal Destroyed
+
 func _ready() -> void:
 	character_controller = CharacterController.new()
-	global_position = global_spawn
 
 func reset():
 	pushable_direction.clear()
-	if grid:
-		local_position = grid.local_to_map(global_position)
+	if !grid: return
+	local_position = grid.local_to_map(global_position)
 
-func init_pushable_diretion():
+func init_pushable_diretion(_grid: Grid):
+	grid = _grid
 	reset()
 	var temp_array = grid.get_surrounding_cells(local_position)
 	for dir in temp_array:
@@ -38,7 +40,7 @@ func is_pushable() -> bool:
 
 func destroy(duration: float):
 	CustomTween.explode(self, duration)
-	grid.obstacles.erase(local_position)
+	Destroyed.emit(local_position)
 	if !CustomTween.is_connected("finished", queue_free):
 		CustomTween.connect("finished", queue_free)
 

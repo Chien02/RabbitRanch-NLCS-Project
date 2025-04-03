@@ -54,6 +54,7 @@ func _input(event: InputEvent) -> void:
 		# Do the thing
 		var localize_position = grid.map_to_local(local_mouse_pos)
 		throw_item(localize_position)
+		grid.clear_layer(debug_layer)
 
 func active():
 	if is_selecting: return

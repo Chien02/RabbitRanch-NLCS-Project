@@ -16,6 +16,7 @@ var item_using: Item = null
 # Signals
 signal AddItem
 signal DropItem
+signal UsingItem
 
 func _process(_delta: float) -> void:
 	# Stop receive input when not in turn
