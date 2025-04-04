@@ -1,11 +1,340 @@
-[gd_scene load_steps=2 format=3 uid="uid://f4ximnv2mmov"]
+[gd_scene load_steps=26 format=3 uid="uid://f4ximnv2mmov"]
 
-[ext_resource type="Texture2D" uid="uid://day1yd33654h0" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/big_tree.png" id="1_m3ibr"]
+[ext_resource type="Texture2D" uid="uid://5dh1hrs6mkd3" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/big_tree_sheet.png" id="1_m3ibr"]
+[ext_resource type="Script" uid="uid://b0t77m2yo3vlv" path="res://Scripts/Entity/big_tree.gd" id="1_qhjxl"]
 
-[node name="BigTree" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhjxl"]
+size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhjxl"]
+atlas = ExtResource("1_m3ibr")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4txy"]
+atlas = ExtResource("1_m3ibr")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvqxr"]
+atlas = ExtResource("1_m3ibr")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qq4a"]
+atlas = ExtResource("1_m3ibr")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r74o"]
+atlas = ExtResource("1_m3ibr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1qq4a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhjxl")
+}],
+"loop": true,
+"name": &"chopped",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4txy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvqxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qq4a")
+}],
+"loop": true,
+"name": &"chopping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r74o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_64dtn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.06, 1.13)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+
+[sub_resource type="Animation" id="Animation_8r74o"]
+resource_name = "chopchop"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.101308, 0.202616),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1), Vector2(0.795, 1.245), Vector2(1.075, 0.975)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finish_chopchop"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qhjxl"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["chopped"]
+}
+
+[sub_resource type="Animation" id="Animation_g4txy"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["chopping"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.915, 0.975), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hvqxr"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.045, 1), Vector2(1.045, 1.02), Vector2(1, 1.027)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.298373, 0.599521),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0.57), Vector2(0, 0.39)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8r74o"]
+_data = {
+&"RESET": SubResource("Animation_64dtn"),
+&"chopchop": SubResource("Animation_8r74o"),
+&"chopped": SubResource("Animation_qhjxl"),
+&"chopping": SubResource("Animation_g4txy"),
+&"default": SubResource("Animation_hvqxr")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8r74o"]
+animation = &"chopchop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhjxl"]
+animation = &"chopped"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g4txy"]
+animation = &"chopping"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hvqxr"]
+animation = &"default"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8r74o"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1qq4a"]
+advance_mode = 2
+advance_condition = &"is_chopped"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_64dtn"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yrcjk"]
+advance_mode = 2
+advance_condition = &"is_chopchop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lqja3"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yrcjk"]
+states/chopchop/node = SubResource("AnimationNodeAnimation_8r74o")
+states/chopchop/position = Vector2(505, 154)
+states/chopped/node = SubResource("AnimationNodeAnimation_qhjxl")
+states/chopped/position = Vector2(720, 100)
+states/chopping/node = SubResource("AnimationNodeAnimation_g4txy")
+states/chopping/position = Vector2(525, 100)
+states/default/node = SubResource("AnimationNodeAnimation_hvqxr")
+states/default/position = Vector2(356, 100)
+transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_8r74o"), "default", "chopping", SubResource("AnimationNodeStateMachineTransition_1qq4a"), "chopping", "chopped", SubResource("AnimationNodeStateMachineTransition_64dtn"), "default", "chopchop", SubResource("AnimationNodeStateMachineTransition_yrcjk"), "chopchop", "default", SubResource("AnimationNodeStateMachineTransition_lqja3")]
+
+[node name="BigTree" type="RigidBody2D" node_paths=PackedStringArray("animation_player", "animation_tree")]
+z_index = 4
+y_sort_enabled = true
 texture_filter = 1
+gravity_scale = 0.0
+script = ExtResource("1_qhjxl")
+animation_player = NodePath("AnimationPlayer")
+animation_tree = NodePath("AnimationTree")
+pushable = false
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_m3ibr")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qhjxl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.06, 1.13)
+sprite_frames = SubResource("SpriteFrames_1qq4a")
+offset = Vector2(0, -11)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8r74o")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_yrcjk")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_chopchop = false
+parameters/conditions/is_chopped = false

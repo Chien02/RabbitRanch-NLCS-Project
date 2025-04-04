@@ -28,7 +28,7 @@ func check_local_pos(local_pos: Vector2i):
 			if !obstacle.is_breakable(): continue
 			if obstacle is Obstacle:
 				character.inventory.UsingItem.emit(resource.name.to_lower())
-				obstacle.destroy(resource.duration)
+				obstacle.destroy(resource.duration, character)
 				print("From Axe: Destroyed this obstacle")
 				await character.get_tree().create_timer(resource.duration).timeout
 				character.tooling = false

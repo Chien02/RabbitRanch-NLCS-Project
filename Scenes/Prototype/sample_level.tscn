@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=50 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -22,11 +22,13 @@
 [ext_resource type="Texture2D" uid="uid://plq6fsemg2tn" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_Plants.png" id="16_b443d"]
 [ext_resource type="PackedScene" uid="uid://dmd5dvtrp5x48" path="res://Scenes/GUI/pause_ui.tscn" id="18_75bkg"]
 [ext_resource type="PackedScene" uid="uid://cc5bw2kx4etgr" path="res://Scenes/Items/axe.tscn" id="18_e4p5l"]
+[ext_resource type="PackedScene" uid="uid://f4ximnv2mmov" path="res://Scenes/Environments/big_tree.tscn" id="19_0ps2v"]
 [ext_resource type="PackedScene" uid="uid://c3vehumkcl56q" path="res://Scenes/Environments/tall_grass.tscn" id="19_b443d"]
 [ext_resource type="PackedScene" uid="uid://cgbio51ohm2m8" path="res://Scenes/GUI/loss_ui.tscn" id="19_bke7g"]
 [ext_resource type="PackedScene" uid="uid://nm8jncg3i1ns" path="res://Scenes/Items/rice.tscn" id="19_hk4wk"]
 [ext_resource type="Script" uid="uid://drg1m2run6ema" path="res://Scripts/Environment/tall_grass_manager.gd" id="19_qd1it"]
 [ext_resource type="Script" uid="uid://bdi1mv23c1ce6" path="res://Scenes/Components/cameraControl.gd" id="20_7dggv"]
+[ext_resource type="PackedScene" uid="uid://dirw2b3gkg3px" path="res://Scenes/Entity/log.tscn" id="20_f5mpm"]
 [ext_resource type="PackedScene" uid="uid://b21a6phknhiic" path="res://Scenes/GUI/win_ui.tscn" id="20_grvc7"]
 [ext_resource type="PackedScene" uid="uid://0fatihwqgv8e" path="res://Scenes/Items/trap.tscn" id="20_ps7cf"]
 [ext_resource type="PackedScene" uid="uid://36nqftkot5iv" path="res://Scenes/GUI/inventoryUI.tscn" id="22_3oxg0"]
@@ -374,7 +376,7 @@ script = ExtResource("1_bnfqx")
 z_index = 5
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(216, 168)
+position = Vector2(247, 136)
 grid = NodePath("../../TileMap")
 
 [node name="Cow" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_bke7g")]
@@ -424,7 +426,7 @@ tile_set = SubResource("TileSet_0axwb")
 [node name="Environment" type="TileMapLayer" parent="TileMap"]
 z_index = 4
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAEAAkAAAAAAAAAAAAEAAoAAAAAAAEAAAARAAIAAAABAAAAAAARAAMAAAABAAEAAAASAAIAAAACAAAAAAASAAMAAAACAAEAAAAHAAgAAAAGAAEAAAAEAAYAAAAGAAEAAAANAAIAAAAGAAIAAAAEAAIAAAAGAAIAAAABAAUAAAAHAAIAAAARAAUAAAAGAAIAAAASAAgAAAAGAAIAAAAQAAIAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAAFAAIAAAABAAMAAAABAAcAAAABAAAAAAABAAgAAAABAAEAAAACAAcAAAACAAAAAAACAAgAAAACAAEAAAAMAAEAAAACAAAAAAALAAEAAAABAAAAAAALAAIAAAABAAEAAAAMAAIAAAACAAEAAAAGAAkAAAABAAAAAAAGAAoAAAABAAEAAAAHAAkAAAACAAAAAAAHAAoAAAACAAEAAAARAAkAAAADAAAAAAARAAoAAAADAAEAAAASAAkAAAAEAAAAAAASAAoAAAAEAAEAAAABAAIAAAAAAAAAAAABAAMAAAAAAAEAAAAQAAoAAAAHAAIAAAAKAAkAAAAHAAIAAAAHAAcAAAAHAAIAAAA=")
+tile_map_data = PackedByteArray("AAAEAAkAAAAAAAAAAAAEAAoAAAAAAAEAAAAHAAgAAAAGAAEAAAAEAAYAAAAGAAEAAAANAAIAAAAGAAIAAAAEAAIAAAAGAAIAAAABAAUAAAAHAAIAAAARAAUAAAAGAAIAAAASAAgAAAAGAAIAAAAQAAIAAAABAAMAAAAFAAEAAAABAAMAAAAEAAEAAAABAAMAAAAFAAIAAAABAAMAAAABAAIAAAAAAAAAAAABAAMAAAAAAAEAAAAQAAoAAAAHAAIAAAAKAAkAAAAHAAIAAAAHAAcAAAAHAAIAAAARAAkAAAADAAAAAAARAAoAAAADAAEAAAASAAoAAAAEAAEAAAASAAkAAAAEAAAAAAA=")
 tile_set = SubResource("TileSet_c0hrr")
 
 [node name="Objects" type="Node2D" parent="."]
@@ -432,8 +434,24 @@ tile_set = SubResource("TileSet_c0hrr")
 [node name="Destination" parent="Objects" groups=["Destination"] instance=ExtResource("8_hfh6p")]
 position = Vector2(200, 136)
 
-[node name="ObstacleManagement" parent="." instance=ExtResource("14_bnfqx")]
+[node name="ObstacleManagement" parent="." node_paths=PackedStringArray("grid") instance=ExtResource("14_bnfqx")]
 z_index = 2
+grid = NodePath("../TileMap")
+
+[node name="BigTree" parent="ObstacleManagement" instance=ExtResource("19_0ps2v")]
+position = Vector2(136, 94)
+
+[node name="BigTree2" parent="ObstacleManagement" instance=ExtResource("19_0ps2v")]
+position = Vector2(263, 104)
+
+[node name="BigTree3" parent="ObstacleManagement" instance=ExtResource("19_0ps2v")]
+position = Vector2(217, 120)
+
+[node name="BigTree4" parent="ObstacleManagement" instance=ExtResource("19_0ps2v")]
+position = Vector2(152, 40)
+
+[node name="Log" parent="ObstacleManagement" instance=ExtResource("20_f5mpm")]
+position = Vector2(216, 168)
 
 [node name="TallGrassManager" type="Node2D" parent="."]
 z_index = 5

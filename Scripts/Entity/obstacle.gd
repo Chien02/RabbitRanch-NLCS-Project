@@ -38,7 +38,7 @@ func is_breakable() -> bool:
 func is_pushable() -> bool:
 	return pushable
 
-func destroy(duration: float):
+func destroy(duration: float, _character: Character = null):
 	CustomTween.explode(self, duration)
 	Destroyed.emit(local_position)
 	if !CustomTween.is_connected("finished", queue_free):

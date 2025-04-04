@@ -2,7 +2,7 @@ extends Node2D
 
 class_name ObstacleManagement
 
-@onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
+@export var grid : Grid
 var obstacles : Array[Obstacle] = []
 
 func _ready():
@@ -41,6 +41,7 @@ func scan_obstacle():
 	for obstacle in obstacles:
 		if obstacle == null:
 			continue
+		#print("From O.M: init obstacle at", grid.local_to_map(obstacle.position))
 		obstacle.init_pushable_diretion(grid)
 	print("From O.M: Obstacles's size:", obstacles.size())
 
