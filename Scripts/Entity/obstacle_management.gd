@@ -37,6 +37,10 @@ func scan_obstacle():
 		for child in get_children():
 			if child is Obstacle:
 				obstacles.append(child)
+	else:
+		for child in get_children():
+			if !obstacles.has(child):
+				obstacles.append(child)
 	
 	for obstacle in obstacles:
 		if obstacle == null:

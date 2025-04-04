@@ -6,13 +6,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvdth"]
 size = Vector2(14, 14)
 
-[node name="Log" type="RigidBody2D"]
+[node name="Log" type="RigidBody2D" groups=["Obstacle"]]
 texture_filter = 1
 gravity_scale = 0.0
 script = ExtResource("1_xexm1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pvdth")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -7)
