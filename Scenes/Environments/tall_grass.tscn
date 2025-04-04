@@ -249,6 +249,7 @@ states/waving/position = Vector2(502, 100)
 transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_x4nrs"), "default", "waving", SubResource("AnimationNodeStateMachineTransition_q7dy6"), "waving", "default", SubResource("AnimationNodeStateMachineTransition_gub21")]
 
 [node name="TallGrass" type="Node2D" node_paths=PackedStringArray("animation_tree") groups=["TallGrass"]]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_hqgj8")
 animation_tree = NodePath("AnimationTree")

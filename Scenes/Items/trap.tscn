@@ -157,7 +157,8 @@ _data = {
 &"trap_open": SubResource("Animation_jg6xk")
 }
 
-[node name="Trap" type="Node2D" node_paths=PackedStringArray("animation_player", "area")]
+[node name="Trap" type="Node2D" node_paths=PackedStringArray("animation_player", "area") groups=["Item"]]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_tleqv")
 animation_player = NodePath("AnimationPlayer")

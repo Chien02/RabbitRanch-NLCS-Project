@@ -7,7 +7,7 @@ signal Disappear
 @onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
 @export var resource : ItemResource
 var character : MainCharacter = null
-
+var is_activating : bool = false
 
 func init(_grid, _character, _resource):
 	grid = _grid

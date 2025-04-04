@@ -11,6 +11,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		disappear()
 
 func active():
+	if is_activating: return
+	is_activating = true
 	var facing_direction = Vector2i(character.facing_direction)
 	print("From Axe: facing direction is ", facing_direction)
 	var character_pos = grid.local_to_map(character.position)
@@ -20,7 +22,9 @@ func active():
 	check_local_pos(local_pos)
 
 func check_local_pos(local_pos: Vector2i):
-	if !grid.is_within_grid(local_pos): return
+	if !grid.is_within_grid(local_pos):
+		is_activating = false
+		return
 	if !grid.is_path(local_pos):
 		for obstacle in grid.obstacles_management.obstacles:
 			if obstacle == null: continue
@@ -32,3 +36,4 @@ func check_local_pos(local_pos: Vector2i):
 				print("From Axe: Destroyed this obstacle")
 				await character.get_tree().create_timer(resource.duration).timeout
 				character.tooling = false
+				is_activating = false

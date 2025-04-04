@@ -9,13 +9,15 @@ var temp_obstacle : Obstacle
 
 var character : MainCharacter
 var grid : Grid
-var turnbase_manager: TurnBasedManager
+@onready var turnbase_manager: TurnBasedManager
+@onready var obstacle_manager : ObstacleManagement
 var pushable_direction : Vector2 = Vector2.ZERO
 
 func init_variable(_character: MainCharacter, _grid: Grid):
 	character = _character
 	grid = _grid
 	turnbase_manager = character.get_tree().get_first_node_in_group("TurnBasedManager")
+	obstacle_manager = character.get_tree().get_first_node_in_group("ObsManager")
 
 func pushing_check() -> void:
 	if !character.character_controller.is_just_type_input(): return
@@ -28,7 +30,9 @@ func pushing_check() -> void:
 	
 	var next_pos_push = local_next_pos + Vector2i(direction)
 	var obstacle : Obstacle = grid.obstacles_management.get_obstacle_at(local_next_pos)
-	if obstacle == null: return
+	if obstacle == null:
+		can_push = false
+		return
 	if is_overlap_actor(next_pos_push): return
 		
 	if pushable_direction != direction:
@@ -40,12 +44,17 @@ func pushing_check() -> void:
 		push(obstacle, global_next_pos)
 
 func is_overlap_actor(pos: Vector2i):
+	# Check in character list
 	for actor in turnbase_manager.actor:
 		var local_actor = grid.local_to_map(actor.position)
 		if local_actor == pos:
 			return true
+	# Check in obstacle list
+	for obstacle in obstacle_manager.obstacles:
+		if obstacle != null and obstacle.local_position == pos:
+			return true
 	return false
-	
+
 
 func push(_obs: Obstacle, next_pos: Vector2):
 	if is_pushing: return

@@ -4,6 +4,7 @@ class_name BigTree
 
 @export var animation_player : AnimationPlayer
 @export var animation_tree : AnimationTree
+@export var area2D : Area2D
 @export var log_link : String = "res://Scenes/Entity/log.tscn"
 var counter : int = 0
 var max_chop : int = 3
@@ -36,8 +37,12 @@ func destroy(duration: float, character: Character = null):
 
 func switch_anim_to(new_anim: String):
 	match new_anim:
-		"chopped": animation_tree["parameters/conditions/is_chopped"] = true
-		"chopchop": animation_tree["parameters/conditions/is_chopchop"] = true
+		"chopped":
+			animation_tree["parameters/conditions/is_chopped"] = true
+			area2D.get_child(0).set_deferred("set_disabled", true)
+			modulate = Color(1, 1, 1, 1)
+		"chopchop":
+			animation_tree["parameters/conditions/is_chopchop"] = true
 
 func finish_chopchop():
 	animation_tree["parameters/conditions/is_chopchop"] = false
@@ -45,7 +50,6 @@ func finish_chopchop():
 func spawn_logs():
 	var logs : Array[Vector2i] = []
 	var rand_num : int
-	var last_rand_num : int
 	var finish_flag : bool = false
 	print("From BigTree: ready to spawn logs")
 	
@@ -65,16 +69,19 @@ func spawn_logs():
 			4: logs.append(random_neighbor + Vector2i(0, 1))
 			
 		# Check logs
-		var character = get_tree().get_first_node_in_group("MainCharacter")
-		var character_pos = grid.local_to_map(character.position)
-		for log in logs:
-			if !grid.is_path(log) or log == character_pos:
+		var turnbased_manager : TurnBasedManager = get_tree().get_first_node_in_group("TurnBasedManager")
+		var actors_pos : Array[Vector2i] = []
+		for actor in turnbased_manager.actor:
+			actors_pos.append(grid.local_to_map(actor.position))
+		# Check that position is spawnable or not
+		for _log in logs:
+			if !grid.is_path(_log) or actors_pos.has(_log):
 				print("From BigTree: Overlay on obstacle at ", log)
 				logs.erase(log)
 			else:
 				var new_log : Obstacle = load(log_link).instantiate()
-				new_log.global_spawn = grid.map_to_local(log)
-				new_log.global_position = grid.map_to_local(log)
+				new_log.global_spawn = grid.map_to_local(_log)
+				new_log.global_position = grid.map_to_local(_log)
 				new_log.init_pushable_diretion(grid)
 				var obstacle_manager = get_parent()
 				obstacle_manager.add_child(new_log)
@@ -85,3 +92,14 @@ func spawn_logs():
 			return
 		else:
 			count_loop += 1
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is not Character: return
+	print("From bigTree: Character behide, fade this tree.")
+	modulate = Color(1, 1, 1, 0.5)
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is not Character: return
+	modulate = Color(1, 1, 1, 1)

@@ -40,7 +40,7 @@ func is_pushable() -> bool:
 
 func destroy(duration: float, _character: Character = null):
 	CustomTween.explode(self, duration)
-	Destroyed.emit(local_position)
+	Destroyed.emit(local_position, _character)
 	if !CustomTween.is_connected("finished", queue_free):
 		CustomTween.connect("finished", queue_free)
 

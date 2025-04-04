@@ -8,6 +8,7 @@
 size = Vector2(14, 14)
 
 [node name="Axe" type="Node2D" groups=["Item"]]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_llny5")
 resource = ExtResource("2_4jif8")

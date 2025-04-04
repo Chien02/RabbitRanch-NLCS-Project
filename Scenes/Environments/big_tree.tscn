@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://f4ximnv2mmov"]
+[gd_scene load_steps=27 format=3 uid="uid://f4ximnv2mmov"]
 
 [ext_resource type="Texture2D" uid="uid://5dh1hrs6mkd3" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/big_tree_sheet.png" id="1_m3ibr"]
 [ext_resource type="Script" uid="uid://b0t77m2yo3vlv" path="res://Scripts/Entity/big_tree.gd" id="1_qhjxl"]
@@ -310,14 +310,18 @@ states/default/node = SubResource("AnimationNodeAnimation_hvqxr")
 states/default/position = Vector2(356, 100)
 transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_8r74o"), "default", "chopping", SubResource("AnimationNodeStateMachineTransition_1qq4a"), "chopping", "chopped", SubResource("AnimationNodeStateMachineTransition_64dtn"), "default", "chopchop", SubResource("AnimationNodeStateMachineTransition_yrcjk"), "chopchop", "default", SubResource("AnimationNodeStateMachineTransition_lqja3")]
 
-[node name="BigTree" type="RigidBody2D" node_paths=PackedStringArray("animation_player", "animation_tree")]
-z_index = 4
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4txy"]
+size = Vector2(14, 28)
+
+[node name="BigTree" type="RigidBody2D" node_paths=PackedStringArray("animation_player", "animation_tree", "area2D")]
+z_index = 5
 y_sort_enabled = true
 texture_filter = 1
 gravity_scale = 0.0
 script = ExtResource("1_qhjxl")
 animation_player = NodePath("AnimationPlayer")
 animation_tree = NodePath("AnimationTree")
+area2D = NodePath("Area2D")
 pushable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -338,3 +342,12 @@ tree_root = SubResource("AnimationNodeStateMachine_yrcjk")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_chopchop = false
 parameters/conditions/is_chopped = false
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_g4txy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

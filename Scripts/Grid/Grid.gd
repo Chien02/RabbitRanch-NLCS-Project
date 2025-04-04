@@ -8,6 +8,7 @@ class_name Grid
 @export var tile_size : int = 16
 @export var obstacles_management : ObstacleManagement
 @export var item_manager : ItemManager
+var characters = [] # Array[MainCharacter]
 
 # Dictionaries
 var cells = {}
@@ -19,6 +20,7 @@ var fench_id : int = 6
 var obstacle_source_id : Array[int] = [barrel_id, fench_id]
 
 func _ready() -> void:
+	characters = get_tree().get_nodes_in_group("MainCharacter")
 	init_grid()
 	scan_destination()
 	item_manager.get_items()
@@ -41,7 +43,6 @@ func init_grid():
 				"is_path" = true,
 				"player_zone" = false
 			}
-			$Path.set_cell(Vector2i(x, y), 6, Vector2i(2, 6))
 
 # This function use to tell player which tile the cursor points to
 func display_mouse_hover():
@@ -75,8 +76,15 @@ func clear_layer(layer_id: int):
 		for y in range(0, max_y_size):
 			layer.erase_cell(Vector2i(x, y))
 
-func scan_player_zone(player_zone: Array[Vector2i]):
-	if player_zone.is_empty(): return
+func scan_player_zone(player_zone: Array[Vector2i] = []):
+	# When there is not have agruments, scan for all player
+	if player_zone.is_empty():
+		for player in characters:
+			for zone in player.player_zone:
+				if is_within_grid(zone):
+					cells[str(zone)]["player_zone"] = true
+		return
+	# Else just update for the one agruments
 	for zone in player_zone:
 		if is_within_grid(zone):
 			cells[str(zone)]["player_zone"] = true
@@ -91,15 +99,15 @@ func scan_destination():
 # This function use to check that character is in the map or not
 func is_within_grid(_position: Vector2i) -> bool:
 	var local_coord = _position
-	var inside_x = local_coord.x < max_x_size and local_coord.x >= 0
-	var inside_y = local_coord.y < max_y_size and local_coord.y >= 0
+	var inside_x = local_coord.x < max_x_size-1 and local_coord.x >= 0
+	var inside_y = local_coord.y < max_y_size-1 and local_coord.y >= 0
 	return inside_x and inside_y
 
 func is_path(local_pos: Vector2i):
 	return not obstacles_management.is_obstcle_pos(local_pos)
 
 func is_player_zone(local_pos: Vector2i):
-	return cells[str(local_pos)]["player_zone"] and cells[str(local_pos)]["is_path"]
+	return cells[str(local_pos)]["player_zone"]
 
 func string_to_vector2(string := "") -> Vector2i:
 	if string:

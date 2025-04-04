@@ -763,7 +763,8 @@ states/walking/position = Vector2(587, 60)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_qtihi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_tawdr"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_03l88"), "idle", "tool", SubResource("AnimationNodeStateMachineTransition_0uvkb"), "tool", "idle", SubResource("AnimationNodeStateMachineTransition_fee4t")]
 
 [node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory") groups=["Entity", "MainCharacter"]]
-z_index = 4
+z_index = 5
+y_sort_enabled = true
 texture_filter = 1
 platform_wall_layers = 2
 script = ExtResource("1_x1ua0")

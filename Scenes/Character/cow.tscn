@@ -144,6 +144,8 @@ states/walking/position = Vector2(525, 92)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_xasdf"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_dpnad"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_qu8rs")]
 
 [node name="Cow" node_paths=PackedStringArray("astar") instance=ExtResource("1_jniy7")]
+z_index = 5
+y_sort_enabled = true
 astar = NodePath("AstarComponent")
 
 [node name="CollisionShape2D" parent="." index="0"]

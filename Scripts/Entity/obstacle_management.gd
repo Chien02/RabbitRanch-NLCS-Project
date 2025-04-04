@@ -49,7 +49,7 @@ func scan_obstacle():
 		obstacle.init_pushable_diretion(grid)
 	print("From O.M: Obstacles's size:", obstacles.size())
 
-func _on_osbtacle_destroyed(_local_pos: Vector2i):
+func _on_osbtacle_destroyed(_local_pos: Vector2i, _character: Character):
 	print("From O.M: Connected with Destroyed signal")
 	scan_obstacle()
 

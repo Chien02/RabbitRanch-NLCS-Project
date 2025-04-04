@@ -8,6 +8,7 @@
 size = Vector2(12, 12)
 
 [node name="Rice" type="Node2D" groups=["Food", "Item"]]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_dpdhd")
 resource = ExtResource("2_oqgyw")

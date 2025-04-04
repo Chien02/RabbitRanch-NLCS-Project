@@ -4,7 +4,6 @@ class_name Trap
 
 @export var animation_player : AnimationPlayer
 @export var area : Area2D
-var is_activating : bool = false
 
 func _ready() -> void:
 	if !animation_player: return
