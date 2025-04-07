@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://mo2bbpmo4c5p"]
+
+[ext_resource type="Script" uid="uid://deahbo7d1f7ms" path="res://Scripts/Components/health_component.gd" id="1_dgvmk"]
+[ext_resource type="Resource" uid="uid://ch6365tvny84n" path="res://Scripts/Components/Component's Resources/health_resource.tres" id="2_atona"]
+
+[node name="HealthComponent" type="Node2D" node_paths=PackedStringArray("heart_textures")]
+texture_filter = 1
+script = ExtResource("1_dgvmk")
+heart_textures = [null, null, null]
+health_resource = ExtResource("2_atona")

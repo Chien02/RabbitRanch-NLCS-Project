@@ -2,7 +2,7 @@ extends Node2D
 
 class_name BaseState
 
-var character
+var character : Character
 
 signal SwitchState
 

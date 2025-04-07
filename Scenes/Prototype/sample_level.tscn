@@ -1422,8 +1422,9 @@ position = Vector2(120, 168)
 option = "not_ignore"
 grid = NodePath("../../TileMap")
 
-[node name="Wolf" parent="TurnBasedManager" instance=ExtResource("5_oyglk")]
+[node name="Wolf" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("5_oyglk")]
 position = Vector2(280, 168)
+grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management", "item_manager") groups=["Grid"]]
 y_sort_enabled = true

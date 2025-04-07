@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://q0rr0jfkvl0c"]
+
+[ext_resource type="Texture2D" uid="uid://d4c7al4xqubsi" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/heart.png" id="1_ntv2u"]
+
+[node name="HeartSprite" type="Sprite2D"]
+texture = ExtResource("1_ntv2u")

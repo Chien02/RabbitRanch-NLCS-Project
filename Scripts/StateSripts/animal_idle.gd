@@ -3,11 +3,19 @@ extends Idle
 class_name IdleAnimal
 
 var paths : Array[TilePath] = []
-var flag : bool = false
+var find_path_flag : bool = false
 var do_special: bool = false
 
+func _ready() -> void:
+	if !character:
+		print("From AnimalIdle: Cannot connect to character")
+		return
+	if character.is_in_group("Wolf"):
+		character.health.Hurted.connect(_switch_to_hurt)
+		character.health.Died.connect(_switch_to_die)
+
 func enter_state():
-	flag = false
+	find_path_flag = false
 	character.grid.rescan()
 	print("-----From Animal Idle: Enter Idle state")
 
@@ -16,45 +24,41 @@ func exit_state():
 	print("From Animal Idle: Exit Idle state")
 
 func update_state(): # Overriding
-	if character is Animal:
-		if !character.turnbase_actor.is_active or flag: return
-		if character.is_stun: 
-			character.turnbase_actor.emit_endturn()
-			return
+	if !character.turnbase_actor.is_active or find_path_flag:
+		return
+	if character.is_stun:
+		character.turnbase_actor.emit_endturn()
+		return
 	
 	finding_path()
+	
 	if paths.is_empty():
-		print("From idle animal: Could not find the paths") # For debugging
+		print("From AnimalIdle: Could not find the paths") # For debugging
 		SwitchState.emit(self, "wondering")
+		return
 	
-	elif !paths.is_empty():
-		if character is Animal:
-			if not character.is_option_ignore():
-				check_next_step()
-			else:
-				switch_to("walking")
-		# For debugging
-		flag = true # Turn on flag for stopping the loop of find path
-	
-	# Check the next step is a breakable object or not
-	# If it's true then switch to special state, else just ignore it
+	# If it's not ignore that means it want to break something it's facing
+	# Else just walk and not check
+	match character.is_option_ignore():
+		true: switch_to_walk()
+		false: check_next_step()
 
-func switch_to(state_name: String):
-		var duration = 0.5
-		var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)
-		if character is Animal:
-			character.character_controller.move_to(character, next_pos, duration)
-			if character.character_controller.is_walking:
-				SwitchState.emit(self, state_name)
+	find_path_flag = true
+
+func switch_to_walk():
+	var duration = 0.5
+	var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)
+	
+	character.character_controller.move_to(character, next_pos, duration)
+	if character.character_controller.is_walking:
+		SwitchState.emit(self, "walking")
 
 func finding_path():
 	paths.clear()
-	if character is Animal:
-		var animal = character
-		paths = animal.astar.get_the_path(animal.option, animal.mode)
+	paths = character.astar.get_the_path(character.option, character.mode)
 
 func check_next_step():
-	if paths.is_empty() or flag: return
+	if paths.is_empty() or find_path_flag: return
 	
 	var next_tile_index : int = paths.size()-2
 	var next_tile : TilePath = paths[next_tile_index]
@@ -69,4 +73,13 @@ func check_next_step():
 				character.breakable_obstacle = obs
 				SwitchState.emit(self, "special")
 	if temp_obs == null:
-		switch_to("walking")
+		switch_to_walk()
+
+func _switch_to_hurt():
+	# Turn off all flag
+	find_path_flag = true
+	SwitchState.emit(self, "hurting")
+
+func _switch_to_die():
+	find_path_flag = true
+	# Actually do nothing in here 'cause

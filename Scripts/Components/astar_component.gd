@@ -9,6 +9,7 @@ var grid : Grid
 var paths : Array[TilePath] = []
 var open : Array[TilePath] = []
 var close : Array[TilePath] = []
+var destination : Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
 	if get_parent().is_in_group("Entity"):
@@ -21,16 +22,20 @@ func reset():
 	open.clear()
 	close.clear()
 
-func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
+func get_the_path(option: String = "ignore", mode: String = "not_diagonal", _des: Vector2i = Vector2i.ZERO):
 	paths.clear()
-	if grid.destination == Vector2i.ZERO or !grid.is_path(grid.destination):
-		print("Could not find destination")
-		return paths
-	astar_ignore(option, mode)
 	
-	if close.is_empty():
+	# If doesn't has destination or destination is under an obstacle, then cannot find the path
+	if grid.destination == Vector2i.ZERO or !grid.is_path(grid.destination):
+		print("From Astar: Could not find destination")
 		return paths
-	paths.append(close[close.size() - 1]) # Thêm node có vị trí đích đến
+	
+	astar_ignore(option, mode, _des)
+	# Close is empty that's mean there isn't have any validated tile
+	if close.is_empty(): return paths
+	
+	# Thêm node có vị trí đích đến
+	paths.append(close[close.size() - 1]) 
 	
 	# Dò ngược tìm đường đi
 	var index : int = 1
@@ -42,7 +47,7 @@ func get_the_path(option: String = "ignore", mode: String = "not_diagonal"):
 		#print("path: ", path.position, " - is_path: ", path.is_path, " - is_player_zone: ", path.is_player_zone)
 	return paths
 
-func astar_ignore(_option: String, _mode: String):
+func astar_ignore(_option: String, _mode: String, _des: Vector2i):
 	if not character: return
 	if not grid: return
 	
@@ -57,7 +62,8 @@ func astar_ignore(_option: String, _mode: String):
 		#print("A* pop at: ", current_tile.position, " with f: ", current_tile.f) # debug
 		var neighbors = get_surrounding_tile(current_tile, _option, _mode)
 		for neighbor in neighbors:
-			if neighbor.position == grid.destination:
+			destination = _des if _des != Vector2i.ZERO else grid.destination
+			if neighbor.position == destination:
 				close.append(neighbor)
 				#print("------------Found destination-------")
 				return

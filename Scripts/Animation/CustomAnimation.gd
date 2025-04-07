@@ -31,3 +31,11 @@ func disappear(_object, duration: float):
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
 	tween.tween_property(_object, "scale", Vector2.ZERO, duration)
 	await get_tree().create_timer(duration).timeout
+
+func jump_up(_object, up_pos: Vector2, duration: float):
+	var last_position = _object.position
+	var half_duration : float = duration / 2.0
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(_object, "position", _object.position + up_pos, half_duration)
+	tween.tween_property(_object, "position", last_position, half_duration)
+	await get_tree().create_timer(duration).timeout

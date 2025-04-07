@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 func get_animal():
 	var actors = turnbase_manager.actor
 	for actor in actors:
-		if actor is Animal:
+		if actor is Animal and !actor.is_in_group("Wolf"):
 			animals[actor.name] = {
 				"is_caught": false
 			}

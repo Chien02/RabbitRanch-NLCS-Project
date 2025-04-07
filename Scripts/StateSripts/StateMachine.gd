@@ -3,7 +3,7 @@ extends Node2D
 class_name StateMachine
 
 @export var initial_state : BaseState
-var character
+var character : Character
 var states : Dictionary = {}
 var current_state : BaseState
 

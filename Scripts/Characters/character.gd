@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Character
 
+@export var health : Health
+
 signal OutOfStunned
 
 var is_stun : bool = false
@@ -33,3 +35,6 @@ func _on_enter_turn(num: int):
 
 func set_character_visible(_bool: bool):
 	visible = _bool
+
+func _on_health_die():
+	print("From ", name, ": Dieeeeeeee")
