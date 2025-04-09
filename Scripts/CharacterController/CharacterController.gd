@@ -49,6 +49,8 @@ func check_direction(character, dir: Vector2):
 
 func move_to(_object, next_pos: Vector2, duration: float):
 	is_walking = true
+	if _object is Character:
+		_object.facing_direction = (next_pos - _object.position).normalized()
 	CustomTween.movement(_object, next_pos, duration)
 	await _object.get_tree().create_timer(duration).timeout
 	is_walking = false

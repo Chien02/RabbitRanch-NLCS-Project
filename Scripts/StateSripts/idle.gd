@@ -39,5 +39,8 @@ func check_caught_animal():
 		var current_local_pos = grid.local_to_map(character.position)
 		var actors = turnbase_manager.actor
 		for actor in actors:
-			if actor is Animal and grid.local_to_map(actor.position) == current_local_pos:
+			if actor == null: 
+				actors.erase(actor)
+				continue
+			if actor is Animal and actor is not Wolf and grid.local_to_map(actor.position) == current_local_pos:
 				level_manager.caught_animal(actor.name)

@@ -125,11 +125,18 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		calculate_heuristic(tile, _mode, _option)
 		tile.calculate_f()
 		
+		var obstacle_manager : ObstacleManagement = get_tree().get_first_node_in_group("ObsManager")
+		var obstacle : Obstacle = obstacle_manager.get_obstacle_at(tile.position)
+		
 		# Adding the tile that suitable for open
 		if grid.is_within_grid(tile.position):
-			# not_ignore
-			if _option == "not_ignore":
-				if !tile.is_player_zone:
+			# Ignore all the obstacle, except unbreakable obstacle
+			if _option == "not_ignore" and !tile.is_player_zone:
+				if obstacle != null and !obstacle.is_breakable():
+					continue
+				elif obstacle and obstacle.is_breakable():
+					surrounding_tile.append(tile)
+				elif obstacle == null:
 					surrounding_tile.append(tile)
 			# ignore
 			elif _option == "ignore":

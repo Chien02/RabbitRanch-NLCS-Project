@@ -76,8 +76,8 @@ func spawn_logs():
 		# Check that position is spawnable or not
 		for _log in logs:
 			if !grid.is_path(_log) or actors_pos.has(_log):
-				print("From BigTree: Overlay on obstacle at ", log)
-				logs.erase(log)
+				print("From BigTree: Overlay on obstacle at ", _log)
+				logs.erase(_log)
 			else:
 				var new_log : Obstacle = load(log_link).instantiate()
 				new_log.global_spawn = grid.map_to_local(_log)

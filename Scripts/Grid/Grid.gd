@@ -36,11 +36,19 @@ func rescan(player_zone: Array[Vector2i] = []):
 	print("From Grid: Grid rescaned")
 
 func init_grid():
+	# Check for the water
+	var water_layer : TileMapLayer = $Water
+	var water_source_id : int = 0
+	var filling_water : Vector2i = Vector2i(10, 0)
+	var is_water : bool = false
+		
 	# Init for the path
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
+			is_water = water_layer != null and water_layer.get_cell_source_id(Vector2i(x, y)) == water_source_id and water_layer.get_cell_atlas_coords(Vector2i(x, y)) != filling_water
+			
 			cells[str(Vector2i(x, y))] = {
-				"is_path" = true,
+				"is_path" = !is_water,
 				"player_zone" = false
 			}
 
@@ -103,8 +111,10 @@ func is_within_grid(_position: Vector2i) -> bool:
 	var inside_y = local_coord.y < max_y_size-1 and local_coord.y >= 0
 	return inside_x and inside_y
 
+
 func is_path(local_pos: Vector2i):
-	return not obstacles_management.is_obstcle_pos(local_pos)
+	return not obstacles_management.is_obstcle_pos(local_pos) and cells[str(local_pos)]["is_path"]
+
 
 func is_player_zone(local_pos: Vector2i):
 	return cells[str(local_pos)]["player_zone"]

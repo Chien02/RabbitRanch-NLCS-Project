@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf4llhlbhqt3f"]
+
+[ext_resource type="Texture2D" uid="uid://d1udqquh12047" path="res://Sprites/GUI/sign.png" id="1_joiu0"]
+[ext_resource type="Script" uid="uid://c31c35vrmiwig" path="res://Scripts/GUI/foot_step_sign.gd" id="2_ao4xg"]
+[ext_resource type="Texture2D" uid="uid://bwkrlvcvawrje" path="res://Sprites/GUI/green_foot_step.png" id="2_nft3d"]
+[ext_resource type="Texture2D" uid="uid://b2kpv8e6cgotp" path="res://Sprites/GUI/red_foot_step.png" id="3_ao4xg"]
+
+[node name="FootStepSign" type="TextureRect" node_paths=PackedStringArray("label", "foot_step_texure")]
+texture_filter = 1
+texture = ExtResource("1_joiu0")
+script = ExtResource("2_ao4xg")
+label = NodePath("HBoxContainer/Label")
+foot_step_texure = NodePath("HBoxContainer/FootStep")
+red_food_step_texure = ExtResource("3_ao4xg")
+green_food_step_texture = ExtResource("2_nft3d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 27.0
+offset_bottom = 22.0
+
+[node name="FootStep" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_nft3d")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "2"

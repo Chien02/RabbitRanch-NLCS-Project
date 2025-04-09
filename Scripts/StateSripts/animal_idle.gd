@@ -47,10 +47,17 @@ func update_state(): # Overriding
 
 func switch_to_walk():
 	var duration = 0.5
-	var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)
+	if paths.is_empty():
+		print("From ", character.name, ": Cannot switch to walk")
+		character.turnbase_actor.emit_endturn()
 	
-	character.character_controller.move_to(character, next_pos, duration)
-	if character.character_controller.is_walking:
+	if character is not Wolf:
+		var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)
+		character.character_controller.move_to(character, next_pos, duration)
+		if character.character_controller.is_walking:
+			SwitchState.emit(self, "walking")
+	else:
+		character.paths = paths
 		SwitchState.emit(self, "walking")
 
 func finding_path():
@@ -83,3 +90,16 @@ func _switch_to_hurt():
 func _switch_to_die():
 	find_path_flag = true
 	# Actually do nothing in here 'cause
+
+func get_surrounding_zone():
+	var local_pos = character.grid.local_to_map(character.position)
+	var min_local = local_pos + Vector2i(-1, -1)
+	var max_local = local_pos + Vector2i(2, 2)
+	var surrounding_zone : Array[Vector2i] = []
+	
+	# Init the zone, it must be recreate every single turn
+	for x in range(min_local.x, max_local.x):
+		for y in range(min_local.y, max_local.y):
+			surrounding_zone.append(Vector2i(x, y))
+	
+	return surrounding_zone

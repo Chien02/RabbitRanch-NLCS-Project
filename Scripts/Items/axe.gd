@@ -37,3 +37,4 @@ func check_local_pos(local_pos: Vector2i):
 				await character.get_tree().create_timer(resource.duration).timeout
 				character.tooling = false
 				is_activating = false
+	is_activating = false

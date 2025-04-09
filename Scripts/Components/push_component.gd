@@ -46,6 +46,7 @@ func pushing_check() -> void:
 func is_overlap_actor(pos: Vector2i):
 	# Check in character list
 	for actor in turnbase_manager.actor:
+		if actor == null: continue
 		var local_actor = grid.local_to_map(actor.position)
 		if local_actor == pos:
 			return true

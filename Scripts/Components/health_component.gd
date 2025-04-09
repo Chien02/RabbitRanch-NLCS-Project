@@ -15,9 +15,11 @@ signal Hurted
 
 func _ready() -> void:
 	current_health = max_health
+	visible_heart(false)
 
 func damage(value: int):
 	current_health -= abs(value)
+	visible_heart(true) # Just appear heart when get hurt, after 2s next it would be disappeared
 	check_ui_heal(value)
 	
 	if current_health <= 0:
@@ -36,7 +38,7 @@ func check_ui_heal(_damage: int):
 		print("From ", get_parent().name, ": heart_textures is empty")
 		return
 	
-	var step : int = int(_damage / 5)
+	var step : int = int(_damage) / 5
 	var duration : float = 0.25
 	var pop_up_position : Vector2 = Vector2(0, -4)
 	for index in range(0, step):
@@ -52,7 +54,17 @@ func check_ui_heal(_damage: int):
 					await CustomTween.jump_up(heart_textures[jndex], pop_up_position, duration)
 					heart_textures[jndex].texture = null
 					break
+	await get_tree().create_timer(2).timeout
+	visible_heart(false)
 
 func load_health(_current_health: int, _max_health: int = 100):
 	current_health = _current_health
 	max_health = _max_health
+
+func visible_heart(value: bool):
+	if heart_textures.is_empty():
+		print("From Health: heart textures is empty")
+		return
+	
+	for heart in heart_textures:
+		heart.visible = value

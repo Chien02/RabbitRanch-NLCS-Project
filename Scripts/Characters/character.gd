@@ -3,6 +3,7 @@ extends CharacterBody2D
 class_name Character
 
 @export var health : Health
+@export var foot_step_sign : FootStep
 
 signal OutOfStunned
 

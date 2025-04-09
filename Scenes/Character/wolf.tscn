@@ -1,17 +1,18 @@
-[gd_scene load_steps=58 format=3 uid="uid://b3nx8cbk04qm5"]
+[gd_scene load_steps=59 format=3 uid="uid://b3nx8cbk04qm5"]
 
+[ext_resource type="Script" uid="uid://cml0adabp3dye" path="res://Scripts/Characters/wolf.gd" id="1_f1jl7"]
 [ext_resource type="PackedScene" uid="uid://dgbehmkbqx6xp" path="res://Scenes/Components/astar_component.tscn" id="1_hgf11"]
-[ext_resource type="Script" uid="uid://b0ui0vb6htv5k" path="res://Scripts/Characters/animal.gd" id="1_llsn1"]
 [ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="3_lug60"]
-[ext_resource type="Script" uid="uid://bnc1ukqjrd8e1" path="res://Scripts/StateSripts/walking.gd" id="3_vkrxq"]
 [ext_resource type="Script" uid="uid://dt0fjqfl1gmeo" path="res://Scripts/StateSripts/wolf_idle.gd" id="4_f1jl7"]
 [ext_resource type="Texture2D" uid="uid://d144v8582a74d" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/wolf-sheet.png" id="4_vkrxq"]
+[ext_resource type="Script" uid="uid://l7ws02ilg3no" path="res://Scripts/StateSripts/wolf_walking.gd" id="5_f1jl7"]
 [ext_resource type="Script" uid="uid://cyfe374j21w2m" path="res://Scripts/StateSripts/bitting.gd" id="7_8lal6"]
 [ext_resource type="Script" uid="uid://cp0byung7win8" path="res://Scripts/StateSripts/hurting.gd" id="8_nhdyd"]
 [ext_resource type="Script" uid="uid://cgikqv6l3b2qt" path="res://Scripts/StateSripts/charging.gd" id="9_uphwy"]
 [ext_resource type="Script" uid="uid://ca21o0ndhfolc" path="res://Scripts/Animation/WolfAnimationControl.gd" id="10_nhdyd"]
 [ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="11_vhf1n"]
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="12_f1jl7"]
+[ext_resource type="PackedScene" uid="uid://cf4llhlbhqt3f" path="res://Scenes/GUI/foot_step_sign.tscn" id="13_uphwy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpd6o"]
 size = Vector2(14, 14)
@@ -244,7 +245,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_llsn1"]
 length = 0.666667
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -367,8 +367,8 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tiko6"]
 animation = &"biting"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6xyoo"]
-animation = &"hurt"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1jl7"]
+animation = &"hurting"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vkrxq"]
 animation = &"idle"
@@ -398,14 +398,6 @@ advance_condition = &"is_biting"
 advance_mode = 2
 advance_condition = &"is_idling"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fh5l7"]
-advance_mode = 2
-advance_condition = &"is_hurting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eqfae"]
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t5s3c"]
 advance_mode = 2
 advance_condition = &"is_smiling"
@@ -414,25 +406,35 @@ advance_condition = &"is_smiling"
 advance_mode = 2
 advance_condition = &"is_idling"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uphwy"]
+advance_mode = 2
+advance_condition = &"is_hurting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uyn40"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0ybus"]
 states/biting/node = SubResource("AnimationNodeAnimation_tiko6")
 states/biting/position = Vector2(709, 76)
-states/hurt/node = SubResource("AnimationNodeAnimation_6xyoo")
-states/hurt/position = Vector2(547, 197)
+states/hurting/node = SubResource("AnimationNodeAnimation_f1jl7")
+states/hurting/position = Vector2(455, 199)
 states/idle/node = SubResource("AnimationNodeAnimation_vkrxq")
 states/idle/position = Vector2(357, 100)
 states/smiling/node = SubResource("AnimationNodeAnimation_xjgc4")
 states/smiling/position = Vector2(709, 156)
 states/walking/node = SubResource("AnimationNodeAnimation_x1eyk")
 states/walking/position = Vector2(508, 37)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vkrxq"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_ojh52"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_5itog"), "idle", "biting", SubResource("AnimationNodeStateMachineTransition_c68x3"), "biting", "idle", SubResource("AnimationNodeStateMachineTransition_3dnlj"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_fh5l7"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_eqfae"), "idle", "smiling", SubResource("AnimationNodeStateMachineTransition_t5s3c"), "smiling", "idle", SubResource("AnimationNodeStateMachineTransition_h8h63")]
-graph_offset = Vector2(43, 0)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vkrxq"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_ojh52"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_5itog"), "idle", "biting", SubResource("AnimationNodeStateMachineTransition_c68x3"), "biting", "idle", SubResource("AnimationNodeStateMachineTransition_3dnlj"), "idle", "smiling", SubResource("AnimationNodeStateMachineTransition_t5s3c"), "smiling", "idle", SubResource("AnimationNodeStateMachineTransition_h8h63"), "idle", "hurting", SubResource("AnimationNodeStateMachineTransition_uphwy"), "hurting", "idle", SubResource("AnimationNodeStateMachineTransition_uyn40")]
+graph_offset = Vector2(83, 50)
 
-[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health") groups=["Animal", "Entity", "Wolf"]]
+[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "foot_step_sign") groups=["Animal", "Entity", "Wolf"]]
+z_index = 5
 texture_filter = 1
-script = ExtResource("1_llsn1")
+script = ExtResource("1_f1jl7")
 astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
+foot_step_sign = NodePath("Control/FootStepSign")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bpd6o")
@@ -453,9 +455,9 @@ initial_state = NodePath("Idle")
 script = ExtResource("4_f1jl7")
 
 [node name="Walking" type="Node2D" parent="StateMachine"]
-script = ExtResource("3_vkrxq")
+script = ExtResource("5_f1jl7")
 
-[node name="Biting" type="Node2D" parent="StateMachine"]
+[node name="Bitting" type="Node2D" parent="StateMachine"]
 script = ExtResource("7_8lal6")
 
 [node name="Hurting" type="Node2D" parent="StateMachine"]
@@ -474,7 +476,6 @@ character = NodePath("..")
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_0ybus")
 animation = &"idle"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -506,3 +507,16 @@ position = Vector2(20, 0)
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
 zoom = Vector2(8.275, 8.275)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FootStepSign" parent="Control" instance=ExtResource("13_uphwy")]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -37.0
+offset_right = 16.0
+offset_bottom = -5.0

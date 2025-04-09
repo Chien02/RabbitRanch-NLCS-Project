@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ce3xwr67jo63y"]
+[gd_scene load_steps=25 format=3 uid="uid://ce3xwr67jo63y"]
 
 [ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_jniy7"]
 [ext_resource type="Texture2D" uid="uid://b5loi7omk4uyg" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="2_5rta3"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bnc1ukqjrd8e1" path="res://Scripts/StateSripts/walking.gd" id="4_xasdf"]
 [ext_resource type="Script" uid="uid://dgkqmgjge1x4p" path="res://Scripts/StateSripts/wondering.gd" id="5_dpnad"]
 [ext_resource type="Script" uid="uid://bdtcw5snkc1mv" path="res://Scripts/StateSripts/breaking.gd" id="6_qu8rs"]
+[ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="8_qu8rs"]
+[ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="9_3prio"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kjspb"]
 atlas = ExtResource("2_5rta3")
@@ -143,10 +145,11 @@ states/walking/node = SubResource("AnimationNodeAnimation_ab133")
 states/walking/position = Vector2(525, 92)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_xasdf"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_dpnad"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_qu8rs")]
 
-[node name="Cow" node_paths=PackedStringArray("astar") instance=ExtResource("1_jniy7")]
+[node name="Cow" node_paths=PackedStringArray("astar", "health") instance=ExtResource("1_jniy7")]
 z_index = 5
 y_sort_enabled = true
 astar = NodePath("AstarComponent")
+health = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" parent="." index="0"]
 disabled = false
@@ -157,6 +160,7 @@ animation_tree = NodePath("../AnimationTree")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
 sprite_frames = SubResource("SpriteFrames_dpnad")
 animation = &"idle"
+frame = 2
 offset = Vector2(0, -4)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
@@ -189,3 +193,15 @@ metadata/_custom_type_script = "uid://dgkqmgjge1x4p"
 [node name="Special" type="Node2D" parent="StateMachine" index="3"]
 script = ExtResource("6_qu8rs")
 metadata/_custom_type_script = "uid://bluc2quc7md4n"
+
+[node name="HealthComponent" parent="." index="8" node_paths=PackedStringArray("heart_textures") instance=ExtResource("8_qu8rs")]
+position = Vector2(0, -13)
+heart_textures = [NodePath("HeartSprite"), NodePath("HeartSprite2"), NodePath("HeartSprite3")]
+
+[node name="HeartSprite" parent="HealthComponent" index="0" instance=ExtResource("9_3prio")]
+position = Vector2(-10, 0)
+
+[node name="HeartSprite2" parent="HealthComponent" index="1" instance=ExtResource("9_3prio")]
+
+[node name="HeartSprite3" parent="HealthComponent" index="2" instance=ExtResource("9_3prio")]
+position = Vector2(10, 0)

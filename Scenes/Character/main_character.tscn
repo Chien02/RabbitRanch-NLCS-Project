@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://bg1iiqsskh3fn"]
+[gd_scene load_steps=86 format=3 uid="uid://bg1iiqsskh3fn"]
 
 [ext_resource type="Script" uid="uid://ccliahv1c3bnd" path="res://Scenes/Character/Main_character.gd" id="1_x1ua0"]
 [ext_resource type="Texture2D" uid="uid://dhe6ehshltn7a" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="2_0eraa"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://byqxrlsexth5u" path="res://Scenes/Character/AnimationControl.gd" id="6_6qd1f"]
 [ext_resource type="PackedScene" uid="uid://b4ifcppc3u03i" path="res://Scenes/TurnBased/turn_based_actor.tscn" id="7_a0nku"]
 [ext_resource type="Script" uid="uid://bgn318lgfxhjf" path="res://Scripts/Components/inventory.gd" id="10_e3nb3"]
+[ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="11_74o7b"]
+[ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="12_kqtv2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb5bw"]
 size = Vector2(12, 12)
@@ -833,19 +835,32 @@ grow_vertical = 2
 scale = Vector2(0.300943, 0.37569)
 
 [node name="Label" type="Label" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = -32.0
-offset_right = 56.0
-offset_bottom = -9.0
+offset_left = -56.5518
+offset_top = -57.2648
+offset_right = 55.4482
+offset_bottom = -34.2648
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(56, 12)
 text = "can_walk: true"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("heart_textures") instance=ExtResource("11_74o7b")]
+position = Vector2(0, -16)
+heart_textures = [NodePath("HeartSprite"), NodePath("HeartSprite2"), NodePath("HeartSprite3")]
+
+[node name="HeartSprite" parent="HealthComponent" instance=ExtResource("12_kqtv2")]
+position = Vector2(-10, 0)
+
+[node name="HeartSprite2" parent="HealthComponent" instance=ExtResource("12_kqtv2")]
+
+[node name="HeartSprite3" parent="HealthComponent" instance=ExtResource("12_kqtv2")]
+position = Vector2(10, 0)
