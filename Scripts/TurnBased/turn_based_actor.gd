@@ -3,17 +3,22 @@ extends Node2D
 class_name TurnBaseActor
 
 var is_active : bool = false
+var character : Character
 
 signal EnterTurn
 signal EndTurn
 
-func active():
-	is_active = not is_active
-	if is_active:
-		EnterTurn.emit(1)
-		print("From ", name, ": emit end turn")
+func _init(_character: Character = null) -> void:
+	character = _character
 
-func emit_endturn():
-	active()
-	print("---------------[End turn: MainCaracter]---------------")
-	EndTurn.emit()
+func active():
+	is_active = true
+	EnterTurn.emit(1)
+	if !character: return
+	print("---------------[Enter turn: ", character.name,"]---------------")
+
+func emit_endturn(_value: String = ""):
+	is_active = false
+	print("From ", character.name, ": Reason why I end turn is " + _value)
+	print("---------------[End turn: ", character.name,"]---------------")
+	EndTurn.emit(character)

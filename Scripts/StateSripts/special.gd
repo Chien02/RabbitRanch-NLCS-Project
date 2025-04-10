@@ -2,7 +2,7 @@ extends BaseState
 
 class_name Special
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	print("Enter special state")
 
 func exit_state():

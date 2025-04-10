@@ -4,7 +4,7 @@ class_name Wondering
 
 var random_choice = -1
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	print(character.name, " enter wondering state")
 	reset()
 
@@ -28,21 +28,52 @@ func switch_to():
 func switch_to_idle():
 	SwitchState.emit(self, "idle")
 	if character is Animal:
-		character.turnbase_actor.emit_endturn()
+		character.turnbase_actor.emit_endturn("I finished Wondering")
 
 func switch_to_walk():
 	if character is Animal:
 		var duration = 0.5
+		var counter_loop = 0
+		var max_counter_loop = 8
+		# Tạo khu vực xung quanh và chọn đường đi khả dụng trong đó
 		var neighbors : Array[Vector2i] = character.grid.get_surrounding_cells(character.grid.local_to_map(character.position))
 		var flag : bool = false
-		while (flag == false):
+		while (flag == false and counter_loop < max_counter_loop):
+			counter_loop += 1
+			
+			# Chọn ngẫu nhiên một vùng trong đó
 			var index = randi_range(0, neighbors.size()-1)
 			print("random number is : ", index)
-			if character.grid.is_within_grid(neighbors[index]):
-				if character.grid.is_path(neighbors[index]):
-					var next_pos = character.grid.map_to_local(neighbors[index])
-					print("Wondering state: go random to next_pos: ", next_pos)
-					character.character_controller.move_to(character, next_pos, duration)
-					if character.character_controller.is_walking:
-						SwitchState.emit(self, "walking")
-						flag = true
+			
+			# Kiểm tra vùng đã chọn, nếu không có vùng nào thỏa việc chọn ngẫu nhiên sẽ được lặp lại
+			if !character.grid.is_within_grid(neighbors[index]): continue
+			if !character.grid.is_path(neighbors[index]): continue
+			
+			# Kiểm tra xem có trùng vị trí với người chơi hoặc sói không
+			var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
+			var wolf_flag : bool = false
+			for wolf in wolve_manager.wolve:
+				if character.grid.local_to_map(wolf.position) == neighbors[index]:
+					wolf_flag = true
+					break
+			if wolf_flag: continue
+			
+			var players : Array[Node] = get_tree().get_nodes_in_group("MainCharacter")
+			var player_flag : bool = false
+			for player in players:
+				if player.grid.local_to_map(player.position) == neighbors[index]:
+					player_flag = true
+					break
+			if player_flag: continue
+			
+			var next_pos = character.grid.map_to_local(neighbors[index])
+			print("Wondering state: go random to next_pos: ", next_pos)
+			
+			character.character_controller.move_to(character, next_pos, duration)
+			if !character.character_controller.is_walking: continue
+			SwitchState.emit(self, "walking")
+			flag = true
+		
+		# Trường hợp sau vòng lặp mà không tìm được đường đi thì kết thúc lượt luôn
+		character.turnbase_actor.emit_endturn("I stopped find wondering path")
+		SwitchState.emit(self, "idle")

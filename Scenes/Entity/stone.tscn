@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cdci557acxkm3" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Stone.png" id="2_oxouh"]
 
 [node name="Stone" instance=ExtResource("1_g4gew")]
-y_sort_enabled = true
 breakable = false
 pushable = false
 

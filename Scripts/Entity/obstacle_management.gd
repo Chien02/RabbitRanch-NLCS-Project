@@ -47,7 +47,7 @@ func scan_obstacle():
 			continue
 		#print("From O.M: init obstacle at", grid.local_to_map(obstacle.position))
 		obstacle.init_pushable_diretion(grid)
-	print("From O.M: Obstacles's size:", obstacles.size())
+	#print("From O.M: Obstacles's size:", obstacles.size())
 
 func _on_osbtacle_destroyed(_local_pos: Vector2i, _character: Character):
 	print("From O.M: Connected with Destroyed signal")

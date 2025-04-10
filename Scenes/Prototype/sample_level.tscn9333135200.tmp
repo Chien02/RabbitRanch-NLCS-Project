@@ -1426,7 +1426,7 @@ position = Vector2(280, 168)
 grid = NodePath("../../TileMap")
 
 [node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("6_4mmwh")]
-position = Vector2(265, 168)
+position = Vector2(248, 168)
 mode = "not_diagonal"
 option = "ignore"
 grid = NodePath("../../TileMap")

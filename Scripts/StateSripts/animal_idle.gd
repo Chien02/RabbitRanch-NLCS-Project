@@ -8,32 +8,32 @@ var do_special: bool = false
 
 func _ready() -> void:
 	if !character:
-		print("From AnimalIdle: Cannot connect to character")
+		print("From Animal no name Idle: Cannot connect to character")
 		return
 	if character.is_in_group("Wolf"):
 		character.health.Hurted.connect(_switch_to_hurt)
 		character.health.Died.connect(_switch_to_die)
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	find_path_flag = false
 	character.grid.rescan()
-	print("-----From Animal Idle: Enter Idle state")
+	print("From ", character.name," Idle: Enter Idle state")
 
 func exit_state():
 	character.grid.clear_layer(4)
-	print("From Animal Idle: Exit Idle state")
+	print("From ", character.name," Idle: Exit Idle state")
 
 func update_state(): # Overriding
 	if !character.turnbase_actor.is_active or find_path_flag:
 		return
 	if character.is_stun:
-		character.turnbase_actor.emit_endturn()
+		character.turnbase_actor.emit_endturn(" I'm get stunned")
 		return
 	
 	finding_path()
 	
 	if paths.is_empty():
-		print("From AnimalIdle: Could not find the paths") # For debugging
+		print("From ", character.name," Idle: Could not find the paths") # For debugging
 		SwitchState.emit(self, "wondering")
 		return
 	
@@ -48,17 +48,15 @@ func update_state(): # Overriding
 func switch_to_walk():
 	var duration = 0.5
 	if paths.is_empty():
-		print("From ", character.name, ": Cannot switch to walk")
-		character.turnbase_actor.emit_endturn()
+		print("From ", character.name, " Idle : Cannot switch to walk")
+		character.turnbase_actor.emit_endturn("I could walk because paths is empty")
 	
 	if character is not Wolf:
 		var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)
 		character.character_controller.move_to(character, next_pos, duration)
 		if character.character_controller.is_walking:
 			SwitchState.emit(self, "walking")
-	else:
-		character.paths = paths
-		SwitchState.emit(self, "walking")
+
 
 func finding_path():
 	paths.clear()
@@ -76,7 +74,7 @@ func check_next_step():
 		if obs:
 			if next_tile.position == obs.local_position and obs.is_breakable():
 				temp_obs = obs
-				print("Animal Idle: next_tile", obs.local_position," is breakable: ", obs.is_breakable())
+				print("From ", character.name," Idle: next_tile", obs.local_position," is breakable: ", obs.is_breakable())
 				character.breakable_obstacle = obs
 				SwitchState.emit(self, "special")
 	if temp_obs == null:

@@ -4,7 +4,7 @@ class_name Tooling
 
 var tooling : bool = false
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	print("From Tooling: Enter tooling state")
 
 func exit_state():

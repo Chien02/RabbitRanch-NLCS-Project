@@ -33,7 +33,7 @@ func rescan(player_zone: Array[Vector2i] = []):
 	obstacles_management.scan_obstacle()
 	scan_player_zone(player_zone)
 	item_manager.get_items()
-	print("From Grid: Grid rescaned")
+	#print("From Grid: Grid rescaned")
 
 func init_grid():
 	# Check for the water

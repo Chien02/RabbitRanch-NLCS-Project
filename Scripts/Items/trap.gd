@@ -6,6 +6,7 @@ class_name Trap
 @export var area : Area2D
 
 func _ready() -> void:
+	is_selecting = false
 	if !animation_player: return
 	if !is_selecting and character:
 		animation_player.play("trap_open")
@@ -69,5 +70,6 @@ func active():
 
 func throw_item(pos: Vector2):
 	print("From Trap: throwed trap at ", pos)
+	finish_active()
 	# Create new instance of this item
 	character.inventory.drop_item(self, pos)

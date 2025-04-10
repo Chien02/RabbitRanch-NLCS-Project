@@ -5,7 +5,7 @@ class_name Breaking
 @export var duration : float = 1
 var flag : bool = false
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	flag = false
 	print("From Breaking: Enter breaking state")
 

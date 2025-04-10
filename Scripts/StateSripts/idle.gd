@@ -2,12 +2,11 @@ extends BaseState
 
 class_name Idle
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	if character is MainCharacter:
 		print("------From Idle: Main Character enter state")
 		character.init_player_zone()
 		character.grid.rescan(character.player_zone)
-		print("From Idle: rescan the grid")
 		for zone in character.player_zone:
 			character.grid.get_node("Destination").set_cell(zone, 4, Vector2i(0, 0)) # debug
 
@@ -16,11 +15,10 @@ func exit_state():
 	pass
 
 func update_state():
-	if character is MainCharacter:
-		if !character.turnbase_actor.is_active: return
-		if character.is_stun:
-			character.turnbase_actor.emit_endturn()
-			return
+	if !character.turnbase_actor.is_active: return
+	if character.is_stun:
+		character.turnbase_actor.emit_endturn("I'm stunned")
+		return
 
 func physics_update():
 	if !character: return
@@ -39,8 +37,7 @@ func check_caught_animal():
 		var current_local_pos = grid.local_to_map(character.position)
 		var actors = turnbase_manager.actor
 		for actor in actors:
-			if actor == null: 
-				actors.erase(actor)
+			if actor == null:
 				continue
 			if actor is Animal and actor is not Wolf and grid.local_to_map(actor.position) == current_local_pos:
-				level_manager.caught_animal(actor.name)
+				level_manager.animals_manager.caught_animal(actor, AnimalManager.Catcher.PLAYER)

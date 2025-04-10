@@ -39,3 +39,16 @@ func jump_up(_object, up_pos: Vector2, duration: float):
 	tween.tween_property(_object, "position", _object.position + up_pos, half_duration)
 	tween.tween_property(_object, "position", last_position, half_duration)
 	await get_tree().create_timer(duration).timeout
+
+func fade_up(_object, destination: Vector2, duration: float):
+	if !_object.is_visible():
+		_object.set_visible(true)
+	var final_pos : Vector2 = _object.position + destination
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT_IN).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(_object, "position", final_pos, duration)
+	tween.set_parallel().tween_property(_object, "modulate", Color(1, 1, 1, 0), duration)
+	await tween.finished
+	if !_object: return
+	_object.set_visible(false)
+	_object.position = _object.position - destination
+	_object.modulate = Color(1, 1, 1, 1)

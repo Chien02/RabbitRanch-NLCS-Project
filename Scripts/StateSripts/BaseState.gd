@@ -6,7 +6,7 @@ var character : Character
 
 signal SwitchState
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	pass
 
 func exit_state():

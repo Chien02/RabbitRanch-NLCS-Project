@@ -6,17 +6,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78vdk"]
 size = Vector2(16, 16)
 
-[node name="Obstacle" type="RigidBody2D" groups=["Obstacle"]]
+[node name="Obstacle" type="Area2D" groups=["Obstacle"]]
 y_sort_enabled = true
 texture_filter = 1
-gravity_scale = 0.0
 script = ExtResource("1_78vdk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_78vdk")
-disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_brp3y")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

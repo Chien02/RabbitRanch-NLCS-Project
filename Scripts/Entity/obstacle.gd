@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 class_name Obstacle
 
@@ -43,6 +43,3 @@ func destroy(duration: float, _character: Character = null):
 	Destroyed.emit(local_position, _character)
 	if !CustomTween.is_connected("finished", queue_free):
 		CustomTween.connect("finished", queue_free)
-
-func _on_body_entered(_body: Node) -> void:
-	pass

@@ -50,9 +50,13 @@ func _process(_delta: float) -> void:
 		animation_tree["parameters/tool/food/blend_position"] = direction
 
 func tooling(item_name: String):
-	character.tooling = true
 	match item_name:
 		"axe": switch_to_axe()
+		"": switch_to_idle()
+
+func switch_to_idle():
+	animation_tree["parameters/tool/conditions/is_axe"] = false
+	animation_tree["parameters/tool/conditions/is_food"] = false
 
 func switch_to_axe():
 	var is_axe : bool = true

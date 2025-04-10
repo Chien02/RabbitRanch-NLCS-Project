@@ -28,3 +28,5 @@ shape = SubResource("RectangleShape2D_vm1lg")
 script = ExtResource("2_vm1lg")
 
 [node name="AstarComponent" parent="." instance=ExtResource("4_u6t0b")]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

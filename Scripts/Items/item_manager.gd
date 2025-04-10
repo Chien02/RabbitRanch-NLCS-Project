@@ -23,7 +23,7 @@ func scan_items():
 			items_on_field[str(item_local_pos)] = {
 				"is_food": child.resource.is_food
 			}
-	print("From Item Manager: items_on_field: ", items_on_field)
+	#print("From Item Manager: items_on_field: ", items_on_field)
 
 func get_items():
 	scan_items()

@@ -7,10 +7,12 @@ var player_zone : Array[Vector2i] = []
 var facing_direction : Vector2 = Vector2(0, 1)
 var is_look_at_mouse: bool = false
 var tooling : bool = false
+var is_using_item : bool = false
 
 # Component variables
 @export var grid : Grid
 @export var inventory : Inventory
+
 var push : PushComponent
 var character_controller : CharacterController
 
@@ -19,14 +21,20 @@ var main_item_input: String = "tool"
 
 func _ready() -> void:
 	super()
+	turnbase_actor = TurnBaseActor.new(self)
+	turnbase_actor.EnterTurn.connect(_on_enter_turn)
 	character_controller = CharacterController.new()
 	push = PushComponent.new()
 	push.init_variable(self, grid)
 	call_deferred("init_player_zone")
+	if !inventory: return
+	inventory.UsingItem.connect(_on_inventory_using_item)
+	inventory.FinishedUsingItem.connect(_on_inventory_finished_using_item)
 
 func _process(delta: float) -> void:
 	if !turnbase_actor.is_active: return
 	character_controller.movement(self, delta)
+	set_collider_position()
 	# Debugging
 	debug_canwalk()
 
@@ -64,3 +72,30 @@ func debug_canwalk():
 		else:
 			$Control/Label.text = ""
 	
+func set_collider_position():
+	if area == null: return
+	var collider : CollisionShape2D= area.get_child(0)
+	collider.global_position = position + facing_direction * grid.tile_size
+
+
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_area_2d_body_entered(_body: Node2D) -> void:
+	pass # Replace with function body.
+
+func _on_health_die():
+	super()
+	
+	# Phát đi tín hiệu thua
+	var level_manager : LevelManager = get_tree().get_first_node_in_group("LevelManager")
+	await get_tree().create_timer(0.8).timeout
+	level_manager.Loss.emit()
+
+func _on_inventory_using_item(item_name: String):
+	print("From MainCharacter: I'm using ", item_name)
+	is_using_item = true
+
+func _on_inventory_finished_using_item():
+	is_using_item = false

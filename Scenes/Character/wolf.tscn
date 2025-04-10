@@ -12,13 +12,12 @@
 [ext_resource type="Script" uid="uid://ca21o0ndhfolc" path="res://Scripts/Animation/WolfAnimationControl.gd" id="10_nhdyd"]
 [ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="11_vhf1n"]
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="12_f1jl7"]
-[ext_resource type="PackedScene" uid="uid://cf4llhlbhqt3f" path="res://Scenes/GUI/foot_step_sign.tscn" id="13_uphwy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpd6o"]
 size = Vector2(14, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hgf11"]
-size = Vector2(14, 14)
+size = Vector2(45, 45)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8lal6"]
 atlas = ExtResource("4_vkrxq")
@@ -204,8 +203,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_an1sv"]
-length = 0.666667
-loop_mode = 1
+length = 0.67
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -299,8 +297,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_trpc1"]
-length = 0.666667
-loop_mode = 1
+length = 0.67
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -327,7 +324,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_1byvq"]
-length = 0.666667
+length = 0.67
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -395,16 +392,16 @@ advance_mode = 2
 advance_condition = &"is_biting"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3dnlj"]
+switch_mode = 2
 advance_mode = 2
-advance_condition = &"is_idling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t5s3c"]
 advance_mode = 2
 advance_condition = &"is_smiling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h8h63"]
+switch_mode = 2
 advance_mode = 2
-advance_condition = &"is_idling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uphwy"]
 advance_mode = 2
@@ -413,6 +410,10 @@ advance_condition = &"is_hurting"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uyn40"]
 advance_mode = 2
 advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f1jl7"]
+advance_mode = 2
+advance_condition = &"is_bitting"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0ybus"]
 states/biting/node = SubResource("AnimationNodeAnimation_tiko6")
@@ -425,20 +426,20 @@ states/smiling/node = SubResource("AnimationNodeAnimation_xjgc4")
 states/smiling/position = Vector2(709, 156)
 states/walking/node = SubResource("AnimationNodeAnimation_x1eyk")
 states/walking/position = Vector2(508, 37)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vkrxq"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_ojh52"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_5itog"), "idle", "biting", SubResource("AnimationNodeStateMachineTransition_c68x3"), "biting", "idle", SubResource("AnimationNodeStateMachineTransition_3dnlj"), "idle", "smiling", SubResource("AnimationNodeStateMachineTransition_t5s3c"), "smiling", "idle", SubResource("AnimationNodeStateMachineTransition_h8h63"), "idle", "hurting", SubResource("AnimationNodeStateMachineTransition_uphwy"), "hurting", "idle", SubResource("AnimationNodeStateMachineTransition_uyn40")]
-graph_offset = Vector2(83, 50)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vkrxq"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_ojh52"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_5itog"), "idle", "biting", SubResource("AnimationNodeStateMachineTransition_c68x3"), "biting", "idle", SubResource("AnimationNodeStateMachineTransition_3dnlj"), "idle", "smiling", SubResource("AnimationNodeStateMachineTransition_t5s3c"), "smiling", "idle", SubResource("AnimationNodeStateMachineTransition_h8h63"), "idle", "hurting", SubResource("AnimationNodeStateMachineTransition_uphwy"), "hurting", "idle", SubResource("AnimationNodeStateMachineTransition_uyn40"), "walking", "biting", SubResource("AnimationNodeStateMachineTransition_f1jl7")]
+graph_offset = Vector2(65, 36)
 
-[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "foot_step_sign") groups=["Animal", "Entity", "Wolf"]]
+[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "area", "state_machine") groups=["Animal", "Entity", "Wolf"]]
 z_index = 5
 texture_filter = 1
 script = ExtResource("1_f1jl7")
 astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
-foot_step_sign = NodePath("Control/FootStepSign")
+area = NodePath("Area2D")
+state_machine = NodePath("StateMachine")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bpd6o")
-disabled = true
 
 [node name="AstarComponent" parent="." instance=ExtResource("1_hgf11")]
 
@@ -446,6 +447,8 @@ disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_hgf11")
+disabled = true
+debug_color = Color(0.443137, 0.454902, 1, 0.341176)
 
 [node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_lug60")
@@ -457,14 +460,17 @@ script = ExtResource("4_f1jl7")
 [node name="Walking" type="Node2D" parent="StateMachine"]
 script = ExtResource("5_f1jl7")
 
-[node name="Bitting" type="Node2D" parent="StateMachine"]
+[node name="Bitting" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("label")]
 script = ExtResource("7_8lal6")
+label = NodePath("../../Control/Label")
 
 [node name="Hurting" type="Node2D" parent="StateMachine"]
 script = ExtResource("8_nhdyd")
+animation_duration = 0.67
 
-[node name="Charging" type="Node2D" parent="StateMachine"]
+[node name="Charging" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("label")]
 script = ExtResource("9_uphwy")
+label = NodePath("../../Control/Label")
 
 [node name="AnimationControl" type="Node2D" parent="." node_paths=PackedStringArray("animation_player", "animation_tree", "character")]
 script = ExtResource("10_nhdyd")
@@ -476,6 +482,7 @@ character = NodePath("..")
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_0ybus")
 animation = &"idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -486,14 +493,14 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_0ybus")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_biting = false
+parameters/conditions/is_bitting = false
 parameters/conditions/is_hurting = false
 parameters/conditions/is_idling = false
 parameters/conditions/is_smiling = false
 parameters/conditions/is_walking = false
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("heart_textures") instance=ExtResource("11_vhf1n")]
-position = Vector2(-12, -16)
-scale = Vector2(1.2, 1.2)
+position = Vector2(-10, -14)
 heart_textures = [NodePath("HeartSprite"), NodePath("HeartSprite2"), NodePath("HeartSprite3")]
 
 [node name="HeartSprite" parent="HealthComponent" instance=ExtResource("12_f1jl7")]
@@ -504,19 +511,24 @@ position = Vector2(10, 0)
 [node name="HeartSprite3" parent="HealthComponent" instance=ExtResource("12_f1jl7")]
 position = Vector2(20, 0)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
-zoom = Vector2(8.275, 8.275)
-
 [node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(8, 8)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -19.0
+offset_top = -13.0
+offset_right = 21.0
+offset_bottom = 27.0
 
-[node name="FootStepSign" parent="Control" instance=ExtResource("13_uphwy")]
+[node name="Label" type="Label" parent="Control"]
+visible = false
+custom_minimum_size = Vector2(18, 18)
 layout_mode = 0
-offset_left = -16.0
-offset_top = -37.0
-offset_right = 16.0
-offset_bottom = -5.0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 29.0
+offset_bottom = 23.3333
+theme_override_font_sizes/font_size = 16
+text = "+1"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

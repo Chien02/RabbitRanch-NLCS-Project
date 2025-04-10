@@ -4,7 +4,7 @@ class_name Hurting
 
 @export var animation_duration : float = 0.65
 
-func enter_state():
+func enter_state(_value: Node2D = null):
 	print("From Hurting state: Entered")
 	await get_tree().create_timer(animation_duration).timeout
 	SwitchState.emit(self, "idle")

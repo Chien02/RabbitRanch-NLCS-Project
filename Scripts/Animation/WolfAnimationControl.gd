@@ -23,8 +23,13 @@ func _process(_delta: float) -> void:
 	animation_tree["parameters/conditions/is_hurting"] = is_hurting
 	animation_tree["parameters/conditions/is_biting"] = is_bitting
 	animation_tree["parameters/conditions/is_smiling"] = is_charging
-	animation_tree["parameters/conditions/is_idling"] = !is_walking and !is_bitting and !is_charging and !is_hurting
-	animation_tree["parameters/conditions/is_walking"] = is_walking
+	if is_bitting:
+		animation_tree["parameters/conditions/is_idling"] = true
+	elif is_charging:
+		animation_tree["parameters/conditions/is_idling"] = true
+	elif !is_bitting and !is_charging:
+		animation_tree["parameters/conditions/is_idling"] = !is_walking and !is_hurting
+	animation_tree["parameters/conditions/is_walking"] = !is_bitting if is_bitting else is_walking
 
 
 func set_is_specialing(value: bool, _is_charging: bool = false):
@@ -35,19 +40,19 @@ func set_is_specialing(value: bool, _is_charging: bool = false):
 func _on_health_hurt():
 	print("From WolfAnimation: Received hurt signal")
 	is_hurting = true
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(0.67).timeout
 	is_hurting = false
 
 
 func _on_wolf_bited():
 	print("From WolfAnimation: Received bited signal")
 	is_bitting = true
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(0.67).timeout
 	is_bitting = false
 
 
 func _on_wolf_charged():
 	print("From WolfAnimation: Received charged signal")
 	is_charging = true
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(0.67).timeout
 	is_charging = false

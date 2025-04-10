@@ -17,6 +17,7 @@ var item_using: Item = null
 signal AddItem
 signal DropItem
 signal UsingItem
+signal FinishedUsingItem
 
 func _process(_delta: float) -> void:
 	# Stop receive input when not in turn
@@ -27,14 +28,17 @@ func _process(_delta: float) -> void:
 		if item_1:
 			print("From Inventory: active item_1: ", item_1.resource.name)
 			item_1.active()
+			UsingItem.emit(item_1.resource.name)
 		else:
 			print("From Inventory: cannot active item_1: ", item_1)
 			print("From Inventory: inventory ", slots)
+	
 	if Input.is_action_just_pressed("item_2"):
 		print("From Inventory: just pressed item_2 key")
 		if item_2:
 			print("From Inventory: active item_2: ", item_2.resource.name)
 			item_2.active()
+			UsingItem.emit(item_2.resource.name)
 		else:
 			print("From Inventory: cannot active item_2: ", item_2)
 			print("From Inventory: inventory ", slots)
@@ -76,3 +80,9 @@ func set_main_item(item: Item):
 
 func is_using_item():
 	return item_using != null
+
+func has_item(item_name: String):
+	for item in slots:
+		if item.name.to_lower() == item_name.to_lower():
+			return true
+	return false

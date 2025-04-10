@@ -10,6 +10,9 @@ class_name Health
 @export var max_health : int = 30
 var current_health : int
 
+# Use for visible the heart when multiple damage call in 2 seconds
+var visisble_flag : bool = false
+
 signal Died
 signal Hurted
 
@@ -18,6 +21,7 @@ func _ready() -> void:
 	visible_heart(false)
 
 func damage(value: int):
+	visisble_flag = true
 	current_health -= abs(value)
 	visible_heart(true) # Just appear heart when get hurt, after 2s next it would be disappeared
 	check_ui_heal(value)
@@ -54,7 +58,7 @@ func check_ui_heal(_damage: int):
 					await CustomTween.jump_up(heart_textures[jndex], pop_up_position, duration)
 					heart_textures[jndex].texture = null
 					break
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1).timeout
 	visible_heart(false)
 
 func load_health(_current_health: int, _max_health: int = 100):
@@ -62,6 +66,7 @@ func load_health(_current_health: int, _max_health: int = 100):
 	max_health = _max_health
 
 func visible_heart(value: bool):
+	
 	if heart_textures.is_empty():
 		print("From Health: heart textures is empty")
 		return

@@ -313,11 +313,10 @@ transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransit
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4txy"]
 size = Vector2(14, 28)
 
-[node name="BigTree" type="RigidBody2D" node_paths=PackedStringArray("animation_player", "animation_tree", "area2D")]
+[node name="BigTree" type="Area2D" node_paths=PackedStringArray("animation_player", "animation_tree", "area2D")]
 z_index = 5
 y_sort_enabled = true
 texture_filter = 1
-gravity_scale = 0.0
 script = ExtResource("1_qhjxl")
 animation_player = NodePath("AnimationPlayer")
 animation_tree = NodePath("AnimationTree")

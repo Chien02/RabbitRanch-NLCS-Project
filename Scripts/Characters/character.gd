@@ -3,7 +3,8 @@ extends CharacterBody2D
 class_name Character
 
 @export var health : Health
-@export var foot_step_sign : FootStep
+@export var area : Area2D
+@export var state_machine : StateMachine
 
 signal OutOfStunned
 
@@ -13,8 +14,9 @@ var max_stunned_turn : int = 0
 var turnbase_actor : TurnBaseActor
 
 func _ready() -> void:
-	turnbase_actor = TurnBaseActor.new()
-	turnbase_actor.EnterTurn.connect(_on_enter_turn)
+	if health:
+		health.Died.connect(_on_health_die)
+
 
 func stunned(stun: bool, num_of_turn: int):
 	is_stun = stun

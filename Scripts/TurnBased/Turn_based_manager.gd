@@ -2,7 +2,7 @@ extends Node2D
 
 class_name TurnBasedManager
 
-var actor = []
+var actor : Array[Character] = []
 var current_actor
 
 func _ready() -> void:
@@ -21,12 +21,21 @@ func get_actor():
 		current_actor = actor.pop_front()
 		active_actor()
 
-func switch_actor():
-	actor.push_back(current_actor)
-	current_actor = actor.pop_front()
+func switch_actor(_current_actor: Character):
+	if current_actor != _current_actor:
+		print("From TurnbasedManager: current_actor: ", current_actor, " is not like this actor: ", _current_actor)
+		return
+	print("From TurnbaseManager: Now switch actor")
+	if current_actor != null:
+		print("From TurnbaseManager: old_actor: ", current_actor.name)
+		actor.push_back(current_actor)
+		current_actor = actor.pop_front()
+	if current_actor == null:
+		current_actor = actor.pop_front()
+		print("From TurnbaseManager: new_actor: ", current_actor.name)
+	
 	active_actor()
 	
 func active_actor():
 	if !current_actor: return
-	print("---------------[Enter turn: ", current_actor.name, "]---------------")
 	current_actor.turnbase_actor.active()

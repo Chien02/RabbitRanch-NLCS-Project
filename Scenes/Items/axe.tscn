@@ -5,13 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://dj6w574o42j55" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_tools_and_meterials.png" id="2_gt7b3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gt7b3"]
-size = Vector2(14, 14)
+size = Vector2(12, 12)
 
-[node name="Axe" type="Node2D" groups=["Item"]]
-y_sort_enabled = true
+[node name="Axe" type="Node2D" node_paths=PackedStringArray("collider") groups=["Item"]]
+z_index = 5
 texture_filter = 1
 script = ExtResource("1_llny5")
 resource = ExtResource("2_4jif8")
+collider = NodePath("Area2D/CollisionShape2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 

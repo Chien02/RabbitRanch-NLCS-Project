@@ -151,11 +151,12 @@ states/walking/node = SubResource("AnimationNodeAnimation_kvrmc")
 states/walking/position = Vector2(507, 106)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1m1bk"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_rytwk"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_krst6")]
 
-[node name="Chicken" node_paths=PackedStringArray("astar", "health") instance=ExtResource("1_iuf54")]
+[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine") instance=ExtResource("1_iuf54")]
 mode = "diagonal"
 option = "not_ignore"
 astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
+state_machine = NodePath("StateMachine")
 
 [node name="CollisionShape2D" parent="." index="0"]
 disabled = false
@@ -184,7 +185,7 @@ script = ExtResource("6_t87p6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5"]
 sprite_frames = SubResource("SpriteFrames_t87p6")
-animation = &"walking"
+animation = &"idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 libraries = {

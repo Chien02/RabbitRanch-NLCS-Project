@@ -17,18 +17,22 @@ green_food_step_texture = ExtResource("2_nft3d")
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(16, 8)
 layout_mode = 0
-offset_left = 7.0
+offset_left = 6.0
 offset_top = 11.0
-offset_right = 27.0
+offset_right = 28.0
 offset_bottom = 22.0
 
 [node name="FootStep" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("2_nft3d")
-stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 8
 text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1

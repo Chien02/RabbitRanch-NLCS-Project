@@ -6,6 +6,9 @@ var is_selecting : bool = false
 var throwable_slot : Array[Vector2i] = []
 var debug_layer : int = 4
 
+func _ready() -> void:
+	is_selecting = false
+
 func _process(_delta: float) -> void:
 	if !character: return
 	if character.character_controller.is_walking and is_selecting:
@@ -65,7 +68,7 @@ func throwable_zone():
 				grid.get_node("Destination").set_cell(Vector2i(x, y), debug_layer, Vector2i(0, 0))
 			elif !grid.is_path(Vector2i(x, y)):
 				var obstacle = grid.obstacles_management.get_obstacle_at(Vector2i(x, y))
-				if !obstacle.Destroyed.is_connected(_on_obstacle_destroyed):
+				if obstacle != null and !obstacle.Destroyed.is_connected(_on_obstacle_destroyed):
 					obstacle.Destroyed.connect(_on_obstacle_destroyed)
 
 func _on_obstacle_destroyed(local_pos: Vector2i):
@@ -74,5 +77,6 @@ func _on_obstacle_destroyed(local_pos: Vector2i):
 
 func throw_item(pos: Vector2):
 	print("From Food: thrown item in ", pos)
+	finish_active()
 	# Create new instance of this item
 	character.inventory.drop_item(self, pos)

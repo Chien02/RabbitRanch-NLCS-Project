@@ -24,16 +24,16 @@ func _ready() -> void:
 		current_state.enter_state()
 
 func _process(_delta: float) -> void:
-	if not character.turnbase_actor.is_active: return
+	if !character.turnbase_actor.is_active: return
 	if current_state:
 		current_state.update_state()
 
 func _physics_process(_delta: float) -> void:
-	if not character.turnbase_actor.is_active: return
+	if !character.turnbase_actor.is_active: return
 	if current_state:
 		current_state.physics_update()
 
-func _on_switch_state(state: BaseState, new_state_name: String):
+func _on_switch_state(state: BaseState, new_state_name: String, _value : Node2D = null):
 	if state != current_state: return
 	
 	var new_state = states.get(new_state_name.to_lower())
@@ -41,8 +41,6 @@ func _on_switch_state(state: BaseState, new_state_name: String):
 		print("From State Machine: Cannot get new state ", new_state_name.to_lower())
 		return
 	
-	if current_state:
-		current_state.exit_state()
-	
-	new_state.enter_state()
+	current_state.exit_state()
+	new_state.enter_state(_value)
 	current_state = new_state

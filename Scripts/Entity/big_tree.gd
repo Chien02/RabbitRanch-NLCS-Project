@@ -72,20 +72,24 @@ func spawn_logs():
 		var turnbased_manager : TurnBasedManager = get_tree().get_first_node_in_group("TurnBasedManager")
 		var actors_pos : Array[Vector2i] = []
 		for actor in turnbased_manager.actor:
+			if actor == null: continue
 			actors_pos.append(grid.local_to_map(actor.position))
 		# Check that position is spawnable or not
 		for _log in logs:
 			if !grid.is_path(_log) or actors_pos.has(_log):
 				print("From BigTree: Overlay on obstacle at ", _log)
 				logs.erase(_log)
-			else:
+				continue
+			if grid.is_path(_log) and !actors_pos.has(_log):
+				# Sinh ra các logs
 				var new_log : Obstacle = load(log_link).instantiate()
 				new_log.global_spawn = grid.map_to_local(_log)
 				new_log.global_position = grid.map_to_local(_log)
 				new_log.init_pushable_diretion(grid)
 				var obstacle_manager = get_parent()
-				obstacle_manager.add_child(new_log)
+				obstacle_manager.call_deferred("add_child", new_log)
 				print("From BigTree: Added new log to scene")
+		
 		if !logs.is_empty():
 			finish_flag = true
 			grid.rescan()

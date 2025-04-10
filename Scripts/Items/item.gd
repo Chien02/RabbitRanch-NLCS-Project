@@ -6,6 +6,8 @@ signal Disappear
 
 @onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
 @export var resource : ItemResource
+@export var collider : CollisionShape2D
+
 var character : MainCharacter = null
 var is_activating : bool = false
 
@@ -27,3 +29,6 @@ func disappear():
 	await CustomTween.explode(self, resource.duration)
 	Disappear.emit()
 	queue_free()
+
+func finish_active():
+	character.inventory.FinishedUsingItem.emit()
