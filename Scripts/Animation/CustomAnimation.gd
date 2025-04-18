@@ -52,3 +52,9 @@ func fade_up(_object, destination: Vector2, duration: float):
 	_object.set_visible(false)
 	_object.position = _object.position - destination
 	_object.modulate = Color(1, 1, 1, 1)
+
+func change_color(_object, color: Color, scale_up: Vector2, duration: float):
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(_object, "scale", scale_up, duration)
+	
+	_object.set_color(color)

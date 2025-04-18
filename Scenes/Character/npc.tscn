@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://h5q22nsv23c8"]
+
+[ext_resource type="Script" uid="uid://b0ui0vb6htv5k" path="res://Scripts/Characters/animal.gd" id="1_5h864"]
+[ext_resource type="Texture2D" uid="uid://2bw3pvg71a07" path="res://Sprites/smile.png" id="2_m1c8t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8yl8"]
+
+[node name="Node2D" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_5h864")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_l8yl8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_m1c8t")

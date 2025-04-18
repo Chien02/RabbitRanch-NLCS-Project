@@ -1,7 +1,8 @@
-[gd_scene load_steps=59 format=3 uid="uid://b3nx8cbk04qm5"]
+[gd_scene load_steps=60 format=3 uid="uid://b3nx8cbk04qm5"]
 
 [ext_resource type="Script" uid="uid://cml0adabp3dye" path="res://Scripts/Characters/wolf.gd" id="1_f1jl7"]
 [ext_resource type="PackedScene" uid="uid://dgbehmkbqx6xp" path="res://Scenes/Components/astar_component.tscn" id="1_hgf11"]
+[ext_resource type="Resource" uid="uid://cxqur83wtirg0" path="res://Resources/Characters/wolf.tres" id="2_uphwy"]
 [ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="3_lug60"]
 [ext_resource type="Script" uid="uid://dt0fjqfl1gmeo" path="res://Scripts/StateSripts/wolf_idle.gd" id="4_f1jl7"]
 [ext_resource type="Texture2D" uid="uid://d144v8582a74d" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/wolf-sheet.png" id="4_vkrxq"]
@@ -429,7 +430,7 @@ states/walking/position = Vector2(508, 37)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vkrxq"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_ojh52"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_5itog"), "idle", "biting", SubResource("AnimationNodeStateMachineTransition_c68x3"), "biting", "idle", SubResource("AnimationNodeStateMachineTransition_3dnlj"), "idle", "smiling", SubResource("AnimationNodeStateMachineTransition_t5s3c"), "smiling", "idle", SubResource("AnimationNodeStateMachineTransition_h8h63"), "idle", "hurting", SubResource("AnimationNodeStateMachineTransition_uphwy"), "hurting", "idle", SubResource("AnimationNodeStateMachineTransition_uyn40"), "walking", "biting", SubResource("AnimationNodeStateMachineTransition_f1jl7")]
 graph_offset = Vector2(65, 36)
 
-[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "area", "state_machine") groups=["Animal", "Entity", "Wolf"]]
+[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "area", "state_machine") groups=["Animal", "Character", "Entity", "Wolf"]]
 z_index = 5
 texture_filter = 1
 script = ExtResource("1_f1jl7")
@@ -437,6 +438,7 @@ astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
 area = NodePath("Area2D")
 state_machine = NodePath("StateMachine")
+resource = ExtResource("2_uphwy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bpd6o")
@@ -482,7 +484,6 @@ character = NodePath("..")
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_0ybus")
 animation = &"idle"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

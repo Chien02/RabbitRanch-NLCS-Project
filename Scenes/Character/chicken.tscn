@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://buix5n034hegi"]
+[gd_scene load_steps=27 format=3 uid="uid://buix5n034hegi"]
 
 [ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_iuf54"]
 [ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="2_5vh1g"]
+[ext_resource type="Resource" uid="uid://crohkda2g1c3q" path="res://Resources/Characters/chicken.tres" id="2_po2q1"]
 [ext_resource type="Script" uid="uid://woopor4825kk" path="res://Scripts/StateSripts/animal_idle.gd" id="3_os1si"]
 [ext_resource type="Script" uid="uid://sjopkjg4ee1e" path="res://Scripts/StateSripts/animal_walking.gd" id="4_iqvew"]
 [ext_resource type="Script" uid="uid://bdtcw5snkc1mv" path="res://Scripts/StateSripts/breaking.gd" id="5_iqvew"]
@@ -151,12 +152,14 @@ states/walking/node = SubResource("AnimationNodeAnimation_kvrmc")
 states/walking/position = Vector2(507, 106)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1m1bk"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_rytwk"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_krst6")]
 
-[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine") instance=ExtResource("1_iuf54")]
+[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine") groups=["Character"] instance=ExtResource("1_iuf54")]
+z_index = 5
 mode = "diagonal"
 option = "not_ignore"
 astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
 state_machine = NodePath("StateMachine")
+resource = ExtResource("2_po2q1")
 
 [node name="CollisionShape2D" parent="." index="0"]
 disabled = false

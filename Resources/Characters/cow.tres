@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=3 format=3 uid="uid://be8lkq6h6f1lu"]
+
+[ext_resource type="Script" uid="uid://dxllm7jx31a65" path="res://Scripts/Characters/character_resource.gd" id="1_6twns"]
+[ext_resource type="Texture2D" uid="uid://u0qf5j3t6ghj" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/cow_icon.png" id="2_155pw"]
+
+[resource]
+script = ExtResource("1_6twns")
+name = "Cow"
+texture = ExtResource("2_155pw")
+step = 1
+metadata/_custom_type_script = "uid://dxllm7jx31a65"

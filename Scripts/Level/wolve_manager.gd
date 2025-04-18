@@ -4,6 +4,8 @@ class_name Wolve_Manager
 
 var wolve : Array[Wolf] = []
 
+signal WolfDisappeared
+
 func init_wolve(level_manager: LevelManager):
 	for node in level_manager.get_tree().get_nodes_in_group("Wolf"):
 		if node is Wolf:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=87 format=3 uid="uid://bg1iiqsskh3fn"]
+[gd_scene load_steps=88 format=3 uid="uid://bg1iiqsskh3fn"]
 
 [ext_resource type="Script" uid="uid://ccliahv1c3bnd" path="res://Scenes/Character/Main_character.gd" id="1_x1ua0"]
 [ext_resource type="Texture2D" uid="uid://dhe6ehshltn7a" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="2_0eraa"]
+[ext_resource type="Resource" uid="uid://bml77p3fhh0ka" path="res://Resources/Characters/player.tres" id="2_kqtv2"]
 [ext_resource type="PackedScene" uid="uid://ch5fh10qum08x" path="res://StateMachine/state_machine.tscn" id="3_7key7"]
 [ext_resource type="PackedScene" uid="uid://cd3g18pluw3uq" path="res://StateMachine/idle.tscn" id="4_sbmxy"]
 [ext_resource type="PackedScene" uid="uid://bpk0lstdfrq7i" path="res://StateMachine/walking.tscn" id="5_2kawb"]
@@ -767,7 +768,7 @@ states/walking/node = SubResource("AnimationNodeBlendSpace2D_rmsb6")
 states/walking/position = Vector2(587, 60)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_qtihi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_tawdr"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_03l88"), "idle", "tool", SubResource("AnimationNodeStateMachineTransition_0uvkb"), "tool", "idle", SubResource("AnimationNodeStateMachineTransition_fee4t")]
 
-[node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health", "area", "state_machine") groups=["Entity", "MainCharacter"]]
+[node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health", "area", "state_machine") groups=["Character", "Entity", "MainCharacter"]]
 z_index = 5
 y_sort_enabled = true
 texture_filter = 1
@@ -777,6 +778,7 @@ inventory = NodePath("Inventory")
 health = NodePath("HealthComponent")
 area = NodePath("Area2D")
 state_machine = NodePath("StateMachine")
+resource = ExtResource("2_kqtv2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tb5bw")

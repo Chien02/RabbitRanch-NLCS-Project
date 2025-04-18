@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=64 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -37,6 +37,9 @@
 [ext_resource type="PackedScene" uid="uid://cqm4v60i4oe7v" path="res://Scenes/Entity/door.tscn" id="21_oyglk"]
 [ext_resource type="PackedScene" uid="uid://36nqftkot5iv" path="res://Scenes/GUI/inventoryUI.tscn" id="22_3oxg0"]
 [ext_resource type="Script" uid="uid://1j4uugt5gaq3" path="res://Scripts/Items/item_manager.gd" id="22_grvc7"]
+[ext_resource type="PackedScene" uid="uid://bmhj7hnycog5m" path="res://Scenes/GUI/transition.tscn" id="33_ipgw7"]
+[ext_resource type="PackedScene" uid="uid://cg2s4dvialq7i" path="res://Scenes/GUI/actor_turn_ui.tscn" id="38_4mmwh"]
+[ext_resource type="PackedScene" uid="uid://cmhrlo5ivcsuk" path="res://Scenes/GUI/animal_counter_manager.tscn" id="39_1lxr0"]
 
 [sub_resource type="TileSet" id="TileSet_vue63"]
 
@@ -1403,17 +1406,18 @@ sources/2 = SubResource("TileSetAtlasSource_c0hrr")
 sources/3 = SubResource("TileSetAtlasSource_65dxm")
 sources/4 = SubResource("TileSetAtlasSource_oyglk")
 
-[node name="Sample_level" type="Node2D" groups=["LevelManager"]]
+[node name="Sample_level" type="Node2D" node_paths=PackedStringArray("transition") groups=["LevelManager"]]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_bnfqx")
+transition = NodePath("CanvasLayer/TransitionScene")
 
 [node name="TurnBasedManager" parent="." groups=["TurnBasedManager"] instance=ExtResource("1_t7rht")]
 z_index = 5
 y_sort_enabled = true
 
 [node name="MainCharacter" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("7_2phpi")]
-position = Vector2(248, 136)
+position = Vector2(138, 154)
 grid = NodePath("../../TileMap")
 
 [node name="Cow" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_bke7g")]
@@ -1421,14 +1425,20 @@ position = Vector2(120, 168)
 option = "not_ignore"
 grid = NodePath("../../TileMap")
 
-[node name="Wolf" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("5_oyglk")]
-position = Vector2(280, 168)
-grid = NodePath("../../TileMap")
-
 [node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("6_4mmwh")]
 position = Vector2(265, 168)
 mode = "not_diagonal"
 option = "ignore"
+grid = NodePath("../../TileMap")
+
+[node name="Chicken2" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("6_4mmwh")]
+position = Vector2(120, 152)
+mode = "not_diagonal"
+option = "ignore"
+grid = NodePath("../../TileMap")
+
+[node name="Wolf" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("5_oyglk")]
+position = Vector2(280, 168)
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management", "item_manager") groups=["Grid"]]
@@ -1559,7 +1569,7 @@ grid = NodePath("../TileMap")
 metadata/_custom_type_script = "uid://1j4uugt5gaq3"
 
 [node name="Axe" parent="ItemManager" instance=ExtResource("18_e4p5l")]
-position = Vector2(231, 152)
+position = Vector2(136, 167)
 
 [node name="Rice" parent="ItemManager" instance=ExtResource("19_hk4wk")]
 position = Vector2(248, 120)
@@ -1652,6 +1662,7 @@ theme_override_font_sizes/font_size = 10
 text = "Pause"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/DebugUI"]
+visible = false
 layout_mode = 0
 offset_left = -513.0
 offset_top = 173.0
@@ -1682,6 +1693,27 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "Show Animal Path"
+
+[node name="ActorTurnUI" parent="CanvasLayer" instance=ExtResource("38_4mmwh")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 12.0
+offset_top = 104.0
+offset_right = 12.0
+offset_bottom = 104.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(3, 3)
+
+[node name="AnimalCounterManager" parent="CanvasLayer" instance=ExtResource("39_1lxr0")]
+offset_left = -164.0
+offset_top = 25.0
+offset_right = 54.0
+offset_bottom = 57.0
+scale = Vector2(1.5, 1.5)
+
+[node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("33_ipgw7")]
 
 [connection signal="body_entered" from="ObstacleManagement/Stone" to="ObstacleManagement/Stone" method="_on_body_entered"]
 [connection signal="body_entered" from="ObstacleManagement/Stone2" to="ObstacleManagement/Stone2" method="_on_body_entered"]

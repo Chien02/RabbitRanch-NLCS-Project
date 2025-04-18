@@ -1,0 +1,179 @@
+[gd_scene load_steps=15 format=3 uid="uid://d0dsp5fadh21b"]
+
+[ext_resource type="Texture2D" uid="uid://bwil8k4q4hcin" path="res://Sprites/Sprout Lands - Sprites - Basic pack/menu_sheet.png" id="1_qqk0j"]
+[ext_resource type="Script" uid="uid://bhl8by1xr87xd" path="res://Scripts/Level/main_menu.gd" id="1_vytfc"]
+[ext_resource type="PackedScene" uid="uid://bmhj7hnycog5m" path="res://Scenes/GUI/transition.tscn" id="3_t475i"]
+
+[sub_resource type="Animation" id="Animation_qqk0j"]
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vytfc"]
+_data = {
+&"default": SubResource("Animation_qqk0j")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vytfc"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(0, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t475i"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(400, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg7my"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(800, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmo1h"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(1200, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnv55"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(1600, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7svq"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(2000, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnywc"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(2400, 0, 400, 243)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yab0"]
+atlas = ExtResource("1_qqk0j")
+region = Rect2(2800, 0, 400, 243)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w64ul"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vytfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t475i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg7my")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmo1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnv55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7svq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnywc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yab0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("animation_player", "transition")]
+texture_filter = 1
+script = ExtResource("1_vytfc")
+animation_player = NodePath("AnimationPlayer")
+transition = NodePath("CanvasLayer/TransitionScene")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_vytfc")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(572, 322)
+scale = Vector2(2.895, 2.6749)
+sprite_frames = SubResource("SpriteFrames_w64ul")
+frame = 2
+flip_h = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 175.0
+offset_right = 327.0
+offset_bottom = 261.0
+scale = Vector2(1.64275, 1.7662)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Rabbit Ranch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 174.0
+offset_top = 355.0
+offset_right = 494.0
+offset_bottom = 405.0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Play"
+
+[node name="SettingButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 174.0
+offset_top = 422.0
+offset_right = 494.0
+offset_bottom = 472.0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Setting"
+
+[node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("3_t475i")]
+
+[connection signal="pressed" from="CanvasLayer/Control/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="Finished" from="CanvasLayer/TransitionScene" to="." method="_on_transition_scene_finished"]

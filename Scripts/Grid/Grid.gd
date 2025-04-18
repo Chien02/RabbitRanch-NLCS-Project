@@ -45,12 +45,13 @@ func init_grid():
 	# Init for the path
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
-			is_water = water_layer != null and water_layer.get_cell_source_id(Vector2i(x, y)) == water_source_id and water_layer.get_cell_atlas_coords(Vector2i(x, y)) != filling_water
+			is_water = water_layer.get_cell_source_id(Vector2i(x, y)) == water_source_id and water_layer.get_cell_atlas_coords(Vector2i(x, y)) != filling_water
 			
 			cells[str(Vector2i(x, y))] = {
 				"is_path" = !is_water,
 				"player_zone" = false
 			}
+	
 
 # This function use to tell player which tile the cursor points to
 func display_mouse_hover():

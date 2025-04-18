@@ -151,9 +151,10 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		# Ignore all the obstacle, except unbreakable obstacle
 		if _option == "not_ignore" and !tile.is_player_zone:
 			if !obstacle:
+				if !grid.is_path(tile.position): continue
 				surrounding_tile.append(tile)
 				continue
-			if !obstacle.is_breakable(): continue
+			if obstacle and !obstacle.is_breakable(): continue
 			surrounding_tile.append(tile)
 		# ignore
 		elif _option == "ignore":

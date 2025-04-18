@@ -6,7 +6,11 @@ class_name Character
 @export var area : Area2D
 @export var state_machine : StateMachine
 
+@export_category("Resources")
+@export var resource : CharacterResource
+
 signal OutOfStunned
+signal Disappear
 
 var is_stun : bool = false
 var turn_counter : int = 0
@@ -41,3 +45,4 @@ func set_character_visible(_bool: bool):
 
 func _on_health_die():
 	print("From ", name, ": Dieeeeeeee")
+	Disappear.emit(self)

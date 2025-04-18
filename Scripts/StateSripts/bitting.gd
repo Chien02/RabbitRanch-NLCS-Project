@@ -4,6 +4,7 @@ class_name Bitting
 
 @export var label : Label
 @export var animation_duration : float = 0.67
+@export var damage : int = 15
 
 func enter_state(_value: Node2D = null):
 	if !character.turnbase_actor.is_active: return
@@ -14,7 +15,7 @@ func enter_state(_value: Node2D = null):
 	# Mỗi lần cắn đều được cộng 1, hàm bên dưới hoạt động tương tự như charge state
 	if _value != null and _value is Character:
 		print("From Wolf Bitting: Damaged to: ", _value.name)
-		_value.health.damage(15)
+		_value.health.damage(damage)
 		# Xong release character.target để tránh gặp vòng lặp
 		character.target = null
 	

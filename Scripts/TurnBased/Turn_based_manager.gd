@@ -5,6 +5,8 @@ class_name TurnBasedManager
 var actor : Array[Character] = []
 var current_actor
 
+signal SwitchedActor
+
 func _ready() -> void:
 	get_actor()
 
@@ -33,7 +35,7 @@ func switch_actor(_current_actor: Character):
 	if current_actor == null:
 		current_actor = actor.pop_front()
 		print("From TurnbaseManager: new_actor: ", current_actor.name)
-	
+	SwitchedActor.emit(current_actor)
 	active_actor()
 	
 func active_actor():

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=3 format=3 uid="uid://cxqur83wtirg0"]
+
+[ext_resource type="Script" uid="uid://dxllm7jx31a65" path="res://Scripts/Characters/character_resource.gd" id="1_ayppm"]
+[ext_resource type="Texture2D" uid="uid://7ctfrreod8kw" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/wolf_icon.png" id="2_p41ip"]
+
+[resource]
+script = ExtResource("1_ayppm")
+name = "Wolf"
+texture = ExtResource("2_p41ip")
+step = 1
+metadata/_custom_type_script = "uid://dxllm7jx31a65"

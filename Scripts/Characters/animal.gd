@@ -44,11 +44,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		var animals_manager : AnimalManager = get_tree().get_first_node_in_group("LevelManager").animals_manager
 		turnbase_actor.emit_endturn("I caught by player")
 		# Nên có animation chèn vào khúc này
+		Disappear.emit(self)
 		animals_manager.caught_animal(self, AnimalManager.Catcher.PLAYER)
 
 func _on_health_die():
 	super()
 	var animals_manager : AnimalManager = get_tree().get_first_node_in_group("LevelManager").animals_manager
+	Disappear.emit(self)
 	# Đợi animation mất máu chạy xong
 	await get_tree().create_timer(0.5).timeout
 	animals_manager.caught_animal(self, AnimalManager.Catcher.WOLF)

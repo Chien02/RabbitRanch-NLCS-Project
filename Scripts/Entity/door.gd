@@ -16,4 +16,5 @@ func on_animal_entered():
 	var animal_manager : AnimalManager = get_tree().get_first_node_in_group("LevelManager").animals_manager
 	if last_body is Animal and last_body is not Wolf:
 		print("From Door: Animal Entered")
+		last_body.Disappear.emit(last_body)
 		animal_manager.caught_animal(last_body, AnimalManager.Catcher.DESTINATION)
