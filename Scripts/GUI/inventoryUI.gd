@@ -35,24 +35,24 @@ func appear_list(container: VBoxContainer):
 func set_slot_texture(item: Item):
 	var duration : float = 1.0
 	var slot : SlotUI
-	if main_slot_1.texture_rect.texture == null:
+	if main_slot_1.texture_rect_item.texture == null:
 		slot = main_slot_1
-	elif main_slot_2.texture_rect.texture == null:
+	elif main_slot_2.texture_rect_item.texture == null:
 		slot = main_slot_2
 	if !slot: return
 	slot.visible = true
-	slot.texture_rect.texture = item.resource.texture
-	await CustomTween.pop_up(slot.slot_panel, Vector2(1, 1), duration)
+	slot.texture_rect_item.texture = item.resource.texture
+	await CustomTween.pop_up(slot, Vector2(1, 1), duration)
 	slot.input_panel.visible = true
 
 func hide_slot_texture(item: Item):
 	var slot : SlotUI
-	if main_slot_1.texture_rect.texture == item.resource.texture:
+	if main_slot_1.texture_rect_item.texture == item.resource.texture:
 		slot = main_slot_1
-	elif main_slot_2.texture_rect.texture == item.resource.texture:
+	elif main_slot_2.texture_rect_item.texture == item.resource.texture:
 		slot = main_slot_2
 	if !slot: return
-	slot.texture_rect.texture = null
+	slot.texture_rect_item.texture = null
 	var duration = 1.0
-	await CustomTween.disappear(slot.slot_panel, duration)
+	await CustomTween.disappear(slot, duration)
 	slot.visible = false

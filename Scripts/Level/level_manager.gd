@@ -3,6 +3,7 @@ extends Node2D
 class_name LevelManager
 
 @export var transition : Transition
+@export var audio : UISoundFX
 
 @onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
 @onready var turnbase_manager : TurnBasedManager = get_tree().get_first_node_in_group("TurnBasedManager")
@@ -43,6 +44,7 @@ func emit_pause():
 	Paused.emit()
 
 func _on_pause_button_pressed() -> void:
+	audio.play_sound(CharacterSoundFX.Sound.SELECT)
 	emit_pause()
 
 func _on_animal_disappear(animal_name: String):

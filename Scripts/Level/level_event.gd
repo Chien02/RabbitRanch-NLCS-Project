@@ -2,6 +2,7 @@ extends Control
 
 class_name LevelEvent
 
+@export var audio : UISoundFX
 @onready var level_manager : LevelManager = get_tree().get_first_node_in_group("LevelManager")
 
 func _ready() -> void:
@@ -23,7 +24,7 @@ func appear():
 	get_tree().paused = !get_tree().paused
 
 func _on_continue_pressed() -> void:
-	print("Continue")
+	audio.play_sound(CharacterSoundFX.Sound.COMFIRM)
 	appear()
 
 func _on_next_level_pressed() -> void:

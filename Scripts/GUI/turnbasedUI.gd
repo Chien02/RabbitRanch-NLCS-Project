@@ -1,28 +1,27 @@
-extends PanelContainer
+extends Control
 
 class_name TurnBasedUI
 
 @export var character_name : String
 @export var texture : CompressedTexture2D # Represent character's icon
+@export var texture_rect_base : TextureRect
 @export var step : int
 
 @export var texture_rect : TextureRect
 @export var label : Label
 
-func _ready() -> void:
-	var shared_stylebox = get("theme_override_styles/panel")
-	# Tạo một bản sao độc lập
-	var unique_stylebox = shared_stylebox.duplicate()
-	# Gán lại để control dùng bản sao này
-	add_theme_stylebox_override("panel", unique_stylebox)
+var active_base_ui : String = "res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/active_actor.png"
+var inactive_base_ui : String = "res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/inactive_actor.png"
 
 func init(_character_name: String, _texture: CompressedTexture2D, _step: int):
 	character_name = _character_name
 	texture_rect.texture = _texture
 	label.text = str(_step)
 
-func set_color(new_color: Color):
-	get("theme_override_styles/panel").bg_color = new_color
+func set_color(status: int):
+	match status:
+		TurnBasedManager.ACTIVE: texture_rect_base.texture = load(active_base_ui)
+		TurnBasedManager.INACTIVE: texture_rect_base.texture = load(inactive_base_ui)
 
 func clear_property():
 	texture = null

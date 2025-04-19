@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RabbitRanch-NLCS-Project"
-run/main_scene="uid://d0dsp5fadh21b"
+run/main_scene="uid://ct5hekqr35kpm"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

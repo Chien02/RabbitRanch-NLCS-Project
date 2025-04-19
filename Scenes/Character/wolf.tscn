@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b3nx8cbk04qm5"]
+[gd_scene load_steps=62 format=3 uid="uid://b3nx8cbk04qm5"]
 
 [ext_resource type="Script" uid="uid://cml0adabp3dye" path="res://Scripts/Characters/wolf.gd" id="1_f1jl7"]
 [ext_resource type="PackedScene" uid="uid://dgbehmkbqx6xp" path="res://Scenes/Components/astar_component.tscn" id="1_hgf11"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://ca21o0ndhfolc" path="res://Scripts/Animation/WolfAnimationControl.gd" id="10_nhdyd"]
 [ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="11_vhf1n"]
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="12_f1jl7"]
+[ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="14_uyn40"]
+[ext_resource type="Texture2D" uid="uid://b73hp2gqumsmu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/shadow.png" id="15_5hr73"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpd6o"]
 size = Vector2(14, 14)
@@ -430,7 +432,7 @@ states/walking/position = Vector2(508, 37)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vkrxq"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_ojh52"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_5itog"), "idle", "biting", SubResource("AnimationNodeStateMachineTransition_c68x3"), "biting", "idle", SubResource("AnimationNodeStateMachineTransition_3dnlj"), "idle", "smiling", SubResource("AnimationNodeStateMachineTransition_t5s3c"), "smiling", "idle", SubResource("AnimationNodeStateMachineTransition_h8h63"), "idle", "hurting", SubResource("AnimationNodeStateMachineTransition_uphwy"), "hurting", "idle", SubResource("AnimationNodeStateMachineTransition_uyn40"), "walking", "biting", SubResource("AnimationNodeStateMachineTransition_f1jl7")]
 graph_offset = Vector2(65, 36)
 
-[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "area", "state_machine") groups=["Animal", "Character", "Entity", "Wolf"]]
+[node name="Wolf" type="CharacterBody2D" node_paths=PackedStringArray("astar", "health", "area", "state_machine", "audio") groups=["Animal", "Character", "Entity", "Wolf"]]
 z_index = 5
 texture_filter = 1
 script = ExtResource("1_f1jl7")
@@ -438,6 +440,7 @@ astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
 area = NodePath("Area2D")
 state_machine = NodePath("StateMachine")
+audio = NodePath("AudioStreamPlayer2D")
 resource = ExtResource("2_uphwy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -481,9 +484,11 @@ animation_tree = NodePath("../AnimationTree")
 character = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_0ybus")
 animation = &"idle"
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -531,5 +536,14 @@ offset_right = 29.0
 offset_bottom = 23.3333
 theme_override_font_sizes/font_size = 16
 text = "+1"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("14_uyn40")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(3, 6)
+scale = Vector2(1.9375, 1)
+texture = ExtResource("15_5hr73")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

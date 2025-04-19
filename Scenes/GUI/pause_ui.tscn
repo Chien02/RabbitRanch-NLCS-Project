@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmd5dvtrp5x48"]
+[gd_scene load_steps=3 format=3 uid="uid://dmd5dvtrp5x48"]
 
 [ext_resource type="Script" uid="uid://eucbsh1h5nvi" path="res://Scripts/Level/pause_event.gd" id="1_dr3f3"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="2_xb2pw"]
 
-[node name="PauseUI" type="Control"]
+[node name="PauseUI" type="Control" node_paths=PackedStringArray("audio")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -12,6 +13,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dr3f3")
+audio = NodePath("AudioStreamPlayer2D")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -69,6 +71,9 @@ offset_top = 49.0
 offset_right = -75.0
 offset_bottom = 80.0
 text = "MainMenu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("2_xb2pw")
 
 [connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="LevelSelection" to="." method="_on_level_selection_pressed"]

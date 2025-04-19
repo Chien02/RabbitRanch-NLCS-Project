@@ -1,7 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://f4ximnv2mmov"]
+[gd_scene load_steps=29 format=3 uid="uid://f4ximnv2mmov"]
 
 [ext_resource type="Texture2D" uid="uid://5dh1hrs6mkd3" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/big_tree_sheet.png" id="1_m3ibr"]
 [ext_resource type="Script" uid="uid://b0t77m2yo3vlv" path="res://Scripts/Entity/big_tree.gd" id="1_qhjxl"]
+[ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="3_g4txy"]
+[ext_resource type="AudioStream" uid="uid://c336m5c4v8dig" path="res://Sounds/SoundFX/chop tree 1.wav" id="3_hvqxr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhjxl"]
 size = Vector2(14, 14)
@@ -313,7 +315,7 @@ transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransit
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4txy"]
 size = Vector2(14, 28)
 
-[node name="BigTree" type="Area2D" node_paths=PackedStringArray("animation_player", "animation_tree", "area2D")]
+[node name="BigTree" type="Area2D" node_paths=PackedStringArray("animation_player", "animation_tree", "area2D", "audio")]
 z_index = 5
 y_sort_enabled = true
 texture_filter = 1
@@ -321,6 +323,7 @@ script = ExtResource("1_qhjxl")
 animation_player = NodePath("AnimationPlayer")
 animation_tree = NodePath("AnimationTree")
 area2D = NodePath("Area2D")
+audio = NodePath("AudioStreamPlayer2D")
 pushable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -347,6 +350,10 @@ parameters/conditions/is_chopped = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_g4txy")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hvqxr")
+script = ExtResource("3_g4txy")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=66 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -38,6 +38,8 @@
 [ext_resource type="PackedScene" uid="uid://36nqftkot5iv" path="res://Scenes/GUI/inventoryUI.tscn" id="22_3oxg0"]
 [ext_resource type="Script" uid="uid://1j4uugt5gaq3" path="res://Scripts/Items/item_manager.gd" id="22_grvc7"]
 [ext_resource type="PackedScene" uid="uid://bmhj7hnycog5m" path="res://Scenes/GUI/transition.tscn" id="33_ipgw7"]
+[ext_resource type="AudioStream" uid="uid://djyfg13ooytg" path="res://Sounds/BGM/time_for_adventure.mp3" id="33_ons3s"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="34_mp15f"]
 [ext_resource type="PackedScene" uid="uid://cg2s4dvialq7i" path="res://Scenes/GUI/actor_turn_ui.tscn" id="38_4mmwh"]
 [ext_resource type="PackedScene" uid="uid://cmhrlo5ivcsuk" path="res://Scenes/GUI/animal_counter_manager.tscn" id="39_1lxr0"]
 
@@ -1406,11 +1408,12 @@ sources/2 = SubResource("TileSetAtlasSource_c0hrr")
 sources/3 = SubResource("TileSetAtlasSource_65dxm")
 sources/4 = SubResource("TileSetAtlasSource_oyglk")
 
-[node name="Sample_level" type="Node2D" node_paths=PackedStringArray("transition") groups=["LevelManager"]]
+[node name="Sample_level" type="Node2D" node_paths=PackedStringArray("transition", "audio") groups=["LevelManager"]]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_bnfqx")
 transition = NodePath("CanvasLayer/TransitionScene")
+audio = NodePath("AudioStreamPlayer2D")
 
 [node name="TurnBasedManager" parent="." groups=["TurnBasedManager"] instance=ExtResource("1_t7rht")]
 z_index = 5
@@ -1584,6 +1587,13 @@ zoom = Vector2(2.49, 2.49)
 [node name="CustomTween" type="Node2D" parent="."]
 script = ExtResource("8_4gu7f")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("33_ons3s")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true
+script = ExtResource("34_mp15f")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 
@@ -1601,11 +1611,11 @@ label_mouse_pos = NodePath("DebugUI/VBoxContainer/Panel2/MousePosition")
 
 [node name="InventoryUI" parent="CanvasLayer/GUI" instance=ExtResource("22_3oxg0")]
 layout_mode = 1
-offset_left = -129.0
+offset_left = -123.0
 offset_top = -192.0
-offset_right = -129.0
+offset_right = -123.0
 offset_bottom = -192.0
-scale = Vector2(3.5, 3.5)
+scale = Vector2(2.5, 2.5)
 
 [node name="PauseUI" parent="CanvasLayer/GUI" instance=ExtResource("18_75bkg")]
 visible = false
@@ -1707,11 +1717,8 @@ grow_vertical = 1
 scale = Vector2(3, 3)
 
 [node name="AnimalCounterManager" parent="CanvasLayer" instance=ExtResource("39_1lxr0")]
-offset_left = -164.0
-offset_top = 25.0
-offset_right = 54.0
-offset_bottom = 57.0
-scale = Vector2(1.5, 1.5)
+offset_left = -102.0
+offset_right = 116.0
 
 [node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("33_ipgw7")]
 

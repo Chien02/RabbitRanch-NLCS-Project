@@ -52,7 +52,19 @@ func _on_character_area_entered(area: Area2D):
 	if area is Obstacle and area.is_breakable():
 		signal_flag = true
 		var destroy_duration : float = 0.5
+		# play audio
+		if character.audio:
+			var random : int = randi_range(0, 1)
+			match random:
+				0: character.audio.play_sound(CharacterSoundFX.Sound.CHOP1)
+				1: character.audio.play_sound(CharacterSoundFX.Sound.CHOP2)
+		
 		area.destroy(destroy_duration, character)
+		await character.get_tree().create_timer(0.5).timeout
+		finish_active()
+	if area is Obstacle and !area.is_breakable():
+		if character.audio:
+			character.audio.play_sound(CharacterSoundFX.Sound.MINING)
 		await character.get_tree().create_timer(0.5).timeout
 		finish_active()
 

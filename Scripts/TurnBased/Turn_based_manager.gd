@@ -2,6 +2,10 @@ extends Node2D
 
 class_name TurnBasedManager
 
+enum {
+	ACTIVE, INACTIVE
+}
+
 var actor : Array[Character] = []
 var current_actor
 

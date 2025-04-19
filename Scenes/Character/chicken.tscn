@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://buix5n034hegi"]
+[gd_scene load_steps=29 format=3 uid="uid://buix5n034hegi"]
 
 [ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_iuf54"]
 [ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="2_5vh1g"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://c7q7rn1fff4x6" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="7_dlita"]
 [ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="8_jcive"]
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="9_po2q1"]
+[ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="11_31lsb"]
+[ext_resource type="Texture2D" uid="uid://b73hp2gqumsmu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/shadow.png" id="12_10hd6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fkg0"]
 atlas = ExtResource("7_dlita")
@@ -152,13 +154,14 @@ states/walking/node = SubResource("AnimationNodeAnimation_kvrmc")
 states/walking/position = Vector2(507, 106)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1m1bk"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_rytwk"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_krst6")]
 
-[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine") groups=["Character"] instance=ExtResource("1_iuf54")]
+[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine", "audio") groups=["Character"] instance=ExtResource("1_iuf54")]
 z_index = 5
 mode = "diagonal"
 option = "not_ignore"
 astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
 state_machine = NodePath("StateMachine")
+audio = NodePath("AudioStreamPlayer2D")
 resource = ExtResource("2_po2q1")
 
 [node name="CollisionShape2D" parent="." index="0"]
@@ -189,6 +192,7 @@ script = ExtResource("6_t87p6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5"]
 sprite_frames = SubResource("SpriteFrames_t87p6")
 animation = &"idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 libraries = {
@@ -211,3 +215,12 @@ position = Vector2(-5, 0)
 
 [node name="HeartSprite2" parent="HealthComponent" index="1" instance=ExtResource("9_po2q1")]
 position = Vector2(5, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="9"]
+script = ExtResource("11_31lsb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="10"]
+z_index = -1
+position = Vector2(-1, 4)
+scale = Vector2(0.875, 0.8125)
+texture = ExtResource("12_10hd6")

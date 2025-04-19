@@ -46,7 +46,7 @@ func caught_animal(body: Animal, catcher: int):
 		
 		match catcher:
 			Catcher.PLAYER:
-				JustCaughtAnimal.emit(body.name.to_lower())
+				JustCaughtAnimal.emit(body.resource.name)
 				print("From AnimalManager: ", body.resource.name, " was caught by Player")
 				caughted_animals[str(body.name.to_lower())] = {
 					"name": body.name.to_lower(),

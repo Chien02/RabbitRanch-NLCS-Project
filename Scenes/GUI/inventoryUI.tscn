@@ -10,6 +10,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = 4.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_votko")
@@ -39,9 +41,10 @@ size_flags_horizontal = 4
 alignment = 1
 
 [node name="Slot" parent="." instance=ExtResource("2_ytx8n")]
-offset_top = 20.0
-offset_bottom = 38.0
+offset_top = 23.0
+offset_bottom = 41.0
 input_key = "E"
 
 [node name="Slot1" parent="." instance=ExtResource("2_ytx8n")]
+offset_top = -3.0
 input_key = "R"

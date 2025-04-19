@@ -1,8 +1,9 @@
-[gd_scene load_steps=88 format=3 uid="uid://bg1iiqsskh3fn"]
+[gd_scene load_steps=91 format=3 uid="uid://bg1iiqsskh3fn"]
 
 [ext_resource type="Script" uid="uid://ccliahv1c3bnd" path="res://Scenes/Character/Main_character.gd" id="1_x1ua0"]
 [ext_resource type="Texture2D" uid="uid://dhe6ehshltn7a" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="2_0eraa"]
 [ext_resource type="Resource" uid="uid://bml77p3fhh0ka" path="res://Resources/Characters/player.tres" id="2_kqtv2"]
+[ext_resource type="Texture2D" uid="uid://b73hp2gqumsmu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/shadow.png" id="3_4nkiv"]
 [ext_resource type="PackedScene" uid="uid://ch5fh10qum08x" path="res://StateMachine/state_machine.tscn" id="3_7key7"]
 [ext_resource type="PackedScene" uid="uid://cd3g18pluw3uq" path="res://StateMachine/idle.tscn" id="4_sbmxy"]
 [ext_resource type="PackedScene" uid="uid://bpk0lstdfrq7i" path="res://StateMachine/walking.tscn" id="5_2kawb"]
@@ -13,6 +14,8 @@
 [ext_resource type="Script" uid="uid://bgn318lgfxhjf" path="res://Scripts/Components/inventory.gd" id="10_e3nb3"]
 [ext_resource type="PackedScene" uid="uid://mo2bbpmo4c5p" path="res://Scenes/Components/health_component.tscn" id="11_74o7b"]
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="12_kqtv2"]
+[ext_resource type="AudioStream" uid="uid://byoy4241fn12c" path="res://Sounds/SoundFX/walk_sound.wav" id="14_i0j0b"]
+[ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="15_mneio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb5bw"]
 size = Vector2(12, 12)
@@ -255,7 +258,7 @@ animations = [{
 length = 0.001
 
 [sub_resource type="Animation" id="Animation_ax3a8"]
-length = 0.4
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -768,7 +771,7 @@ states/walking/node = SubResource("AnimationNodeBlendSpace2D_rmsb6")
 states/walking/position = Vector2(587, 60)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_qtihi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_tawdr"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_03l88"), "idle", "tool", SubResource("AnimationNodeStateMachineTransition_0uvkb"), "tool", "idle", SubResource("AnimationNodeStateMachineTransition_fee4t")]
 
-[node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health", "area", "state_machine") groups=["Character", "Entity", "MainCharacter"]]
+[node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health", "area", "state_machine", "audio") groups=["Character", "Entity", "MainCharacter"]]
 z_index = 5
 y_sort_enabled = true
 texture_filter = 1
@@ -778,7 +781,13 @@ inventory = NodePath("Inventory")
 health = NodePath("HealthComponent")
 area = NodePath("Area2D")
 state_machine = NodePath("StateMachine")
+audio = NodePath("AudioStreamPlayer2D")
 resource = ExtResource("2_kqtv2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 3)
+texture = ExtResource("3_4nkiv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tb5bw")
@@ -887,6 +896,11 @@ position = Vector2(20, 0)
 
 [node name="HeartSprite5" parent="HealthComponent" instance=ExtResource("12_kqtv2")]
 position = Vector2(30, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_i0j0b")
+pitch_scale = 0.7
+script = ExtResource("15_mneio")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

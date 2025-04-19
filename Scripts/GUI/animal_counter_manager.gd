@@ -2,6 +2,8 @@ extends Control
 
 class_name AnimalCounterManager
 
+@export var hbox : HBoxContainer
+
 # Properties
 var cows : Array[Animal] = []
 var chickens : Array[Animal] = []
@@ -12,26 +14,6 @@ var animals_manager : AnimalManager
 func _process(_delta: float) -> void:
 	if !animals_manager:
 		init_UI_bars()
-	
-	# Lấy số lượng current của mỗi loại trong caught animals
-	#if !cows.is_empty() or !chickens.is_empty():
-		#var cow_counter : int = 0
-		#var chicken_counter : int = 0
-		#
-		#for animal in animals_manager.caughted_animals:
-			#match animals_manager.caughted_animals[animal]["name"]:
-				#"cow":
-					#print("From AnimalCounterManager: add one cow, counter = ", cow_counter)
-					#cow_counter += 1
-				#"chicken":
-					#print("From AnimalCounterManager: add one chicken, counter = ", chicken_counter)
-					#chicken_counter += 1
-		#
-		#var ui_bars := get_children()
-		#for ui_bar in ui_bars:
-			#match ui_bar.category.to_lower():
-				#"cow": ui_bar.set_label(cow_counter, ui_bar.max_counter)
-				#"chicken": ui_bar.set_label(chicken_counter, ui_bar.max_counter)
 
 func init_UI_bars():
 	animals_manager = get_tree().get_first_node_in_group("LevelManager").animals_manager
@@ -50,12 +32,12 @@ func init_UI_bars():
 	if !cows.is_empty():
 		print("From AnimalCounterUI: cow caterory with size: ", cows.size())
 		var new_ui = add_UI_bar(cows[0].resource.name, cows[0].resource.texture, cows.size())
-		call_deferred("add_child", new_ui)
+		hbox.call_deferred("add_child", new_ui)
 		
 	if !chickens.is_empty():
 		print("From AnimalCounterUI: chicken caterory with size: ", chickens.size())
 		var new_ui = add_UI_bar(chickens[0].resource.name, chickens[0].resource.texture, chickens.size())
-		call_deferred("add_child", new_ui)
+		hbox.call_deferred("add_child", new_ui)
 
 func add_UI_bar(animal_name: String, texture: CompressedTexture2D, _max: int, _current: int = 0) -> AnimalCounterUI:
 	var new_ui_bar : AnimalCounterUI = preload("res://Scenes/GUI/animal_counter_UI.tscn").instantiate()
@@ -66,15 +48,20 @@ func add_UI_bar(animal_name: String, texture: CompressedTexture2D, _max: int, _c
 	return new_ui_bar
 
 func _on_just_caught_animal(animal_name: String):
-	("From AnimalCounterManager: connect with JustCaughtAnimal")
-	for ui_bar in get_children():
-		match ui_bar.category:
+	print("From AnimalCounterManager: connect with JustCaughtAnimal")
+	var ui_bars = get_node("HBoxContainer").get_children()
+	for ui_bar in ui_bars:
+		print("From AnimalCounterManager: ui_bar.category: ", ui_bar.category)
+		match ui_bar.category.to_lower():
 			"cow":
-				if animal_name == ui_bar.category:
+				if animal_name.to_lower() == ui_bar.category.to_lower():
 					print("From AnimalCounterManager: add one cow")
 					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
+					return
 			"chicken":
-				if animal_name == ui_bar.category:
-					("From AnimalCounterManager: add one chicken")
+				if animal_name.to_lower() == ui_bar.category.to_lower():
+					print("From AnimalCounterManager: add one chicken")
 					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
+					return
+	print("From AnimalCounterManager: cannot find animal_name: ", animal_name.to_lower())
 		

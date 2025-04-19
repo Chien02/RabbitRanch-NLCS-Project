@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmhrlo5ivcsuk"]
+[gd_scene load_steps=3 format=3 uid="uid://cmhrlo5ivcsuk"]
 
 [ext_resource type="Script" uid="uid://b8ogpac7qgxs0" path="res://Scripts/GUI/animal_counter_manager.gd" id="1_e8xvm"]
+[ext_resource type="Texture2D" uid="uid://cdya8awgxtm7" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/brown_bar.png" id="3_g82bt"]
 
-[node name="AnimalCounterManager" type="HBoxContainer"]
+[node name="AnimalCounterManager" type="Control" node_paths=PackedStringArray("hbox")]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -12,6 +14,23 @@ offset_left = -69.0
 offset_right = 149.0
 offset_bottom = 32.0
 grow_horizontal = 2
-theme_override_constants/separation = 10
-alignment = 1
 script = ExtResource("1_e8xvm")
+hbox = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -29.0
+offset_top = 19.0
+offset_right = 151.0
+offset_bottom = 59.0
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -69.0
+offset_top = 1.0
+offset_right = 21.0
+offset_bottom = 17.0
+scale = Vector2(4, 1.5)
+texture = ExtResource("3_g82bt")

@@ -5,6 +5,7 @@ class_name BigTree
 @export var animation_player : AnimationPlayer
 @export var animation_tree : AnimationTree
 @export var area2D : Area2D
+@export var audio : CharacterSoundFX
 @export var log_link : String = "res://Scenes/Entity/log.tscn"
 var counter : int = 0
 var max_chop : int = 3
@@ -52,6 +53,10 @@ func spawn_logs():
 	var rand_num : int
 	var finish_flag : bool = false
 	print("From BigTree: ready to spawn logs")
+	
+	# play audio
+	if audio:
+		audio.play_sound(CharacterSoundFX.Sound.FALLING_TREE)
 	
 	var neighbors = grid.get_surrounding_cells(local_position)
 	var count_loop = 0

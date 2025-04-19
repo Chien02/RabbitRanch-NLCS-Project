@@ -40,21 +40,21 @@ func init_actor_to_UI():
 
 func display_current_actor(actor: Character = null):
 	#var _duration : float = 0.5  This use for custom_tween
-	var orange = Color("90625d")
-	var green = Color("c0d470")
+	var inactive = TurnBasedManager.INACTIVE
+	var active = TurnBasedManager.ACTIVE
 	var temp_current_actor = turnbased_manager.current_actor
 	
 	for _actor in actors_UI:
 		if actor:
 			if actor.name.to_lower() != _actor.character_name.to_lower():
-				_actor.set_color(orange)
+				_actor.set_color(inactive)
 				continue
-			_actor.set_color(green)
+			_actor.set_color(active)
 		else:
 			if _actor.character_name == temp_current_actor.name:
-				_actor.set_color(green)
+				_actor.set_color(active)
 				continue
-			_actor.set_color(orange)
+			_actor.set_color(inactive)
 
 func drop_ui_bar(character: Character):
 	for actor in actors_UI:

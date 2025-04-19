@@ -12,10 +12,14 @@ var direction : Vector2
 signal FinishedWalk
 
 func movement(_object, _delta: float):
-	if is_walking: return
-	if !_object.grid: return
-	if _object is MainCharacter and _object.is_using_item:
+	if is_walking:
+		if !_object.audio: return
+		_object.audio.play_sound(CharacterSoundFX.Sound.WALK)
 		return
+	
+	if !_object.grid: return
+	if _object is MainCharacter and _object.is_using_item: return
+	
 	if !is_just_type_input(): return
 	
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").floor()

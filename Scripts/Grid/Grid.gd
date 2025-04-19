@@ -19,6 +19,10 @@ var barrel_id : int = 6
 var fench_id : int = 6
 var obstacle_source_id : Array[int] = [barrel_id, fench_id]
 
+# Đây là danh sách dùng để kiểm tra các tile không đi được
+var isnot_path : Array[TilePath] = []
+
+
 func _ready() -> void:
 	characters = get_tree().get_nodes_in_group("MainCharacter")
 	init_grid()
@@ -41,7 +45,8 @@ func init_grid():
 	var water_source_id : int = 0
 	var filling_water : Vector2i = Vector2i(10, 0)
 	var is_water : bool = false
-		
+	
+	
 	# Init for the path
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
@@ -128,7 +133,6 @@ func string_to_vector2(string := "") -> Vector2i:
 		var array: Array = new_string.split(", ")
 
 		return Vector2i(int(array[0]), int(array[1]))
-
 	return Vector2i.ZERO
 
 func change_tile_property(_pos: Vector2i, _is_path: bool = true, player_zone: bool = false):

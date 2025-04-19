@@ -5,6 +5,7 @@ class_name Character
 @export var health : Health
 @export var area : Area2D
 @export var state_machine : StateMachine
+@export var audio : CharacterSoundFX
 
 @export_category("Resources")
 @export var resource : CharacterResource
@@ -20,6 +21,7 @@ var turnbase_actor : TurnBaseActor
 func _ready() -> void:
 	if health:
 		health.Died.connect(_on_health_die)
+		health.Hurted.connect(_on_health_hurt)
 
 
 func stunned(stun: bool, num_of_turn: int):
@@ -45,4 +47,10 @@ func set_character_visible(_bool: bool):
 
 func _on_health_die():
 	print("From ", name, ": Dieeeeeeee")
+	if !audio: return
+	audio.play_sound(CharacterSoundFX.Sound.HIT)
 	Disappear.emit(self)
+
+func _on_health_hurt():
+	if !audio: return
+	audio.play_sound(CharacterSoundFX.Sound.HIT)
