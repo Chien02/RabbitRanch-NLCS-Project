@@ -16,18 +16,21 @@ texture_rect_base = NodePath("TextureRect")
 texture_rect = NodePath("HBoxContainer/TextureRect")
 label = NodePath("HBoxContainer/Label")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="NinePatchRect" parent="."]
 layout_mode = 0
 offset_left = -4.0
-offset_top = -3.0
-offset_right = 55.0
-offset_bottom = 18.0
+offset_top = -1.0
+offset_right = 36.0
+offset_bottom = 16.0
 texture = ExtResource("2_ankg5")
-expand_mode = 1
+region_rect = Rect2(3.05493, 3.96721, 90.0319, 24.9832)
+patch_margin_left = 2
+patch_margin_right = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-offset_right = 49.0
+offset_left = -2.0
+offset_right = 32.0
 offset_bottom = 16.0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer"]

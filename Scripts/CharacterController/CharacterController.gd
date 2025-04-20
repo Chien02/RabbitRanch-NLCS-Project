@@ -26,6 +26,8 @@ func movement(_object, _delta: float):
 	
 	if direction == Vector2.ZERO or direction.x != 0 and direction.y != 0:
 		return
+	else:
+		_object.facing_direction = direction
 	
 	var next_position : Vector2 = _object.position + direction * tile_size
 	var local_next_pos : Vector2i = _object.grid.local_to_map(next_position)

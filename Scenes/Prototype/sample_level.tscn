@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://ct5hekqr35kpm"]
+[gd_scene load_steps=68 format=4 uid="uid://ct5hekqr35kpm"]
 
 [ext_resource type="Texture2D" uid="uid://hp434qvqcww2" path="res://Sprites/Prototype/ground.png" id="1_6ed6c"]
 [ext_resource type="Script" uid="uid://bqr060qcd12nq" path="res://Scripts/Level/level_manager.gd" id="1_bnfqx"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bmafeh41mv4ja" path="res://Sprites/Prototype/select-cursor.png" id="2_a4oga"]
 [ext_resource type="Texture2D" uid="uid://cbsc7ydtafhom" path="res://Sprites/Prototype/obstacle.png" id="2_gdea5"]
 [ext_resource type="Texture2D" uid="uid://cppm06x3vkcub" path="res://Sprites/Prototype/main-character-path.png" id="3_vjtpf"]
-[ext_resource type="PackedScene" uid="uid://ce3xwr67jo63y" path="res://Scenes/Character/cow.tscn" id="4_bke7g"]
 [ext_resource type="Texture2D" uid="uid://40ywqg8vb31l" path="res://Sprites/Prototype/target-path.png" id="4_s1bld"]
 [ext_resource type="PackedScene" uid="uid://b3nx8cbk04qm5" path="res://Scenes/Character/wolf.tscn" id="5_oyglk"]
 [ext_resource type="PackedScene" uid="uid://buix5n034hegi" path="res://Scenes/Character/chicken.tscn" id="6_4mmwh"]
@@ -40,6 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://bmhj7hnycog5m" path="res://Scenes/GUI/transition.tscn" id="33_ipgw7"]
 [ext_resource type="AudioStream" uid="uid://djyfg13ooytg" path="res://Sounds/BGM/time_for_adventure.mp3" id="33_ons3s"]
 [ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="34_mp15f"]
+[ext_resource type="Shader" uid="uid://dh7fxq4cb24nm" path="res://Shader/blur.gdshader" id="35_b7b2j"]
 [ext_resource type="PackedScene" uid="uid://cg2s4dvialq7i" path="res://Scenes/GUI/actor_turn_ui.tscn" id="38_4mmwh"]
 [ext_resource type="PackedScene" uid="uid://cmhrlo5ivcsuk" path="res://Scenes/GUI/animal_counter_manager.tscn" id="39_1lxr0"]
 
@@ -1408,6 +1408,18 @@ sources/2 = SubResource("TileSetAtlasSource_c0hrr")
 sources/3 = SubResource("TileSetAtlasSource_65dxm")
 sources/4 = SubResource("TileSetAtlasSource_oyglk")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b7b2j"]
+shader = ExtResource("35_b7b2j")
+shader_parameter/blur_amount = 5.288
+shader_parameter/mix_amount = 0.247
+shader_parameter/color_over = Color(1, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_okcsi"]
+shader = ExtResource("35_b7b2j")
+shader_parameter/blur_amount = 0.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
 [node name="Sample_level" type="Node2D" node_paths=PackedStringArray("transition", "audio") groups=["LevelManager"]]
 y_sort_enabled = true
 texture_filter = 1
@@ -1423,17 +1435,6 @@ y_sort_enabled = true
 position = Vector2(138, 154)
 grid = NodePath("../../TileMap")
 
-[node name="Cow" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_bke7g")]
-position = Vector2(120, 168)
-option = "not_ignore"
-grid = NodePath("../../TileMap")
-
-[node name="Chicken" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("6_4mmwh")]
-position = Vector2(265, 168)
-mode = "not_diagonal"
-option = "ignore"
-grid = NodePath("../../TileMap")
-
 [node name="Chicken2" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("6_4mmwh")]
 position = Vector2(120, 152)
 mode = "not_diagonal"
@@ -1441,7 +1442,7 @@ option = "ignore"
 grid = NodePath("../../TileMap")
 
 [node name="Wolf" parent="TurnBasedManager" node_paths=PackedStringArray("grid") instance=ExtResource("5_oyglk")]
-position = Vector2(280, 168)
+position = Vector2(167, 153)
 grid = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("obstacles_management", "item_manager") groups=["Grid"]]
@@ -1594,11 +1595,30 @@ autoplay = true
 parameters/looping = true
 script = ExtResource("34_mp15f")
 
+[node name="Shader" type="Node2D" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 
-[node name="GUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("label", "label_mouse_pos") groups=["GUI"]]
+[node name="ActorTurnUI" parent="CanvasLayer" instance=ExtResource("38_4mmwh")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 12.0
+offset_top = 104.0
+offset_right = 12.0
+offset_bottom = 104.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(3, 3)
+
+[node name="AnimalCounterManager" parent="CanvasLayer" instance=ExtResource("39_1lxr0")]
+offset_left = -102.0
+offset_right = 116.0
+
+[node name="GUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("label", "label_mouse_pos", "colorect") groups=["GUI"]]
 texture_filter = 1
+material = SubResource("ShaderMaterial_b7b2j")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1608,6 +1628,7 @@ grow_vertical = 2
 script = ExtResource("9_47kkx")
 label = NodePath("DebugUI/VBoxContainer/Panel/Label")
 label_mouse_pos = NodePath("DebugUI/VBoxContainer/Panel2/MousePosition")
+colorect = NodePath("ColorRect")
 
 [node name="InventoryUI" parent="CanvasLayer/GUI" instance=ExtResource("22_3oxg0")]
 layout_mode = 1
@@ -1616,6 +1637,15 @@ offset_top = -192.0
 offset_right = -123.0
 offset_bottom = -192.0
 scale = Vector2(2.5, 2.5)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GUI"]
+material = SubResource("ShaderMaterial_okcsi")
+layout_mode = 0
+offset_left = -74.0
+offset_top = -39.0
+offset_right = 925.0
+offset_bottom = 475.0
+scale = Vector2(1.37988, 1.48069)
 
 [node name="PauseUI" parent="CanvasLayer/GUI" instance=ExtResource("18_75bkg")]
 visible = false
@@ -1703,22 +1733,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "Show Animal Path"
-
-[node name="ActorTurnUI" parent="CanvasLayer" instance=ExtResource("38_4mmwh")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 12.0
-offset_top = 104.0
-offset_right = 12.0
-offset_bottom = 104.0
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(3, 3)
-
-[node name="AnimalCounterManager" parent="CanvasLayer" instance=ExtResource("39_1lxr0")]
-offset_left = -102.0
-offset_right = 116.0
 
 [node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("33_ipgw7")]
 

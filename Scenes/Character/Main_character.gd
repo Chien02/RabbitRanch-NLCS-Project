@@ -4,7 +4,6 @@ class_name MainCharacter
 
 @export var speed : float = 10.0
 var player_zone : Array[Vector2i] = []
-var facing_direction : Vector2 = Vector2(0, 1)
 var is_look_at_mouse: bool = false
 var tooling : bool = false
 var is_using_item : bool = false
@@ -14,7 +13,6 @@ var is_using_item : bool = false
 @export var inventory : Inventory
 
 var push : PushComponent
-var character_controller : CharacterController
 
 # For simulation demo for main_item in inventory
 var main_item_input: String = "tool"

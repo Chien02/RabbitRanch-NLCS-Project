@@ -1,8 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0dsp5fadh21b"]
+[gd_scene load_steps=18 format=3 uid="uid://d0dsp5fadh21b"]
 
 [ext_resource type="Texture2D" uid="uid://bwil8k4q4hcin" path="res://Sprites/Sprout Lands - Sprites - Basic pack/menu_sheet.png" id="1_qqk0j"]
 [ext_resource type="Script" uid="uid://bhl8by1xr87xd" path="res://Scripts/Level/main_menu.gd" id="1_vytfc"]
 [ext_resource type="PackedScene" uid="uid://bmhj7hnycog5m" path="res://Scenes/GUI/transition.tscn" id="3_t475i"]
+[ext_resource type="Texture2D" uid="uid://drrdkxsc2balr" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/wooden_base_ui.png" id="3_xg7my"]
+[ext_resource type="Theme" uid="uid://bi0xkjvornbhl" path="res://Themes/button.tres" id="4_wmo1h"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="6_gnv55"]
 
 [sub_resource type="Animation" id="Animation_qqk0j"]
 length = 1.6
@@ -101,11 +104,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("animation_player", "transition")]
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("animation_player", "transition", "audio")]
 texture_filter = 1
 script = ExtResource("1_vytfc")
 animation_player = NodePath("AnimationPlayer")
 transition = NodePath("CanvasLayer/TransitionScene")
+audio = NodePath("AudioStreamPlayer2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")
@@ -131,49 +135,54 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 117.0
-offset_top = 175.0
-offset_right = 327.0
-offset_bottom = 261.0
-scale = Vector2(1.64275, 1.7662)
+offset_left = 94.0
+offset_top = 106.0
+offset_right = 577.0
+offset_bottom = 346.0
+texture = ExtResource("3_xg7my")
+region_rect = Rect2(0, 0, 99, 54)
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
+offset_left = 158.0
+offset_top = 198.0
+offset_right = 541.0
+offset_bottom = 281.75
+theme_override_font_sizes/font_size = 60
 text = "Rabbit Ranch"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayButton" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 2
-offset_left = 174.0
-offset_top = 355.0
-offset_right = 494.0
-offset_bottom = 405.0
+offset_left = 216.0
+offset_top = 360.0
+offset_right = 444.0
+offset_bottom = 410.0
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 30
-text = "Play"
+theme = ExtResource("4_wmo1h")
+theme_override_font_sizes/font_size = 24
+text = "PLAY"
 
 [node name="SettingButton" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 2
-offset_left = 174.0
-offset_top = 422.0
-offset_right = 494.0
-offset_bottom = 472.0
+offset_left = 216.0
+offset_top = 426.0
+offset_right = 444.0
+offset_bottom = 476.0
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 30
-text = "Setting"
+theme = ExtResource("4_wmo1h")
+theme_override_font_sizes/font_size = 24
+text = "SETTING"
 
 [node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("3_t475i")]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("6_gnv55")
+
 [connection signal="pressed" from="CanvasLayer/Control/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/SettingButton" to="." method="_on_setting_button_pressed"]
 [connection signal="Finished" from="CanvasLayer/TransitionScene" to="." method="_on_transition_scene_finished"]

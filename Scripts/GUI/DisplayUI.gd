@@ -5,6 +5,7 @@ class_name DisplayUI
 @export var label : Label
 @export var label_mouse_pos : Label
 @onready var level_manager : LevelManager = get_parent().get_parent()
+@export var colorect : ColorRect
 var is_showing_animal_path : bool = false
 
 func _process(_delta: float) -> void:

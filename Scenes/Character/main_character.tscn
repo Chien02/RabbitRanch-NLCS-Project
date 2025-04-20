@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://bg1iiqsskh3fn"]
+[gd_scene load_steps=92 format=3 uid="uid://bg1iiqsskh3fn"]
 
 [ext_resource type="Script" uid="uid://ccliahv1c3bnd" path="res://Scenes/Character/Main_character.gd" id="1_x1ua0"]
 [ext_resource type="Texture2D" uid="uid://dhe6ehshltn7a" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="2_0eraa"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="12_kqtv2"]
 [ext_resource type="AudioStream" uid="uid://byoy4241fn12c" path="res://Sounds/SoundFX/walk_sound.wav" id="14_i0j0b"]
 [ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="15_mneio"]
+[ext_resource type="PackedScene" uid="uid://bpcfvj0bgcbgs" path="res://Scenes/Particles/white_particle.tscn" id="17_w4s3p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb5bw"]
 size = Vector2(12, 12)
@@ -771,7 +772,7 @@ states/walking/node = SubResource("AnimationNodeBlendSpace2D_rmsb6")
 states/walking/position = Vector2(587, 60)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_qtihi"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_tawdr"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_03l88"), "idle", "tool", SubResource("AnimationNodeStateMachineTransition_0uvkb"), "tool", "idle", SubResource("AnimationNodeStateMachineTransition_fee4t")]
 
-[node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health", "area", "state_machine", "audio") groups=["Character", "Entity", "MainCharacter"]]
+[node name="MainCharacter" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health", "area", "state_machine", "audio", "particle") groups=["Character", "Entity", "MainCharacter"]]
 z_index = 5
 y_sort_enabled = true
 texture_filter = 1
@@ -782,6 +783,7 @@ health = NodePath("HealthComponent")
 area = NodePath("Area2D")
 state_machine = NodePath("StateMachine")
 audio = NodePath("AudioStreamPlayer2D")
+particle = NodePath("WhiteParticle")
 resource = ExtResource("2_kqtv2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -816,6 +818,7 @@ script = ExtResource("5_4ktxd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qd1bx")
 animation = &"idle_down"
+frame = 1
 offset = Vector2(0, -2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -901,6 +904,8 @@ position = Vector2(30, 0)
 stream = ExtResource("14_i0j0b")
 pitch_scale = 0.7
 script = ExtResource("15_mneio")
+
+[node name="WhiteParticle" parent="." instance=ExtResource("17_w4s3p")]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

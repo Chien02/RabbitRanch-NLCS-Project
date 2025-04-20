@@ -4,7 +4,7 @@ class_name TurnBasedUI
 
 @export var character_name : String
 @export var texture : CompressedTexture2D # Represent character's icon
-@export var texture_rect_base : TextureRect
+@export var texture_rect_base : NinePatchRect
 @export var step : int
 
 @export var texture_rect : TextureRect

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ce3xwr67jo63y"]
+[gd_scene load_steps=29 format=3 uid="uid://ce3xwr67jo63y"]
 
 [ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_jniy7"]
 [ext_resource type="Resource" uid="uid://be8lkq6h6f1lu" path="res://Resources/Characters/cow.tres" id="2_3prio"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="9_3prio"]
 [ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="11_wvut3"]
 [ext_resource type="Texture2D" uid="uid://b73hp2gqumsmu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/shadow.png" id="12_f0ciy"]
+[ext_resource type="PackedScene" uid="uid://bpcfvj0bgcbgs" path="res://Scenes/Particles/white_particle.tscn" id="13_kdhx7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kjspb"]
 atlas = ExtResource("2_5rta3")
@@ -148,13 +149,14 @@ states/walking/node = SubResource("AnimationNodeAnimation_ab133")
 states/walking/position = Vector2(525, 92)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_xasdf"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_dpnad"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_qu8rs")]
 
-[node name="Cow" node_paths=PackedStringArray("astar", "health", "state_machine", "audio") groups=["Character", "Cow"] instance=ExtResource("1_jniy7")]
+[node name="Cow" node_paths=PackedStringArray("astar", "health", "state_machine", "audio", "particle") groups=["Character", "Cow"] instance=ExtResource("1_jniy7")]
 z_index = 5
 y_sort_enabled = true
 astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
 state_machine = NodePath("StateMachine")
 audio = NodePath("AudioStreamPlayer2D")
+particle = NodePath("WhiteParticle")
 resource = ExtResource("2_3prio")
 
 [node name="CollisionShape2D" parent="." index="0"]
@@ -166,7 +168,6 @@ animation_tree = NodePath("../AnimationTree")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
 sprite_frames = SubResource("SpriteFrames_dpnad")
 animation = &"idle"
-frame = 2
 offset = Vector2(0, -4)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
@@ -220,3 +221,6 @@ z_index = -1
 position = Vector2(-1, 6)
 scale = Vector2(1.40939, 1.1754)
 texture = ExtResource("12_f0ciy")
+
+[node name="WhiteParticle" parent="." index="11" instance=ExtResource("13_kdhx7")]
+z_index = 1

@@ -1,9 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://b21a6phknhiic"]
+[gd_scene load_steps=9 format=3 uid="uid://b21a6phknhiic"]
 
 [ext_resource type="Script" uid="uid://bn2df4vfg1dqj" path="res://Scripts/Level/win_event.gd" id="1_vwrtl"]
+[ext_resource type="Theme" uid="uid://e7h75y8h8q3i" path="res://Themes/panel_container_event_ui.tres" id="2_m6py6"]
+[ext_resource type="Theme" uid="uid://y4k66rhnuxjf" path="res://Themes/button_in_game.tres" id="3_kqfsm"]
+[ext_resource type="Texture2D" uid="uid://btlbjluts3gxj" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Dialouge UI/ribbon.png" id="3_uf84r"]
+[ext_resource type="PackedScene" uid="uid://cmhrlo5ivcsuk" path="res://Scenes/GUI/animal_counter_manager.tscn" id="5_uf84r"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="6_vhhf7"]
 
-[node name="WinUI" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhhf7"]
+texture = ExtResource("3_uf84r")
+
+[sub_resource type="Theme" id="Theme_xc3j3"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_vhhf7")
+
+[node name="WinUI" type="Control" node_paths=PackedStringArray("audio")]
 process_mode = 2
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -13,20 +25,41 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vwrtl")
+audio = NodePath("AudioStreamPlayer2D")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -204.0
-offset_top = -139.0
-offset_right = 203.0
-offset_bottom = 129.0
+offset_left = -194.5
+offset_top = -127.0
+offset_right = 194.5
+offset_bottom = 127.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_m6py6")
+
+[node name="AnimalCounterManager" parent="." instance=ExtResource("5_uf84r")]
+process_mode = 3
+layout_mode = 1
+offset_left = -102.0
+offset_top = -36.0
+offset_right = 116.0
+offset_bottom = -4.0
+
+[node name="TextureRect" parent="AnimalCounterManager" index="1"]
+visible = false
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = -112.0
+offset_top = -105.0
+offset_right = 107.0
+offset_bottom = -14.0
+theme = SubResource("Theme_xc3j3")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -35,51 +68,54 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -41.0
-offset_top = -38.0
-offset_right = 41.0
-offset_bottom = 12.0
+offset_left = -40.0
+offset_top = -94.0
+offset_right = 42.0
+offset_bottom = -44.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(42, 27)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
 text = "Win"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NextLevel" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = 53.0
-offset_right = 44.0
-offset_bottom = 84.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Next Level"
-
-[node name="MainMenu" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = -163.0
-offset_top = 52.0
-offset_right = -67.0
-offset_bottom = 83.0
-text = "Main Menu
-"
+offset_left = -176.0
+offset_top = 66.0
+offset_right = 233.0
+offset_bottom = 106.0
+scale = Vector2(0.88, 0.88)
+theme_override_constants/separation = 10
+alignment = 1
 
-[node name="LevelSelection" type="Button" parent="."]
-layout_mode = 0
-offset_left = 65.0
-offset_top = 53.0
-offset_right = 188.0
-offset_bottom = 84.0
+[node name="LevelSelection" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_kqfsm")
 text = "Level Selection
 "
 
-[connection signal="pressed" from="NextLevel" to="." method="_on_next_level_pressed"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="LevelSelection" to="." method="_on_level_selection_pressed"]
+[node name="NextLevel" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_kqfsm")
+text = "Next Level"
+
+[node name="MainMenu" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_kqfsm")
+text = "Main Menu
+"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 2
+script = ExtResource("6_vhhf7")
+
+[connection signal="pressed" from="HBoxContainer/LevelSelection" to="." method="_on_level_selection_pressed"]
+[connection signal="pressed" from="HBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+
+[editable path="AnimalCounterManager"]

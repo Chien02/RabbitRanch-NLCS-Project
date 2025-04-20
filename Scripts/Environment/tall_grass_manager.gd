@@ -71,11 +71,13 @@ func stop_hide_player(body: Character):
 	body.set_modulate(Color(1, 1, 1, 1))
 	if animals_inside.is_empty(): return
 	for animal in animals_inside:
+		if animal == null: continue
 		animal.set_visible(false)
 
 func check_animal_inside(is_animal: bool, pos : Vector2i = Vector2i.ZERO):
 	for player in player_inside:
 		for animal in animals_inside:
+			if animal == null: continue
 			var animal_pos : Vector2i
 			var player_pos : Vector2i
 			if is_animal and pos != Vector2i.ZERO:

@@ -14,6 +14,9 @@ func enter_state(_value: Node2D = null):
 	
 	if character.turnbase_actor:
 		character.area.get_child(0).disabled = !character.turnbase_actor.is_active
+	
+	# Tìm con mồi ngay lập tức
+	get_nearest_animal()
 
 
 func exit_state():
@@ -102,6 +105,9 @@ func get_nearest_animal() -> Animal:
 			nearest_animal = animal
 	
 	print("From Wolf Idle: find the prey, it's name is: ", nearest_animal.name)
+	# Đặt facing direction của sói hướng về con mồi
+	character.facing_direction = (nearest_animal.position - character.position).normalized()
+	
 	return nearest_animal
 
 func check_to_switch_to_charge() -> bool:

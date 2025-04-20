@@ -6,9 +6,13 @@ class_name Character
 @export var area : Area2D
 @export var state_machine : StateMachine
 @export var audio : CharacterSoundFX
+@export var particle : CPUParticles2D
 
 @export_category("Resources")
 @export var resource : CharacterResource
+
+var character_controller : CharacterController
+var turnbase_actor : TurnBaseActor
 
 signal OutOfStunned
 signal Disappear
@@ -16,7 +20,7 @@ signal Disappear
 var is_stun : bool = false
 var turn_counter : int = 0
 var max_stunned_turn : int = 0
-var turnbase_actor : TurnBaseActor
+var facing_direction : Vector2 = Vector2(0.0, 1.0)
 
 func _ready() -> void:
 	if health:
@@ -46,11 +50,22 @@ func set_character_visible(_bool: bool):
 	visible = _bool
 
 func _on_health_die():
-	print("From ", name, ": Dieeeeeeee")
 	if !audio: return
 	audio.play_sound(CharacterSoundFX.Sound.HIT)
+	play_particle()
+	
 	Disappear.emit(self)
 
 func _on_health_hurt():
 	if !audio: return
 	audio.play_sound(CharacterSoundFX.Sound.HIT)
+	play_particle()
+
+
+func play_particle():
+	if !particle: return
+	
+	# Lấy hướng nhìn của nhân vật để chuyển hướng particle
+	particle.direction.x = 10.0 if facing_direction.x <= 0 else -10.0
+	#particle.direction
+	particle.emitting = true

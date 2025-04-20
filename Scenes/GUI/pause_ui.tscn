@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmd5dvtrp5x48"]
+[gd_scene load_steps=7 format=3 uid="uid://dmd5dvtrp5x48"]
 
 [ext_resource type="Script" uid="uid://eucbsh1h5nvi" path="res://Scripts/Level/pause_event.gd" id="1_dr3f3"]
+[ext_resource type="Texture2D" uid="uid://drgncq83l8a42" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/base_ui.png" id="2_fs7sh"]
 [ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="2_xb2pw"]
+[ext_resource type="Theme" uid="uid://y4k66rhnuxjf" path="res://Themes/button_in_game.tres" id="4_bv3uq"]
+[ext_resource type="PackedScene" uid="uid://py8geky7leqj" path="res://Scenes/GUI/animal_counter_in_pause.tscn" id="5_mls5i"]
+[ext_resource type="Texture2D" uid="uid://dc2pxhrsuldb8" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="6_0emjs"]
 
 [node name="PauseUI" type="Control" node_paths=PackedStringArray("audio")]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -15,21 +20,15 @@ grow_vertical = 2
 script = ExtResource("1_dr3f3")
 audio = NodePath("AudioStreamPlayer2D")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(10.5164, 6.48342)
-pivot_offset = Vector2(20.0638, 21.1308)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -298.0
+offset_top = -207.0
+offset_right = -240.0
+offset_bottom = -139.0
+scale = Vector2(10.3246, 6.08435)
+texture = ExtResource("2_fs7sh")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -38,43 +37,77 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -42.0
-offset_top = -38.0
-offset_right = 45.0
-offset_bottom = 4.0
+offset_left = -168.0
+offset_top = -106.0
+offset_right = -37.0
+offset_bottom = -43.1875
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.35375, 1.36553)
 pivot_offset = Vector2(19.5823, 12.9359)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 45
 text = "Pause"
-
-[node name="Continue" type="Button" parent="."]
-layout_mode = 0
-offset_left = -41.0
-offset_top = 48.0
-offset_right = 38.0
-offset_bottom = 79.0
-text = "Continue"
-
-[node name="LevelSelection" type="Button" parent="."]
-layout_mode = 0
-offset_left = 58.0
-offset_top = 50.0
-offset_right = 181.0
-offset_bottom = 81.0
-text = "Level Selection"
-
-[node name="MainMenu" type="Button" parent="."]
-layout_mode = 0
-offset_left = -166.0
-offset_top = 49.0
-offset_right = -75.0
-offset_bottom = 80.0
-text = "MainMenu"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource("2_xb2pw")
 
-[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="LevelSelection" to="." method="_on_level_selection_pressed"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -171.0
+offset_top = -15.0
+offset_right = -32.0
+offset_bottom = 94.0
+theme_override_constants/separation = 12
+
+[node name="Continue" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_bv3uq")
+text = "Continue"
+
+[node name="LevelSelection" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_bv3uq")
+text = "Level Selection"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_bv3uq")
+text = "MainMenu"
+
+[node name="TextureRect2" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+offset_left = 43.0
+offset_top = -85.0
+offset_right = 198.0
+offset_bottom = -53.0
+texture = ExtResource("6_0emjs")
+region_rect = Rect2(642, 137, 28, 14)
+patch_margin_left = 1
+patch_margin_right = 1
+
+[node name="Label2" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 7.0
+offset_right = 144.0
+offset_bottom = 29.3333
+text = "Catched Animals"
+
+[node name="AnimalCounterInPause" parent="." instance=ExtResource("5_mls5i")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 67.0
+offset_top = -57.0
+offset_right = 222.0
+offset_bottom = -17.0
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelSelection" to="." method="_on_level_selection_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

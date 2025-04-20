@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpcfvj0bgcbgs"]
+
+[ext_resource type="Texture2D" uid="uid://dnmngbql52bii" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Particles/white_particle.png" id="1_8b1au"]
+
+[sub_resource type="Curve" id="Curve_8b1au"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.269663), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="WhiteParticle" type="CPUParticles2D"]
+emitting = false
+amount = 10
+texture = ExtResource("1_8b1au")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector2(10, -20)
+spread = 30.0
+gravity = Vector2(0, 600)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 0.65
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_8b1au")

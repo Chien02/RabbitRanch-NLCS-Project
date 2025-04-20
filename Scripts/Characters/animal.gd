@@ -12,9 +12,6 @@ var is_finished_special : bool = false
 @export var grid : Grid
 @export var astar : Astar
 
-var character_controller : CharacterController
-var facing_direction : Vector2 = Vector2(0, 1)
-
 func _ready() -> void:
 	super()
 	var animal_turnbase_actor = AnimalTurnBaseActor.new(self)

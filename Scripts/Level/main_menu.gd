@@ -3,6 +3,8 @@ extends Node2D
 
 @export var animation_player : AnimationPlayer
 @export var transition : Transition
+@export var audio : UISoundFX
+
 var demo_scene_path : String = "res://Scenes/Prototype/sample_level.tscn"
 
 func _ready() -> void:
@@ -11,6 +13,8 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
+	# Thực hiện audio khi nút được bấm
+	audio.play_sound(CharacterSoundFX.Sound.COMFIRM)
 	# Chuyển sang menu chọn màn chơi
 	# nhưng hiện tại chỉ chuyển sang màn chơi
 	transition.trans_in()
@@ -18,3 +22,8 @@ func _on_play_button_pressed() -> void:
 
 func _on_transition_scene_finished() -> void:
 	get_tree().change_scene_to_file(demo_scene_path)
+
+
+func _on_setting_button_pressed() -> void:
+	# Thực hiện audio khi nút được bấm
+	audio.play_sound(CharacterSoundFX.Sound.SELECT)

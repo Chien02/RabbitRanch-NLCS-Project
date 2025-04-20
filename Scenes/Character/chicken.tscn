@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://buix5n034hegi"]
+[gd_scene load_steps=30 format=3 uid="uid://buix5n034hegi"]
 
 [ext_resource type="PackedScene" uid="uid://c0pe257yeyxmg" path="res://Scenes/Character/animal.tscn" id="1_iuf54"]
 [ext_resource type="Script" uid="uid://mnm4nxg6x55o" path="res://Scripts/StateSripts/StateMachine.gd" id="2_5vh1g"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://q0rr0jfkvl0c" path="res://Scenes/GUI/heart.tscn" id="9_po2q1"]
 [ext_resource type="Script" uid="uid://do7e14lgjlk4o" path="res://Scripts/Animation/SoundFX/character_soundfx.gd" id="11_31lsb"]
 [ext_resource type="Texture2D" uid="uid://b73hp2gqumsmu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/shadow.png" id="12_10hd6"]
+[ext_resource type="PackedScene" uid="uid://bpcfvj0bgcbgs" path="res://Scenes/Particles/white_particle.tscn" id="13_mfovp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fkg0"]
 atlas = ExtResource("7_dlita")
@@ -154,7 +155,7 @@ states/walking/node = SubResource("AnimationNodeAnimation_kvrmc")
 states/walking/position = Vector2(507, 106)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1m1bk"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_rytwk"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_krst6")]
 
-[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine", "audio") groups=["Character"] instance=ExtResource("1_iuf54")]
+[node name="Chicken" node_paths=PackedStringArray("astar", "health", "state_machine", "audio", "particle") groups=["Character"] instance=ExtResource("1_iuf54")]
 z_index = 5
 mode = "diagonal"
 option = "not_ignore"
@@ -162,6 +163,7 @@ astar = NodePath("AstarComponent")
 health = NodePath("HealthComponent")
 state_machine = NodePath("StateMachine")
 audio = NodePath("AudioStreamPlayer2D")
+particle = NodePath("WhiteParticle")
 resource = ExtResource("2_po2q1")
 
 [node name="CollisionShape2D" parent="." index="0"]
@@ -224,3 +226,6 @@ z_index = -1
 position = Vector2(-1, 4)
 scale = Vector2(0.875, 0.8125)
 texture = ExtResource("12_10hd6")
+
+[node name="WhiteParticle" parent="." index="11" instance=ExtResource("13_mfovp")]
+z_index = 1
