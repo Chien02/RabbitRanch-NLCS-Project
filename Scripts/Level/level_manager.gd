@@ -2,6 +2,10 @@ extends Node2D
 
 class_name LevelManager
 
+@export_category("Level Number")
+@export var current_level : int = 0
+
+@export_category("Components")
 @export var transition : Transition
 @export var audio : UISoundFX
 
@@ -19,6 +23,7 @@ signal Paused
 signal DropActorUIBar
 
 func _ready() -> void:
+	GlobalProperties.current_level = current_level
 	# Play transition when enter scene
 	transition.trans_out()
 	

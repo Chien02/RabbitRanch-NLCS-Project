@@ -44,6 +44,8 @@ func movement(_object, _delta: float):
 	
 	CustomTween.movement(_object, next_position, speed * _delta)
 	await _object.get_tree().create_timer(speed * _delta).timeout
+	# Update local posistion
+	_object.update_local_position()
 	is_walking = false
 
 func is_just_type_input():
@@ -64,4 +66,27 @@ func move_to(_object, next_pos: Vector2, duration: float):
 	CustomTween.movement(_object, next_pos, duration)
 	await _object.get_tree().create_timer(duration).timeout
 	is_walking = false
+	# Update local position
+	if _object is Character:
+		_object.update_local_position()
 	FinishedWalk.emit()
+
+func movement_free(character: CharacterSelectLevel, _delta: float):
+	# Get the input
+	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	# Nếu hướng đi khác không thì set hướng nhìn bằng hướng đi
+	if direction != Vector2.ZERO:
+		character.facing_direction = direction
+		# Bật cờ di chuyển lên
+		is_walking = true
+	else:
+		is_walking = false
+		return
+		
+	# Play audio, thêm điều kiện kiểm tra để tránh bị đè âm thanh
+	if character.audio and !character.audio.playing:
+		character.audio.play_sound(CharacterSoundFX.Sound.WALK)
+	
+	# Hàm lerf để di chuyển nhân vật
+	character.position = lerp(character.position, character.position + direction * character.speed * _delta, character.speed * _delta)
+	

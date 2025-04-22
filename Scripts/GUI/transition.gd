@@ -9,7 +9,6 @@ signal Finished
 
 func trans_in():
 	animation_player.play("trans_in")
-	
 
 func trans_out():
 	animation_player.play("trans_out")

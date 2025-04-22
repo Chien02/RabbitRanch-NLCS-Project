@@ -9,7 +9,7 @@ var tooling : bool = false
 var is_using_item : bool = false
 
 # Component variables
-@export var grid : Grid
+
 @export var inventory : Inventory
 
 var push : PushComponent
@@ -97,3 +97,7 @@ func _on_inventory_using_item(item_name: String):
 
 func _on_inventory_finished_using_item():
 	is_using_item = false
+
+func update_local_position():
+	if !grid: return
+	grid.local_to_map(position)

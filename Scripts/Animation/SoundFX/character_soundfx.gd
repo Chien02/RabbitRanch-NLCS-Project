@@ -3,7 +3,8 @@ extends AudioStreamPlayer2D
 class_name CharacterSoundFX
 
 enum Sound{
-	WALK, HIT, SELECT, COMFIRM, CANCEL, CHOP1, CHOP2, FALLING_TREE, MINING
+	WALK, HIT, SELECT, COMFIRM, CANCEL, CHOP1, CHOP2, FALLING_TREE, MINING,
+	COLLECT
 }
 
 var walk_sound : String = "res://Sounds/SoundFX/walk_sound.wav"
@@ -13,6 +14,7 @@ var chop1 : String = "res://Sounds/SoundFX/chop tree 1.wav"
 var chop2 : String = "res://Sounds/SoundFX/chop tree 2.wav"
 var falling_tree : String = "res://Sounds/SoundFX/tree falling.wav"
 var mining_stone : String = "res://Sounds/SoundFX/mining_sound.wav"
+var collect_sound : String = "res://Sounds/SoundFX/collect_item.wav"
 
 func play_sound(sound_name: int):
 	match sound_name:

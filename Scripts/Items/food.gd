@@ -38,6 +38,10 @@ func _input(event: InputEvent) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is MainCharacter:
 		print("From Rice: collide with Main Character")
+		# play audio
+		if audio:
+			audio.play_sound(CharacterSoundFX.Sound.COLLECT)
+		
 		var new_item = Food.new()
 		new_item.init(grid, body, resource)
 		body.inventory.add_item(new_item)

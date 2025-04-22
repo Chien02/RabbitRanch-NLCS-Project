@@ -1,8 +1,74 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgbio51ohm2m8"]
+[gd_scene load_steps=14 format=3 uid="uid://cgbio51ohm2m8"]
 
 [ext_resource type="Script" uid="uid://cc4v8u5wtce8u" path="res://Scripts/Level/loss_event.gd" id="1_pwvk2"]
+[ext_resource type="Theme" uid="uid://b0ly2m1se2661" path="res://Themes/panel_container_event_ui_dark.tres" id="2_3a6uc"]
+[ext_resource type="Texture2D" uid="uid://bu3u7tmdqoegq" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Dialouge UI/ribbon_bright.png" id="3_jknt7"]
+[ext_resource type="Theme" uid="uid://y4k66rhnuxjf" path="res://Themes/button_in_game.tres" id="4_ekhcm"]
+[ext_resource type="Texture2D" uid="uid://dc2pxhrsuldb8" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="5_eukb5"]
+[ext_resource type="Texture2D" uid="uid://hwlka1xc2n43" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Dialouge UI/Emotes/Teemo Basic emote animations sprite sheet.png" id="6_fr7ju"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="7_jknt7"]
 
-[node name="LossUI" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j1me1"]
+texture = ExtResource("5_eukb5")
+region_rect = Rect2(245, 101, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cohpt"]
+atlas = ExtResource("6_fr7ju")
+region = Rect2(96, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw5er"]
+atlas = ExtResource("6_fr7ju")
+region = Rect2(128, 416, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_txq03"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cohpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw5er")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_ckmt6"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b8sim"]
+_data = {
+&"default": SubResource("Animation_ckmt6")
+}
+
+[node name="LossUI" type="Control" node_paths=PackedStringArray("audio", "animation_player")]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -12,20 +78,31 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pwvk2")
+audio = NodePath("AudioStreamPlayer2D")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -203.5
+offset_left = -185.0
 offset_top = -134.0
-offset_right = 203.5
+offset_right = 179.0
 offset_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_3a6uc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -116.0
+offset_top = -105.0
+offset_right = 116.0
+offset_bottom = 7.0
+texture = ExtResource("3_jknt7")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -34,41 +111,70 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -34.0
-offset_right = 32.0
-offset_bottom = 8.0
+offset_left = -38.0
+offset_top = -80.0
+offset_right = 36.0
+offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.564706, 0.384314, 0.364706, 1)
 theme_override_font_sizes/font_size = 30
-text = "Loss"
+text = "LOSE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Restart" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = -34.0
-offset_top = 59.0
-offset_right = 31.0
-offset_bottom = 90.0
+offset_left = -159.0
+offset_top = 63.0
+offset_right = 221.0
+offset_bottom = 103.0
+scale = Vector2(0.832914, 0.818396)
+
+[node name="LevelSelection" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_ekhcm")
+text = "Levels
+"
+
+[node name="Restart" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_ekhcm")
 text = "Restart"
 
-[node name="LevelSelection" type="Button" parent="."]
-layout_mode = 0
-offset_left = 57.0
-offset_top = 58.0
-offset_right = 180.0
-offset_bottom = 89.0
-text = "Level Selection"
+[node name="MainMenu" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_ekhcm")
+text = "Quit
+"
 
-[node name="MainMenu" type="Button" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = -161.0
-offset_top = 60.0
-offset_right = -65.0
-offset_bottom = 91.0
-text = "Main Menu"
+offset_left = -49.0
+offset_top = -19.0
+offset_right = 47.0
+offset_bottom = 55.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_j1me1")
 
-[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="LevelSelection" to="." method="_on_level_selection_pressed"]
-[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.999993, 18)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_txq03")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_b8sim")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+script = ExtResource("7_jknt7")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="HBoxContainer/LevelSelection" to="." method="_on_level_selection_pressed"]
+[connection signal="pressed" from="HBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

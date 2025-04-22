@@ -14,9 +14,6 @@ func enter_state(_value: Node2D = null):
 	
 	if character.turnbase_actor:
 		character.area.get_child(0).disabled = !character.turnbase_actor.is_active
-	
-	# Tìm con mồi ngay lập tức
-	get_nearest_animal()
 
 
 func exit_state():
@@ -156,6 +153,7 @@ func check_near_cross() -> bool:
 
 func _on_character_body_enter(body: Node2D):
 	if !character.turnbase_actor.is_active: return
+	if body is TileMapLayer: return
 	if body is Wolf: return
 	print("From Wolf Idle: ", body.name, " entered zone <---------")
 	character.target = body

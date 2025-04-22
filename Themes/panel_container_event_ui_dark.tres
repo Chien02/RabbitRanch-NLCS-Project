@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b0ly2m1se2661"]
+
+[ext_resource type="Texture2D" uid="uid://byoadfmji7gpy" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Setting menu-sheet.png" id="1_w1baj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6uuro"]
+texture = ExtResource("1_w1baj")
+region_rect = Rect2(139, 12, 106, 122)
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_6uuro")

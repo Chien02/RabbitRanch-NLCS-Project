@@ -1,17 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://nm8jncg3i1ns"]
+[gd_scene load_steps=6 format=3 uid="uid://nm8jncg3i1ns"]
 
 [ext_resource type="Script" uid="uid://be1wcl4mviu8t" path="res://Scripts/Items/food.gd" id="1_dpdhd"]
 [ext_resource type="Resource" uid="uid://bg7cpq7trkujy" path="res://Scripts/Items/ItemResources/rice_resource.tres" id="2_oqgyw"]
 [ext_resource type="Texture2D" uid="uid://6hmltddiweo4" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/rice_texture.png" id="3_oqgyw"]
+[ext_resource type="Script" uid="uid://dxoh2eei8eege" path="res://Scripts/Animation/SoundFX/item_soundfx.gd" id="4_4gl5t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dpdhd"]
 size = Vector2(12, 12)
 
-[node name="Rice" type="Node2D" groups=["Food", "Item"]]
+[node name="Rice" type="Node2D" node_paths=PackedStringArray("audio") groups=["Food", "Item"]]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_dpdhd")
 resource = ExtResource("2_oqgyw")
+audio = NodePath("AudioStreamPlayer2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -20,5 +22,8 @@ shape = SubResource("RectangleShape2D_dpdhd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_oqgyw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("4_4gl5t")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

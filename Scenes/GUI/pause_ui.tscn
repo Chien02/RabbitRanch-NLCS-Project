@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmd5dvtrp5x48"]
+[gd_scene load_steps=8 format=3 uid="uid://dmd5dvtrp5x48"]
 
 [ext_resource type="Script" uid="uid://eucbsh1h5nvi" path="res://Scripts/Level/pause_event.gd" id="1_dr3f3"]
 [ext_resource type="Texture2D" uid="uid://drgncq83l8a42" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/base_ui.png" id="2_fs7sh"]
@@ -6,6 +6,10 @@
 [ext_resource type="Theme" uid="uid://y4k66rhnuxjf" path="res://Themes/button_in_game.tres" id="4_bv3uq"]
 [ext_resource type="PackedScene" uid="uid://py8geky7leqj" path="res://Scenes/GUI/animal_counter_in_pause.tscn" id="5_mls5i"]
 [ext_resource type="Texture2D" uid="uid://dc2pxhrsuldb8" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="6_0emjs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0emjs"]
+texture = ExtResource("2_fs7sh")
+region_rect = Rect2(11.0638, 11.9704, 105.934, 122.056)
 
 [node name="PauseUI" type="Control" node_paths=PackedStringArray("audio")]
 texture_filter = 1
@@ -20,15 +24,21 @@ grow_vertical = 2
 script = ExtResource("1_dr3f3")
 audio = NodePath("AudioStreamPlayer2D")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -298.0
-offset_top = -207.0
-offset_right = -240.0
-offset_bottom = -139.0
+[node name="TextureRect" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -188.0
+offset_right = -160.0
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(10.3246, 6.08435)
-texture = ExtResource("2_fs7sh")
-expand_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_0emjs")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -37,25 +47,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -168.0
-offset_top = -106.0
-offset_right = -37.0
-offset_bottom = -43.1875
+offset_left = -129.0
+offset_top = -92.0
+offset_right = 2.0
+offset_bottom = -29.1875
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.35375, 1.36553)
 pivot_offset = Vector2(19.5823, 12.9359)
-theme_override_font_sizes/font_size = 45
-text = "Pause"
+theme_override_font_sizes/font_size = 30
+text = "PAUSE	"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource("2_xb2pw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = -171.0
+offset_left = -133.0
 offset_top = -15.0
-offset_right = -32.0
+offset_right = -5.0
 offset_bottom = 94.0
 theme_override_constants/separation = 12
 
@@ -69,25 +79,26 @@ text = "Continue"
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("4_bv3uq")
-text = "Level Selection"
+text = "Levels"
 
 [node name="MainMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("4_bv3uq")
-text = "MainMenu"
+text = "Quit"
 
 [node name="TextureRect2" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-offset_left = 43.0
+offset_left = 33.0
 offset_top = -85.0
-offset_right = 198.0
+offset_right = 188.0
 offset_bottom = -53.0
+scale = Vector2(0.923987, 1)
 texture = ExtResource("6_0emjs")
-region_rect = Rect2(642, 137, 28, 14)
-patch_margin_left = 1
-patch_margin_right = 1
+region_rect = Rect2(578, 169, 28, 14)
+patch_margin_left = 2
+patch_margin_right = 2
 
 [node name="Label2" type="Label" parent="TextureRect2"]
 layout_mode = 0
@@ -102,10 +113,10 @@ layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 67.0
-offset_top = -57.0
-offset_right = 222.0
-offset_bottom = -17.0
+offset_left = 54.0
+offset_top = -56.0
+offset_right = 209.0
+offset_bottom = -16.0
 size_flags_vertical = 3
 
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]

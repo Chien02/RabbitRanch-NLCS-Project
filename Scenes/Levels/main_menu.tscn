@@ -179,6 +179,7 @@ theme_override_font_sizes/font_size = 24
 text = "SETTING"
 
 [node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("3_t475i")]
+position = Vector2(568, 334)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource("6_gnv55")

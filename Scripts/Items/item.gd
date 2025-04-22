@@ -7,6 +7,7 @@ signal Disappear
 @onready var grid : Grid = get_tree().get_first_node_in_group("Grid")
 @export var resource : ItemResource
 @export var collider : CollisionShape2D
+@export var audio : ItemSoundFX
 
 var character : MainCharacter = null
 var is_activating : bool = false

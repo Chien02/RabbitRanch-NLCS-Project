@@ -27,6 +27,7 @@ func _ready() -> void:
 	characters = get_tree().get_nodes_in_group("MainCharacter")
 	init_grid()
 	scan_destination()
+	if !item_manager: return
 	item_manager.get_items()
 
 func _process(_delta: float) -> void:
@@ -36,6 +37,7 @@ func rescan(player_zone: Array[Vector2i] = []):
 	init_grid()
 	obstacles_management.scan_obstacle()
 	scan_player_zone(player_zone)
+	if !item_manager: return
 	item_manager.get_items()
 	#print("From Grid: Grid rescaned")
 
@@ -105,7 +107,10 @@ func scan_player_zone(player_zone: Array[Vector2i] = []):
 
 func scan_destination():
 	var door : Destination = get_tree().get_first_node_in_group("Destination")
-	destination = local_to_map(door.position)
+	if !door:
+		destination = Vector2i.ZERO
+	else:
+		destination = local_to_map(door.position)
 
 #The _position is still in the local coordinate, so in this function, it will turn to map coordinate
 #then compare to obstacles dictionary to find out: Is it an obstacle?

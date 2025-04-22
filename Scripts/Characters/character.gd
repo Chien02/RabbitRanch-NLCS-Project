@@ -7,6 +7,7 @@ class_name Character
 @export var state_machine : StateMachine
 @export var audio : CharacterSoundFX
 @export var particle : CPUParticles2D
+@export var grid : Grid
 
 @export_category("Resources")
 @export var resource : CharacterResource
@@ -21,6 +22,7 @@ var is_stun : bool = false
 var turn_counter : int = 0
 var max_stunned_turn : int = 0
 var facing_direction : Vector2 = Vector2(0.0, 1.0)
+var local_position : Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
 	if health:
@@ -69,3 +71,7 @@ func play_particle():
 	particle.direction.x = 10.0 if facing_direction.x <= 0 else -10.0
 	#particle.direction
 	particle.emitting = true
+
+func update_local_position():
+	if !grid: return
+	grid.local_to_map(position)

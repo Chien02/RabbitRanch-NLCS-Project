@@ -17,6 +17,10 @@ func _ready() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is MainCharacter and !is_activating:
 		print("From Trap: collide with Main Character")
+		# play audio
+		if audio:
+			audio.play_sound(CharacterSoundFX.Sound.COLLECT)
+		
 		var new_item = Trap.new()
 		new_item.init(grid, body, resource)
 		body.inventory.add_item(new_item)

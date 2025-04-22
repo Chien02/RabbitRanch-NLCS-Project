@@ -8,6 +8,9 @@ class_name DisplayUI
 @export var colorect : ColorRect
 var is_showing_animal_path : bool = false
 
+func _ready() -> void:
+	colorect.material["shader_parameter/blur_amount"] = 0.0
+
 func _process(_delta: float) -> void:
 	show_input()
 	show_mouse_pos()

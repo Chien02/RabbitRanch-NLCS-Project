@@ -9,7 +9,6 @@ class_name Animal
 var is_finished_special : bool = false
 
 @export_category("Components")
-@export var grid : Grid
 @export var astar : Astar
 
 func _ready() -> void:

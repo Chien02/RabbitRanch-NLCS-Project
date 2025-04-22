@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc5bw2kx4etgr"]
+[gd_scene load_steps=6 format=3 uid="uid://cc5bw2kx4etgr"]
 
 [ext_resource type="Script" uid="uid://0mjxkcf5pptn" path="res://Scripts/Items/axe.gd" id="1_llny5"]
 [ext_resource type="Resource" uid="uid://t8vm843xedhj" path="res://Scripts/Items/ItemResources/axe_resource.tres" id="2_4jif8"]
 [ext_resource type="Texture2D" uid="uid://dj6w574o42j55" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic_tools_and_meterials.png" id="2_gt7b3"]
+[ext_resource type="Script" uid="uid://dxoh2eei8eege" path="res://Scripts/Animation/SoundFX/item_soundfx.gd" id="4_lfwsy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gt7b3"]
 size = Vector2(12, 12)
 
-[node name="Axe" type="Node2D" node_paths=PackedStringArray("collider") groups=["Item"]]
+[node name="Axe" type="Node2D" node_paths=PackedStringArray("collider", "audio") groups=["Item"]]
 z_index = 5
 texture_filter = 1
 script = ExtResource("1_llny5")
 resource = ExtResource("2_4jif8")
 collider = NodePath("Area2D/CollisionShape2D")
+audio = NodePath("AudioStreamPlayer2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -24,5 +26,8 @@ texture = ExtResource("2_gt7b3")
 hframes = 3
 vframes = 2
 frame = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("4_lfwsy")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

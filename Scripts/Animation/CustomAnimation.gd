@@ -58,3 +58,14 @@ func change_color(_object, color: Color, scale_up: Vector2, duration: float):
 	tween.tween_property(_object, "scale", scale_up, duration)
 	
 	_object.set_color(color)
+
+func zoom_in(camera: CameraController, duration: float):
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(camera, "zoom", camera.final_zoom, duration)
+	tween.set_parallel().tween_property(camera, "position", camera.target.position, duration)
+	
+func loop_up_down(object, start_pos: Vector2, distance: float, duration: float):
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(object, "position", Vector2(start_pos.x, start_pos.y - distance), duration)
+	tween.tween_property(object, "position", start_pos, duration)
+	tween.set_loops()
