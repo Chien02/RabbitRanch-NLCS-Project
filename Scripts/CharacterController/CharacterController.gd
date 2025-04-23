@@ -12,11 +12,7 @@ var direction : Vector2
 signal FinishedWalk
 
 func movement(_object, _delta: float):
-	if is_walking:
-		if !_object.audio: return
-		_object.audio.play_sound(CharacterSoundFX.Sound.WALK)
-		return
-	
+	if is_walking: return
 	if !_object.grid: return
 	if _object is MainCharacter and _object.is_using_item: return
 	
@@ -41,9 +37,11 @@ func movement(_object, _delta: float):
 		print("From CharacterController: Checking can_walk: ", can_walk,"and next_local_pos: ", local_next_pos, " is_path: ", _object.grid.is_path(local_next_pos))
 	is_walking = true if can_walk else false
 	if !is_walking: return
+	if _object.audio:
+		_object.audio.play_sound(CharacterSoundFX.Sound.WALK)
 	
 	CustomTween.movement(_object, next_position, speed * _delta)
-	await _object.get_tree().create_timer(speed * _delta).timeout
+	await _object.get_tree().create_timer(speed * _delta + 0.1).timeout
 	# Update local posistion
 	_object.update_local_position()
 	is_walking = false
@@ -64,11 +62,15 @@ func move_to(_object, next_pos: Vector2, duration: float):
 	if _object is Character:
 		_object.facing_direction = (next_pos - _object.position).normalized()
 	CustomTween.movement(_object, next_pos, duration)
-	await _object.get_tree().create_timer(duration).timeout
-	is_walking = false
+	await _object.get_tree().create_timer(duration + 0.2).timeout
 	# Update local position
-	if _object is Character:
+	if _object != null and _object is Character:
 		_object.update_local_position()
+		
+	if _object.visible == false:
+		_object.set_visible(true)
+	
+	is_walking = false
 	FinishedWalk.emit()
 
 func movement_free(character: CharacterSelectLevel, _delta: float):

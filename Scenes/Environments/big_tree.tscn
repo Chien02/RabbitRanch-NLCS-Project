@@ -313,7 +313,7 @@ states/default/position = Vector2(356, 100)
 transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_8r74o"), "default", "chopping", SubResource("AnimationNodeStateMachineTransition_1qq4a"), "chopping", "chopped", SubResource("AnimationNodeStateMachineTransition_64dtn"), "default", "chopchop", SubResource("AnimationNodeStateMachineTransition_yrcjk"), "chopchop", "default", SubResource("AnimationNodeStateMachineTransition_lqja3")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4txy"]
-size = Vector2(14, 28)
+size = Vector2(6, 23)
 
 [node name="BigTree" type="Area2D" node_paths=PackedStringArray("animation_player", "animation_tree", "area2D", "audio")]
 z_index = 5
@@ -348,7 +348,7 @@ parameters/conditions/is_chopped = false
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -7)
+position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_g4txy")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

@@ -37,13 +37,16 @@ func _process(_delta: float):
 		await get_tree().create_timer(0.5).timeout
 			
 		# Chuyển đến nextpath
-		scene_tree.change_scene_to_file("res://Scenes/Prototype/sample_level.tscn")
+		scene_tree.change_scene_to_file(next_level_path)
 
 
 func change_state(state: int):
 	match state:
 		LOCK: frame = lock_frame
-		UNLOCK: frame = unlock_frame
+		UNLOCK:
+			frame = unlock_frame
+			await get_tree().create_timer(1.25).timeout
+			CustomTween.bounce(self, scale, Vector2(0.5, 0.35), 0.25)
 		COMPLETED: frame = completed_frame
 	current_state = state
 

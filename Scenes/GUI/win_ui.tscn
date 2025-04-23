@@ -1,11 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://b21a6phknhiic"]
+[gd_scene load_steps=21 format=3 uid="uid://b21a6phknhiic"]
 
 [ext_resource type="Script" uid="uid://bn2df4vfg1dqj" path="res://Scripts/Level/win_event.gd" id="1_vwrtl"]
 [ext_resource type="Theme" uid="uid://e7h75y8h8q3i" path="res://Themes/panel_container_event_ui.tres" id="2_m6py6"]
 [ext_resource type="Texture2D" uid="uid://btlbjluts3gxj" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Dialouge UI/ribbon.png" id="3_uf84r"]
+[ext_resource type="Theme" uid="uid://ynnlms6qkdcq" path="res://Themes/positive_button.tres" id="5_c6uf3"]
 [ext_resource type="PackedScene" uid="uid://cmhrlo5ivcsuk" path="res://Scenes/GUI/animal_counter_manager.tscn" id="5_uf84r"]
 [ext_resource type="Theme" uid="uid://cex1l0g3q1hw2" path="res://Themes/button_in_game_dark.tres" id="5_vhhf7"]
 [ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="6_vhhf7"]
+[ext_resource type="Theme" uid="uid://bv4m7dvc6jjv0" path="res://Themes/negative_button.tres" id="7_1mgh1"]
 [ext_resource type="Texture2D" uid="uid://dc2pxhrsuldb8" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="7_h86qu"]
 [ext_resource type="Texture2D" uid="uid://hwlka1xc2n43" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Dialouge UI/Emotes/Teemo Basic emote animations sprite sheet.png" id="8_c6uf3"]
 
@@ -168,9 +170,9 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = -167.0
+offset_left = -143.0
 offset_top = 66.0
-offset_right = 215.0
+offset_right = 177.0
 offset_bottom = 106.0
 scale = Vector2(0.88, 0.88)
 theme_override_constants/separation = 10
@@ -179,11 +181,12 @@ alignment = 1
 [node name="LevelSelection" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("5_vhhf7")
-text = "Levels
+theme = ExtResource("5_c6uf3")
+text = "Next Level
 "
 
 [node name="NextLevel" type="Button" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_vhhf7")
@@ -192,7 +195,7 @@ text = "Next"
 [node name="MainMenu" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("5_vhhf7")
+theme = ExtResource("7_1mgh1")
 text = "Quit"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

@@ -6,4 +6,6 @@ func physics_update():
 		SwitchState.emit(self, "idle")
 		print("end turn ", character.name)
 		
-		character.turnbase_actor.emit_endturn()
+		# create a bit delay
+		#await character.get_tree().create_timer(0.15).timeout
+		character.turnbase_actor.emit_endturn("I finished walking")

@@ -36,7 +36,7 @@ func switch_to_walk():
 		var counter_loop = 0
 		var max_counter_loop = 8
 		# Tạo khu vực xung quanh và chọn đường đi khả dụng trong đó
-		var neighbors : Array[Vector2i] = character.grid.get_surrounding_cells(character.grid.local_to_map(character.position))
+		var neighbors : Array[Vector2i] = character.grid.get_surrounding_cells(character.local_position)
 		var flag : bool = false
 		while (flag == false and counter_loop < max_counter_loop):
 			counter_loop += 1
@@ -50,22 +50,14 @@ func switch_to_walk():
 			if !character.grid.is_path(neighbors[index]): continue
 			
 			# Kiểm tra xem có trùng vị trí với người chơi hoặc sói không
-			var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
-			var wolf_flag : bool = false
-			for wolf in wolve_manager.wolve:
-				if character.grid.local_to_map(wolf.position) == neighbors[index]:
-					wolf_flag = true
+			var overlap_flag: bool = false
+			for _character in get_tree().get_nodes_in_group("Character"):
+				if _character.local_position == neighbors[index]:
+					overlap_flag = true
 					break
-			if wolf_flag: continue
+			if overlap_flag: continue
 			
-			var players : Array[Node] = get_tree().get_nodes_in_group("MainCharacter")
-			var player_flag : bool = false
-			for player in players:
-				if player.grid.local_to_map(player.position) == neighbors[index]:
-					player_flag = true
-					break
-			if player_flag: continue
-			
+			# Kiểm tra next pos
 			var next_pos = character.grid.map_to_local(neighbors[index])
 			print("Wondering state: go random to next_pos: ", next_pos)
 			

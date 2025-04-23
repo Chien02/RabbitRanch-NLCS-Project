@@ -31,6 +31,9 @@ func play_sound(sound_name: int):
 		Sound.MINING:
 			set_and_play(load(mining_stone))
 
-func set_and_play(_sound: AudioStreamWAV):
+func set_and_play(_sound: AudioStreamWAV, volume_option: float = 0.0):
+	if volume_option != 0.0:
+		volume_db = volume_db
+	
 	set_stream(_sound)
 	play()

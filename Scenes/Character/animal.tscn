@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dgbehmkbqx6xp" path="res://Scenes/Components/astar_component.tscn" id="4_u6t0b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6t0b"]
-size = Vector2(16, 16)
+size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vm1lg"]
-size = Vector2(12, 12)
+size = Vector2(10, 10)
 
 [node name="Animal" type="CharacterBody2D" groups=["Animal", "Entity"]]
 z_index = 6

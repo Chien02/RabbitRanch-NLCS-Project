@@ -10,7 +10,6 @@ class_name CameraController
 func _ready() -> void:
 	offset = Vector2.ZERO
 	zoom = init_zoom
-	CustomTween.zoom_in(self, zoom_duration)
 
 func _process(_delta: float) -> void:
 	position = target.position

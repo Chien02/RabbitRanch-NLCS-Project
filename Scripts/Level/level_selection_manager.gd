@@ -19,12 +19,13 @@ func _ready() -> void:
 func load_level_process():
 	for level in level_points:
 		# load các level đã complete
-		if GlobalProperties.completed_level.has(level.get_index()):
+		if GlobalProperties.completed_level.has(level.level_num) and level.current_state != LevelPoint.COMPLETED:
 			level.change_state(LevelPoint.COMPLETED)
-			unlock_new_level(level.get_index())
+			unlock_new_level(level.level_num)
+			continue
 		
 		# Load các level đã được unlock
-		if GlobalProperties.unlocked_level.has(level.get_index()):
+		if GlobalProperties.unlocked_level.has(level.level_num) and level.current_state != LevelPoint.COMPLETED:
 			level.change_state(LevelPoint.UNLOCK)
 		
 
@@ -37,5 +38,4 @@ func unlock_new_level(current_level: int):
 			new_level.change_state(LevelPoint.UNLOCK)
 			GlobalProperties.unlocked_level.append(new_level.get_index())
 			print("From LevelPointManager: unlock ", new_level.level_num)
-		
 		return

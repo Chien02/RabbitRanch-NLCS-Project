@@ -14,7 +14,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	show_input()
 	show_mouse_pos()
-	handle_event_UI()
 	
 func show_input():
 	if !label: return
@@ -39,14 +38,6 @@ func show_mouse_pos():
 	else:
 		print("Display: Cannot find mouse_pos in cells")
 
-func handle_event_UI():
-	if $PauseUI.visible or $LossUI.visible or $WinUI.visible:
-		$DebugUI/ButtonVBox/PauseButton.visible = false
-	elif !$PauseUI.visible and !$LossUI.visible and !$WinUI.visible:
-		$DebugUI/ButtonVBox/PauseButton.visible = true
-
-#func _on_pause_button_pressed() -> void:
-	#level_manager.emit_pause()
 
 func _on_show_animal_path_btn_button_down() -> void:
 	is_showing_animal_path = not is_showing_animal_path
@@ -58,3 +49,18 @@ func _on_show_animal_path_btn_button_down() -> void:
 			grid.get_node("Destination").set_cell(path.position, 3, Vector2i(0, 0))
 	else:
 		grid.clear_layer(4)
+
+
+func _on_pause_ui_visibility_changed() -> void:
+	_on_ui_event_visible_change()
+
+
+func _on_loss_ui_visibility_changed() -> void:
+	_on_ui_event_visible_change()
+	
+
+func _on_win_ui_visibility_changed() -> void:
+	_on_ui_event_visible_change()
+
+func _on_ui_event_visible_change():
+	$DebugUI/PauseButton.visible = !$DebugUI/PauseButton.visible

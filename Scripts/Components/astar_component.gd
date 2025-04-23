@@ -132,8 +132,8 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
 		var wolf_flag : bool = false
 		if !is_wolf:
-			for wolf in wolve_manager.wolve:
-				if tile.position == grid.local_to_map(wolf.position):
+			for character in get_tree().get_nodes_in_group("Character"):
+				if tile.position == grid.local_to_map(character.position):
 					wolf_flag = true
 					break
 		elif is_wolf:
@@ -163,7 +163,7 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 				surrounding_tile.append(tile)
 				continue
 			# Wolf flag ở đây có nghĩa là vị trí đó không trùng với sói
-			if tile.is_path and !tile.is_player_zone and !wolf_flag:
+			if !is_wolf and tile.is_path and !tile.is_player_zone and !wolf_flag:
 				surrounding_tile.append(tile)
 			
 			#print("tile[", tile.position,"]: cost = ", tile.cost, " heuristic = ", tile.heuristic, " f = ", tile.f)

@@ -10,10 +10,10 @@ class_name LevelSelection
 func _ready() -> void:
 	if get_tree().paused:
 		get_tree().paused = false
-	transition.trans_out()
-	
 	# Load position at the current_level
 	load_position()
+	transition.trans_out()
+	CustomTween.zoom_in($Camera2D, 1)
 
 func load_position():
 	if GlobalProperties.current_level == -1: return
@@ -23,4 +23,4 @@ func load_position():
 	var curr_node = level_point_manager.level_points.get(curr_level)
 	if curr_node:
 		print("From LevelSelection: Found curr node at: ", curr_node.name)
-	character.position = curr_node.position
+		character.position = curr_node.position + Vector2(0, 5)

@@ -52,16 +52,8 @@ func _on_just_caught_animal(animal_name: String):
 	var ui_bars = get_node("HBoxContainer").get_children()
 	for ui_bar in ui_bars:
 		print("From AnimalCounterManager: ui_bar.category: ", ui_bar.category)
-		match ui_bar.category.to_lower():
-			"cow":
-				if animal_name.to_lower() == ui_bar.category.to_lower():
-					print("From AnimalCounterManager: add one cow")
-					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
-					return
-			"chicken":
-				if animal_name.to_lower() == ui_bar.category.to_lower():
-					print("From AnimalCounterManager: add one chicken")
-					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
-					return
+		if animal_name.to_lower() == ui_bar.category.to_lower():
+			print("From AnimalCounterManager: add one cow")
+			ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
+			return
 	print("From AnimalCounterManager: cannot find animal_name: ", animal_name.to_lower())
-		
