@@ -7,6 +7,5 @@ func _ready() -> void:
 
 
 func _on_visibility_changed() -> void:
-	if !visible: return
-	if !animation_player: return
-	animation_player.play("default")
+	if visible:
+		animation_player.play("default")

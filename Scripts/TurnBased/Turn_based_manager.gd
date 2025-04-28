@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func get_actor():
 	for child in get_children():
-		if child.is_in_group("Entity"):
+		if child is Character:
 			actor.append(child)
 			child.turnbase_actor.EndTurn.connect(switch_actor)
 	

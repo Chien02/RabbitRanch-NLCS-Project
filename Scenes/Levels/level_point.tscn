@@ -3,22 +3,22 @@
 [ext_resource type="Texture2D" uid="uid://fjvih7v1h78u" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/buttons/Small Square Buttons.png" id="1_m5gat"]
 [ext_resource type="Script" uid="uid://dqgwr02i3gdw5" path="res://Scripts/Level/level_point.gd" id="2_f5sbg"]
 [ext_resource type="Texture2D" uid="uid://d1udqquh12047" path="res://Sprites/GUI/sign.png" id="3_f5sbg"]
-[ext_resource type="Texture2D" uid="uid://2u8ms6xun6tj" path="res://Sprites/GUI/Buttons/Buttons Pack/KEYBOARD/KEYS/ENTER.png" id="4_qgy5y"]
+[ext_resource type="Texture2D" uid="uid://bcx1p1105x570" path="res://Sprites/GUI/Buttons/Buttons Pack/KEYBOARD/KEYS/SPACE.png" id="4_qgy5y"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qgy5y"]
 texture = ExtResource("3_f5sbg")
 region_rect = Rect2(1.90466, 6.93745, 28.1503, 19.1976)
 
-[node name="LevelPoint" type="Sprite2D" node_paths=PackedStringArray("control_node")]
+[node name="LevelPoint" type="Sprite2D" node_paths=PackedStringArray("control_node", "texture_rect")]
 texture_filter = 1
 texture = ExtResource("1_m5gat")
 hframes = 2
 vframes = 8
 frame = 2
 script = ExtResource("2_f5sbg")
-current_state = 1
 next_level_path = "res://Scenes/Prototype/sample_level.tscn"
 control_node = NodePath("Control")
+texture_rect = NodePath("Control/PanelContainer/MarginContainer/TextureRect")
 
 [node name="Control" type="Control" parent="."]
 visible = false
@@ -26,22 +26,22 @@ z_index = 6
 layout_mode = 3
 anchors_preset = 0
 offset_left = -20.0
-offset_top = -26.0
+offset_top = -29.0
 offset_right = -20.0
-offset_bottom = -26.0
+offset_bottom = -29.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 0
 offset_left = -2.0
-offset_top = -10.0
+offset_top = -6.0
 offset_right = 43.0
-offset_bottom = 14.0
+offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_qgy5y")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 4
+theme_override_constants/margin_left = 6
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
@@ -58,6 +58,8 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+size_flags_stretch_ratio = 2.94
 texture = ExtResource("4_qgy5y")
+stretch_mode = 2
 
 [connection signal="visibility_changed" from="Control" to="." method="_on_control_visibility_changed"]

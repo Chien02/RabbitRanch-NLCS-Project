@@ -15,7 +15,7 @@ func init_wolve(level_manager: LevelManager):
 func get_wolve() -> Array[Wolf]:
 	if !wolve.is_empty():
 		for wolf in wolve:
-			print("From Wolf_M: wolf at ", wolf.grid.local_to_map(wolf.position),".role = ", wolf.role)
+			print("From Wolf_M: wolf at ", wolf.local_position,".role = ", wolf.role)
 	return wolve
 
 func set_role():

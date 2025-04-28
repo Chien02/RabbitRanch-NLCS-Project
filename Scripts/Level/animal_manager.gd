@@ -64,11 +64,11 @@ func caught_animal(body: Animal, catcher: int):
 		body.queue_free()
 		# Check loss event
 		if animals.is_empty():
-			if !eaten_animals.is_empty() and caughted_animals.size() < max_animals-1:
+			if eaten_animals.size() > (max_animals/2.0) and caughted_animals.size() < max_animals/2.0:
 				print("-------------------From AnimalManager: Losssssss")
 				level_manager.Loss.emit()
 				return
-			if eaten_animals.size() < max_animals:
+			if eaten_animals.size() < max_animals and caughted_animals.size() >= max_animals/2.0:
 				print("-------------------From AnimalManager: Winnnnn")
 				level_manager.Win.emit()
 				return

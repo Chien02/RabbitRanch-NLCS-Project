@@ -13,6 +13,8 @@ func _ready() -> void:
 	if inventory:
 		inventory.AddItem.connect(set_slot_texture)
 		inventory.DropItem.connect(hide_slot_texture)
+	
+	Input.connect("joy_connection_changed", _on_joy_connect_changed)
 
 func _process(_delta: float) -> void:
 	if inventory.slots.is_empty(): return
@@ -56,3 +58,11 @@ func hide_slot_texture(item: Item):
 	var duration = 1.0
 	await CustomTween.disappear(slot, duration)
 	slot.visible = false
+
+func _on_joy_connect_changed(device: int, connected: bool):
+	if connected:
+		main_slot_1.gamepad_input_key = "X"
+		main_slot_2.gamepad_input_key = "Y"
+		
+	main_slot_1.change_input_to(connected)
+	main_slot_2.change_input_to(connected)

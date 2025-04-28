@@ -9,9 +9,7 @@ var tooling : bool = false
 var is_using_item : bool = false
 
 # Component variables
-
 @export var inventory : Inventory
-
 var push : PushComponent
 
 # For simulation demo for main_item in inventory
@@ -73,7 +71,8 @@ func debug_canwalk():
 func set_collider_position():
 	if area == null: return
 	var collider : CollisionShape2D= area.get_child(0)
-	collider.global_position = position + facing_direction * grid.tile_size
+	var tile_size : int = 10
+	collider.global_position = position + facing_direction * tile_size
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:

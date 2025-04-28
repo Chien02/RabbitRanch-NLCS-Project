@@ -26,17 +26,17 @@ func win():
 
 func loss():
 	# Wait for animation
-	await get_tree().create_timer(0.5).timeout
-	appear()
+	await get_tree().create_timer(0.35).timeout
+	visible = true
+	get_tree().paused = false
+	# Blur shader
+	gui.colorect.material["shader_parameter/blur_amount"] = 2.0 if visible == true else 0.0
 
 func appear():
 	visible = !visible
 	get_tree().paused = !get_tree().paused
-	
-	if visible == true:
-		gui.colorect.material["shader_parameter/blur_amount"] = 2.0
-	else:
-		gui.colorect.material["shader_parameter/blur_amount"] = 0.0
+	# Blur shader
+	gui.colorect.material["shader_parameter/blur_amount"] = 2.0 if visible == true else 0.0
 
 func _on_continue_pressed() -> void:
 	audio.play_sound(CharacterSoundFX.Sound.CANCEL)

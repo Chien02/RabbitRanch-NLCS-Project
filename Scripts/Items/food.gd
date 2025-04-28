@@ -62,8 +62,8 @@ func active():
 
 func throwable_zone():
 	print("From Food: Generate throwable zone")
-	var min_pos = grid.local_to_map(character.position) - Vector2i(2, 2)
-	var max_pos = grid.local_to_map(character.position) + Vector2i(3, 3)
+	var min_pos = max_vectori(grid.local_to_map(character.position) - Vector2i(2, 2), Vector2.ZERO)
+	var max_pos = min_vectori(grid.local_to_map(character.position) + Vector2i(3, 3), Vector2(grid.max_x_size-1, grid.max_y_size-1))
 	for x in range(min_pos.x, max_pos.x):
 		for y in range(min_pos.y, max_pos.y):
 			if grid.is_within_grid(Vector2i(x, y)) and grid.is_path(Vector2i(x, y)):
@@ -84,3 +84,11 @@ func throw_item(pos: Vector2):
 	finish_active()
 	# Create new instance of this item
 	character.inventory.drop_item(self, pos)
+
+func max_vectori(a: Vector2i, b: Vector2i):
+	if a > b: return a
+	return b
+
+func min_vectori(a: Vector2i, b: Vector2i):
+	if a < b: return a
+	return a

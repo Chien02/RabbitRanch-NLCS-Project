@@ -72,10 +72,12 @@ func stop_hide_body(body: Character, area: Area2D):
 
 
 func _on_area_2d_body_entered(body: Node2D, area: Area2D) -> void:
+	if body is not Character: return
 	print("From TallGrassManager: body entered is ", body.name, " and area is: ", area.name)
 	hide_body(body, area)
 
 
 func  _on_area_2d_body_enxited(body: Node2D, area: Area2D) -> void:
+	if body is not Character: return
 	print("From TallGrassManager: body exited is ", body.name, " and area is: ", area.name)
 	stop_hide_body(body, area)

@@ -67,7 +67,7 @@ func move_to(_object, next_pos: Vector2, duration: float):
 	if _object != null and _object is Character:
 		_object.update_local_position()
 		
-	if _object.visible == false:
+	if _object != null and _object.visible == false:
 		_object.set_visible(true)
 	
 	is_walking = false

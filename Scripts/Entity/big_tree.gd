@@ -36,6 +36,7 @@ func destroy(duration: float, character: Character = null):
 		if !CustomTween.is_connected("finished", queue_free):
 			CustomTween.connect("finished", queue_free)
 
+
 func switch_anim_to(new_anim: String):
 	match new_anim:
 		"chopped":

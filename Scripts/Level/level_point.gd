@@ -15,11 +15,18 @@ enum {
 @export var completed_frame : int = 2
 @export var next_level_path : String = ""
 @export var control_node : Control
+@export var texture_rect : TextureRect
 
 var is_step_on : bool = false
+var _origin_pos_sign : Vector2 = Vector2.ZERO
+var is_game_pad : bool = false
+
+var gamepad_texture_button : String = "res://Sprites/GUI/Buttons/Buttons Pack/XBOX/B.png"
+var pc_texture_button : String = "res://Sprites/GUI/Buttons/Buttons Pack/KEYBOARD/KEYS/SPACE.png"
 
 func _ready() -> void:
 	is_step_on = false
+	_origin_pos_sign = control_node.position
 	change_state(current_state)
 
 func _process(_delta: float):
@@ -56,7 +63,7 @@ func get_next_level() -> String:
 func _on_control_visibility_changed() -> void:
 	if control_node.visible == true:
 		var duration = 1
-		CustomTween.loop_up_down(control_node, control_node.position, 10.0, duration)
+		CustomTween.loop_up_down(control_node, _origin_pos_sign, 10.0, duration)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -74,3 +81,11 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is CharacterSelectLevel:
 		control_node.visible = false
 		is_step_on = false
+
+func change_input_texture(_is_gamepad: bool):
+	if _is_gamepad:
+		texture_rect.texture = load(gamepad_texture_button)
+		is_game_pad = true
+	else:
+		texture_rect.texture = load(pc_texture_button)
+		is_game_pad = false

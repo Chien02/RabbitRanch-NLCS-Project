@@ -24,15 +24,3 @@ func _on_area_2d_3_body_entered(body: Node2D) -> void:
 
 func _on_area_2d_3_body_exited(body: Node2D) -> void:
 	body_exited.emit(body, $Area2D3)
-
-func _on_area_2d_4_body_entered(body: Node2D) -> void:
-	body_entered.emit(body, $Area2D4)
-
-func _on_area_2d_4_body_exited(body: Node2D) -> void:
-	body_exited.emit(body, $Area2D4)
-
-func _on_area_2d_5_body_entered(body: Node2D) -> void:
-	body_entered.emit(body, $Area2D5)
-
-func _on_area_2d_5_body_exited(body: Node2D) -> void:
-	body_exited.emit(body, $Area2D5)

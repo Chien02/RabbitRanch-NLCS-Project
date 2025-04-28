@@ -175,6 +175,8 @@ shape = SubResource("RectangleShape2D_e4lpw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e380t")
 animation = &"trap_close"
+frame = 3
+frame_progress = 0.709534
 offset = Vector2(0, 1.05)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

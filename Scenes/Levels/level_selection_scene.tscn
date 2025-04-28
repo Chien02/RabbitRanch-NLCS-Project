@@ -2553,7 +2553,8 @@ level_points = [NodePath("LevelPoint"), NodePath("LevelPoint2"), NodePath("Level
 
 [node name="LevelPoint" parent="LevelPointManager" instance=ExtResource("13_w00wn")]
 position = Vector2(24, -102)
-next_level_path = "res://Scenes/Levels/level_1.tscn"
+current_state = 1
+next_level_path = "res://Scenes/Levels/level_0.tscn"
 
 [node name="Area2D" type="Area2D" parent="LevelPointManager/LevelPoint"]
 
@@ -2562,9 +2563,8 @@ shape = SubResource("RectangleShape2D_wfjps")
 
 [node name="LevelPoint2" parent="LevelPointManager" instance=ExtResource("13_w00wn")]
 position = Vector2(88, -55)
-current_state = 0
 level_num = 1
-next_level_path = "res://Scenes/Levels/level_2.tscn"
+next_level_path = "res://Scenes/Levels/level_1.tscn"
 
 [node name="Area2D" type="Area2D" parent="LevelPointManager/LevelPoint2"]
 
@@ -2573,8 +2573,8 @@ shape = SubResource("RectangleShape2D_y4hke")
 
 [node name="LevelPoint3" parent="LevelPointManager" instance=ExtResource("13_w00wn")]
 position = Vector2(8, -7)
-current_state = 0
 level_num = 2
+next_level_path = "res://Scenes/Levels/level_2.tscn"
 
 [node name="Area2D" type="Area2D" parent="LevelPointManager/LevelPoint3"]
 position = Vector2(0, -1)
@@ -2584,7 +2584,6 @@ shape = SubResource("RectangleShape2D_7w2lw")
 
 [node name="LevelPoint4" parent="LevelPointManager" instance=ExtResource("13_w00wn")]
 position = Vector2(135, -13)
-current_state = 0
 level_num = 3
 
 [node name="Area2D" type="Area2D" parent="LevelPointManager/LevelPoint4"]
@@ -2593,9 +2592,9 @@ level_num = 3
 shape = SubResource("RectangleShape2D_ie6mt")
 
 [node name="LevelPoint5" parent="LevelPointManager" instance=ExtResource("13_w00wn")]
-position = Vector2(81, 37)
-current_state = 0
+position = Vector2(81, 36)
 level_num = 4
+next_level_path = "res://Scenes/Levels/level_3.tscn"
 
 [node name="Area2D" type="Area2D" parent="LevelPointManager/LevelPoint5"]
 
@@ -2622,7 +2621,6 @@ animation_tree = NodePath("AnimationTree")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MainPlayer/AnimationControl"]
 sprite_frames = SubResource("SpriteFrames_trxqv")
 animation = &"idle_down"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainPlayer/AnimationControl"]
 root_node = NodePath("../..")
