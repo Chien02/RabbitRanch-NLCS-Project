@@ -2621,6 +2621,7 @@ animation_tree = NodePath("AnimationTree")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MainPlayer/AnimationControl"]
 sprite_frames = SubResource("SpriteFrames_trxqv")
 animation = &"idle_down"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainPlayer/AnimationControl"]
 root_node = NodePath("../..")

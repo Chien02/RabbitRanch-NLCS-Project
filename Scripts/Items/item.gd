@@ -17,6 +17,9 @@ func init(_grid, _character, _resource):
 	character = _character
 	resource = _resource
 
+func set_character(new_owner: MainCharacter):
+	character = new_owner
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is MainCharacter:
 		print("From Item: collide with Main Character")

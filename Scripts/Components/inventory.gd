@@ -44,8 +44,11 @@ func _process(_delta: float) -> void:
 			print("From Inventory: inventory ", slots)
 
 func add_item(item: Item):
+	if !item.character:
+		item.set_character(character)
+	
 	slots.append(item)
-	add_child(item)
+	#call_deferred("add_child", item)
 	print("From Inventory: Added new item: ", item.resource.name)
 	set_main_item(item)
 	print("From Inventory: Inventory's size: ", slots.size())

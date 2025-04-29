@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://b3nx8cbk04qm5"]
+[gd_scene load_steps=62 format=3 uid="uid://b3nx8cbk04qm5"]
 
 [ext_resource type="Script" uid="uid://cml0adabp3dye" path="res://Scripts/Characters/wolf.gd" id="1_f1jl7"]
 [ext_resource type="PackedScene" uid="uid://dgbehmkbqx6xp" path="res://Scenes/Components/astar_component.tscn" id="1_hgf11"]
@@ -19,9 +19,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpd6o"]
 size = Vector2(14, 14)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgf11"]
-size = Vector2(45, 45)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8lal6"]
 atlas = ExtResource("4_vkrxq")
@@ -452,10 +449,9 @@ shape = SubResource("RectangleShape2D_bpd6o")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_hgf11")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-8, 8, -16, 8, -16, -8, -8, -8, -8, -16, 8, -16, 8, -8, 16, -8, 16, 8, 8, 8, 8, 16, -8, 16, -8, 8)
 disabled = true
-debug_color = Color(0.443137, 0.454902, 1, 0.341176)
 
 [node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_lug60")

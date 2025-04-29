@@ -4,6 +4,10 @@ class_name CustomAnimation
 
 signal finished
 
+func kill_tween():
+	for tween in get_tree().get_processed_tweens():
+		tween.kill()
+
 func movement(_object, destination_pos: Vector2, duration: float):
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(_object, "position", destination_pos, duration)
@@ -67,7 +71,7 @@ func loop_up_down(object, start_pos: Vector2, distance: float, duration: float):
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(object, "position", Vector2(start_pos.x, start_pos.y - distance), duration)
 	tween.tween_property(object, "position", start_pos, duration)
-	tween.set_loops()
+	tween.set_loops(100)
 
 func bounce(_object, start_scale: Vector2, scale_amount: Vector2, duration: float):
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
