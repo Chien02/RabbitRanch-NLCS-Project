@@ -13,6 +13,10 @@ func _process(_delta: float) -> void:
 	if !character: return
 	if character.character_controller.is_walking and is_selecting:
 		is_selecting = false
+		print("From ", name, ": Stop selecting tile")
+	elif Input.is_action_just_pressed("cancel"):
+		is_selecting = false
+		print("From ", name, ": Stop selecting tile")
 
 func _input(event: InputEvent) -> void:
 	if !is_selecting and character != null:
@@ -61,19 +65,22 @@ func active():
 	set_process(is_selecting)
 
 func throwable_zone():
-	print("From Food: Generate throwable zone")
+	print("From ", name,": Generate throwable zone")
+	if grid == null:
+		grid = character.get_tree().get_first_node_in_group("Grid")
 	var min_pos = max_vectori(grid.local_to_map(character.position) - Vector2i(2, 2), Vector2.ZERO)
 	var max_pos = min_vectori(grid.local_to_map(character.position) + Vector2i(3, 3), Vector2(grid.max_x_size-1, grid.max_y_size-1))
 	for x in range(min_pos.x, max_pos.x):
 		for y in range(min_pos.y, max_pos.y):
-			if grid.is_within_grid(Vector2i(x, y)) and grid.is_path(Vector2i(x, y)):
-				throwable_slot.append(Vector2i(x, y))
-				# for debug:
-				grid.get_node("Destination").set_cell(Vector2i(x, y), debug_layer, Vector2i(0, 0))
-			elif !grid.is_path(Vector2i(x, y)):
-				var obstacle = grid.obstacles_management.get_obstacle_at(Vector2i(x, y))
-				if obstacle != null and !obstacle.Destroyed.is_connected(_on_obstacle_destroyed):
-					obstacle.Destroyed.connect(_on_obstacle_destroyed)
+			if grid.is_within_grid(Vector2i(x, y)):
+				if grid.is_path(Vector2i(x, y)):
+					throwable_slot.append(Vector2i(x, y))
+					# for debug:
+					grid.get_node("Destination").set_cell(Vector2i(x, y), debug_layer, Vector2i(0, 0))
+			#elif !grid.is_path(Vector2i(x, y)):
+				#var obstacle = grid.obstacles_management.get_obstacle_at(Vector2i(x, y))
+				#if obstacle != null and !obstacle.Destroyed.is_connected(_on_obstacle_destroyed):
+					#obstacle.Destroyed.connect(_on_obstacle_destroyed)
 
 func _on_obstacle_destroyed(local_pos: Vector2i):
 	print("From Obstacle: Connected with obstacle, rescan throwable zone")

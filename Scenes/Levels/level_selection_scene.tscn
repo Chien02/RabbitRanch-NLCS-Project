@@ -2585,6 +2585,7 @@ shape = SubResource("RectangleShape2D_7w2lw")
 [node name="LevelPoint4" parent="LevelPointManager" instance=ExtResource("13_w00wn")]
 position = Vector2(135, -13)
 level_num = 3
+next_level_path = "res://Scenes/Levels/level_4.tscn"
 
 [node name="Area2D" type="Area2D" parent="LevelPointManager/LevelPoint4"]
 
@@ -2621,7 +2622,6 @@ animation_tree = NodePath("AnimationTree")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MainPlayer/AnimationControl"]
 sprite_frames = SubResource("SpriteFrames_trxqv")
 animation = &"idle_down"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainPlayer/AnimationControl"]
 root_node = NodePath("../..")

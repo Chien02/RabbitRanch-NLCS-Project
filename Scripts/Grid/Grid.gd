@@ -12,6 +12,7 @@ var characters = [] # Array[MainCharacter]
 
 # Dictionaries
 var cells = {}
+var update_cells : Array[Vector2i]= []
 var foods_on_field = {}
 
 var destination : Vector2i = Vector2i.ZERO
@@ -39,6 +40,10 @@ func rescan(player_zone: Array[Vector2i] = []):
 	scan_player_zone(player_zone)
 	if !item_manager: return
 	item_manager.get_items()
+	
+	if update_cells.is_empty(): return
+	for cell in update_cells:
+		cells[str(cell)]["is_path"] = true
 	#print("From Grid: Grid rescaned")
 
 func init_grid():
@@ -141,7 +146,10 @@ func string_to_vector2(string := "") -> Vector2i:
 	return Vector2i.ZERO
 
 func change_tile_property(_pos: Vector2i, _is_path: bool = true, player_zone: bool = false):
+	
 	if cells.has(str(_pos)):
+		update_cells.append(_pos)
+		
 		cells[str(_pos)] = {
 			"is_path": _is_path,
 			"player_zone": player_zone
