@@ -19,6 +19,7 @@ signal DropItem
 signal UsingItem
 signal FinishedUsingItem
 
+
 func _process(_delta: float) -> void:
 	# Stop receive input when not in turn
 	if !character.turnbase_actor.is_active: return
@@ -33,7 +34,7 @@ func _process(_delta: float) -> void:
 			print("From Inventory: cannot active item_1: ", item_1)
 			print("From Inventory: inventory ", slots)
 	
-	if Input.is_action_just_pressed("item_2"):
+	elif Input.is_action_just_pressed("item_2"):
 		print("From Inventory: just pressed item_2 key")
 		if item_2:
 			print("From Inventory: active item_2: ", item_2.resource.name)
@@ -42,6 +43,12 @@ func _process(_delta: float) -> void:
 		else:
 			print("From Inventory: cannot active item_2: ", item_2)
 			print("From Inventory: inventory ", slots)
+	
+	if item_1 and item_1.is_activating:
+		item_1.activating_update(_delta)
+	elif item_2 and item_2.is_activating:
+		item_2.activating_update(_delta)
+
 
 func add_item(item: Item):
 	if !item.character:
@@ -49,6 +56,7 @@ func add_item(item: Item):
 	
 	slots.append(item)
 	#call_deferred("add_child", item)
+	
 	print("From Inventory: Added new item: ", item.resource.name)
 	set_main_item(item)
 	print("From Inventory: Inventory's size: ", slots.size())

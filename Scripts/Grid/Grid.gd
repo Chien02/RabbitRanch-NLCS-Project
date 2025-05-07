@@ -2,6 +2,17 @@ extends TileMapLayer
 
 class_name Grid
 
+enum {
+	WATER,
+	PATH,
+	OBSTACLE,
+	PLAYER_PATH,
+	TARGET_PATH,
+	DESTINATION,
+	MOUSE_LAYER,
+	PLAYER_ZONE
+}
+
 @export var max_x_size : int = 20
 @export var max_y_size : int = 12
 @export var destination_source_id : int = 5
@@ -67,7 +78,7 @@ func init_grid():
 
 # This function use to tell player which tile the cursor points to
 func display_mouse_hover():
-	var mouse_layer_id = 5
+	var mouse_layer_id = MOUSE_LAYER
 	var mouse_pos = get_global_mouse_position()
 	var mouse_coordination = local_to_map(mouse_pos)
 	if cells.has(str(mouse_coordination)):
@@ -86,13 +97,14 @@ func unhover(_position: Vector2i):
 func clear_layer(layer_id: int):
 	var layer : TileMapLayer
 	match layer_id:
-		0: layer = $Path
-		1: layer = $Obstacle
-		2: layer = $Player_path
-		3: layer = $Target_path
-		4: layer = $Destination
-		5: layer = $Mouse_layer
-		6: layer = $PlayerZone
+		WATER: layer = $Water
+		PATH: layer = $Path
+		OBSTACLE: layer = $Obstacle
+		PLAYER_PATH: layer = $Player_path
+		TARGET_PATH: layer = $Target_path
+		DESTINATION: layer = $Destination
+		MOUSE_LAYER: layer = $Mouse_layer
+		PLAYER_ZONE: layer = $PlayerZone
 	for x in range(0, max_x_size):
 		for y in range(0, max_y_size):
 			layer.erase_cell(Vector2i(x, y))
@@ -105,6 +117,7 @@ func scan_player_zone(player_zone: Array[Vector2i] = []):
 				if is_within_grid(zone):
 					cells[str(zone)]["player_zone"] = true
 		return
+	
 	# Else just update for the one agruments
 	for zone in player_zone:
 		if is_within_grid(zone):
@@ -146,7 +159,6 @@ func string_to_vector2(string := "") -> Vector2i:
 	return Vector2i.ZERO
 
 func change_tile_property(_pos: Vector2i, _is_path: bool = true, player_zone: bool = false):
-	
 	if cells.has(str(_pos)):
 		update_cells.append(_pos)
 		
@@ -154,3 +166,9 @@ func change_tile_property(_pos: Vector2i, _is_path: bool = true, player_zone: bo
 			"is_path": _is_path,
 			"player_zone": player_zone
 		}
+
+func get_center_of_tile(tile_pos: Vector2i) -> Vector2:
+	var center : Vector2 = Vector2.ZERO
+	var center_pos : float = tile_size * sqrt(2)
+	center = Vector2(tile_pos) + Vector2(center_pos, center_pos)
+	return center

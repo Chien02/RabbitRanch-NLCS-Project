@@ -7,8 +7,6 @@ func enter_state(_value: Node2D = null):
 		print("------From Idle: Main Character enter state")
 		character.init_player_zone()
 		character.grid.rescan(character.player_zone)
-		for zone in character.player_zone:
-			character.grid.get_node("Destination").set_cell(zone, 4, Vector2i(0, 0)) # debug
 
 func exit_state():
 	print("From Idle: Exit Idle State")

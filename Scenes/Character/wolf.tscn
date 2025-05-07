@@ -486,7 +486,6 @@ z_index = 1
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_0ybus")
 animation = &"idle"
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

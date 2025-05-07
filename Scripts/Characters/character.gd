@@ -73,5 +73,7 @@ func play_particle():
 	particle.emitting = true
 
 func update_local_position():
-	if !grid: return
-	grid.local_to_map(position)
+	if !grid:
+		grid = get_tree().get_first_node_in_group("Grid")
+	local_position = grid.local_to_map(global_position)
+	print("From ", name, ": position is ", global_position, " and local is: ", local_position)

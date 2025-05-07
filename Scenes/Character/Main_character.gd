@@ -27,6 +27,7 @@ func _ready() -> void:
 	inventory.UsingItem.connect(_on_inventory_using_item)
 	inventory.FinishedUsingItem.connect(_on_inventory_finished_using_item)
 
+
 func _process(delta: float) -> void:
 	if !turnbase_actor.is_active: return
 	character_controller.movement(self, delta)
@@ -37,10 +38,10 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		push.pushing_check()
-
+#
 func init_player_zone():
 	player_zone.clear()
-	grid.clear_layer(6)
+	grid.clear_layer(Grid.PLAYER_ZONE)
 	
 	var local_pos = grid.local_to_map(position)
 	var temp = grid.get_surrounding_cells(local_pos)
@@ -50,9 +51,6 @@ func init_player_zone():
 	
 	local_pos = grid.local_to_map(position)
 	player_zone.append(local_pos)
-	
-	for zone in player_zone:
-		grid.get_node("PlayerZone").set_cell(zone, 2, Vector2i(0, 0))
 
 func is_tooling():
 	return tooling
@@ -96,7 +94,3 @@ func _on_inventory_using_item(item_name: String):
 
 func _on_inventory_finished_using_item():
 	is_using_item = false
-
-func update_local_position():
-	if !grid: return
-	grid.local_to_map(position)

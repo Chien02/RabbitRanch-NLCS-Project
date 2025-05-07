@@ -6,6 +6,7 @@ func enter_state(_value: Node2D = null):
 	print("From Walking: ", character.name, " enter walking state")
 
 func exit_state():
+	print("From Walking: ", character.name, " update local position: ", character.local_position)
 	print("From Walking: ", character.name, " exit walking state")
 
 func update_state():

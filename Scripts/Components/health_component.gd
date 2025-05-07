@@ -42,7 +42,7 @@ func check_ui_heal(_damage: int):
 		print("From ", get_parent().name, ": heart_textures is empty")
 		return
 	
-	var step : int = int(_damage) / 5
+	var step : int = int(_damage) / 5.0
 	var duration : float = 0.25
 	var pop_up_position : Vector2 = Vector2(0, -4)
 	for index in range(0, step):

@@ -59,7 +59,7 @@ func hide_slot_texture(item: Item):
 	await CustomTween.disappear(slot, duration)
 	slot.visible = false
 
-func _on_joy_connect_changed(device: int, connected: bool):
+func _on_joy_connect_changed(_device: int, connected: bool):
 	if connected:
 		main_slot_1.gamepad_input_key = "X"
 		main_slot_2.gamepad_input_key = "Y"

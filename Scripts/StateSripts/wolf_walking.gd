@@ -6,6 +6,7 @@ func enter_state(_value: Node2D = null):
 	print("From Wolf walking: Entered walking")
 
 func exit_state():
+	super()
 	print("From Wolf walking: Exit walking")
 
 func update_state():

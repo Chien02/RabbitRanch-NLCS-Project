@@ -12,6 +12,9 @@ signal Disappear
 var character : MainCharacter = null
 var is_activating : bool = false
 
+func activating_update(_delta: float) -> void:
+	pass
+
 func init(_grid, _character, _resource):
 	grid = _grid
 	character = _character
@@ -27,9 +30,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		print("From Item: collide with Animal")
 
 func active():
-	print("From ", resource.name, ": is just activated!")
+	print("From ", name, ": is just activated!")
 
 func disappear():
+	if collider:
+		collider.set_deferred("disabled", true)
+	is_activating = false
 	await CustomTween.explode(self, resource.duration)
 	Disappear.emit()
 	queue_free()

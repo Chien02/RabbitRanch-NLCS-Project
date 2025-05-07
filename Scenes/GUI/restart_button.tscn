@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx8jyvsal2x4w"]
+
+[ext_resource type="Texture2D" uid="uid://d6ocggaqnylu" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/restart_button_normal.png" id="1_83thh"]
+[ext_resource type="Texture2D" uid="uid://0pkj8qd16vpl" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/restart_button_pressed.png" id="2_rpssj"]
+[ext_resource type="Texture2D" uid="uid://cowgvq66jadcc" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/restart_button_hover.png" id="3_17m3v"]
+[ext_resource type="Script" uid="uid://bfth1fbdytqot" path="res://Scripts/GUI/restart_button.gd" id="4_jsldq"]
+
+[node name="RestartButton" type="TextureButton"]
+texture_filter = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 64.0
+grow_horizontal = 0
+texture_normal = ExtResource("1_83thh")
+texture_pressed = ExtResource("2_rpssj")
+texture_hover = ExtResource("3_17m3v")
+stretch_mode = 0
+script = ExtResource("4_jsldq")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

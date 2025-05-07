@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://nm8jncg3i1ns"]
 
-[ext_resource type="Script" uid="uid://be1wcl4mviu8t" path="res://Scripts/Items/food.gd" id="1_dpdhd"]
+[ext_resource type="Script" uid="uid://be1wcl4mviu8t" path="res://Scripts/Items/throwable_item.gd" id="1_dpdhd"]
 [ext_resource type="Resource" uid="uid://bg7cpq7trkujy" path="res://Scripts/Items/ItemResources/rice_resource.tres" id="2_oqgyw"]
 [ext_resource type="Texture2D" uid="uid://6hmltddiweo4" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/rice_texture.png" id="3_oqgyw"]
 [ext_resource type="Script" uid="uid://dxoh2eei8eege" path="res://Scripts/Animation/SoundFX/item_soundfx.gd" id="4_4gl5t"]

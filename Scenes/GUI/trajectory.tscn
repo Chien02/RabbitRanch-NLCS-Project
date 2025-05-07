@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkjdesm4tgkmp"]
+
+[ext_resource type="Shader" uid="uid://cismiq1ald15p" path="res://Scenes/GUI/moving_line.gdshader" id="1_8n7f3"]
+[ext_resource type="Texture2D" uid="uid://dfxk2ppy23sba" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Particles/yellow_path.png" id="2_gyq75"]
+[ext_resource type="Script" uid="uid://bpvtjsatw5ixi" path="res://Scripts/GUI/trajectory.gd" id="3_gyq75"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cfqmi"]
+shader = ExtResource("1_8n7f3")
+shader_parameter/texture_albedo = ExtResource("2_gyq75")
+shader_parameter/speed = 1.0
+
+[sub_resource type="Gradient" id="Gradient_8n7f3"]
+
+[node name="Trajectory" type="Line2D"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_cfqmi")
+points = PackedVector2Array(24, 0, 56, 24, 136, 8, 216, 8, 264, 32)
+gradient = SubResource("Gradient_8n7f3")
+texture = ExtResource("2_gyq75")
+texture_mode = 1
+script = ExtResource("3_gyq75")

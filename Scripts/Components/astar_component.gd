@@ -129,11 +129,11 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		var obstacle : Obstacle = obstacle_manager.get_obstacle_at(tile.position)
 		
 		# Kiểm tra xem tile đang xét có trùng vị trí với sói hay không, nếu không thì bỏ qua
-		var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
+		#var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
 		var wolf_flag : bool = false
 		if !is_wolf:
-			for character in get_tree().get_nodes_in_group("Character"):
-				if tile.position == grid.local_to_map(character.position):
+			for _character in get_tree().get_nodes_in_group("Character"):
+				if tile.position == grid.local_to_map(_character.position):
 					wolf_flag = true
 					break
 		elif is_wolf:

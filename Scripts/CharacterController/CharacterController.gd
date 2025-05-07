@@ -40,7 +40,6 @@ func movement(_object, _delta: float):
 	
 	CustomTween.movement(_object, next_position, speed * _delta)
 	await _object.get_tree().create_timer(speed * _delta + 0.1).timeout
-	# Update local posistion
 	_object.update_local_position()
 	is_walking = false
 
@@ -64,9 +63,6 @@ func move_to(_object, next_pos: Vector2, duration: float):
 	# Update local position
 	if _object != null and _object is Character:
 		_object.update_local_position()
-		
-	if _object != null and _object.visible == false:
-		_object.set_visible(true)
 	
 	is_walking = false
 	FinishedWalk.emit()
