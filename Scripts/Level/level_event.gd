@@ -28,7 +28,7 @@ func loss():
 	# Wait for animation
 	await get_tree().create_timer(0.35).timeout
 	visible = true
-	get_tree().paused = false
+	#get_tree().paused = false
 	# Blur shader
 	gui.colorect.material["shader_parameter/blur_amount"] = 2.0 if visible == true else 0.0
 

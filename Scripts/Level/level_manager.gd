@@ -23,6 +23,8 @@ signal Paused
 signal DropActorUIBar
 
 func _ready() -> void:
+	if get_tree().paused:
+		get_tree().paused = !get_tree().paused
 	GlobalProperties.current_level = current_level
 	# Play transition when enter scene
 	transition.trans_out()

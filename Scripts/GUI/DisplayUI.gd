@@ -6,10 +6,11 @@ class_name DisplayUI
 @export var label_mouse_pos : Label
 @onready var level_manager : LevelManager = get_parent().get_parent() #root node
 @export var colorect : ColorRect
+
 var is_showing_animal_path : bool = false
 
 func _ready() -> void:
-	colorect.material["shader_parameter/blur_amount"] = 0.0
+	blur(false)
 
 func _process(_delta: float) -> void:
 	show_input()
@@ -64,3 +65,6 @@ func _on_win_ui_visibility_changed() -> void:
 
 func _on_ui_event_visible_change():
 	$DebugUI/PauseButton.visible = !$DebugUI/PauseButton.visible
+
+func blur(flag: bool, blur_value: float = 0.35):
+	colorect.material["shader_parameter/blur_amount"] = 0.0 if flag == false else blur_value

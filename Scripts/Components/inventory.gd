@@ -57,6 +57,14 @@ func add_item(item: Item):
 	slots.append(item)
 	#call_deferred("add_child", item)
 	
+	# Check for tutorial: throwable_item
+	if item is ThrowableItem and !GlobalProperties.check_tutorial("throwable_item"):
+		if !GlobalProperties.tutorial:
+			print("From Inventory: Cannot connect to tutorial in Global")
+		else:
+			GlobalProperties.tutorial.appear()
+	
+	# Set item as main slot
 	print("From Inventory: Added new item: ", item.resource.name)
 	set_main_item(item)
 	print("From Inventory: Inventory's size: ", slots.size())

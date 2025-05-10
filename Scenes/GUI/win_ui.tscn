@@ -122,11 +122,11 @@ theme = ExtResource("2_m6py6")
 [node name="AnimalCounterManager" parent="." instance=ExtResource("5_uf84r")]
 process_mode = 3
 layout_mode = 1
-offset_left = 1.0
-offset_top = -13.0
-offset_right = 219.0
-offset_bottom = 19.0
-scale = Vector2(0.75, 0.75)
+offset_left = -1.0
+offset_top = -14.0
+offset_right = 217.0
+offset_bottom = 18.0
+animation_flag = false
 
 [node name="HBoxContainer" parent="AnimalCounterManager" index="0"]
 offset_left = -26.6667

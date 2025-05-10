@@ -218,6 +218,7 @@ position = Vector2(-5, 0)
 position = Vector2(5, 0)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="9"]
+bus = &"sfx"
 script = ExtResource("11_31lsb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="10"]

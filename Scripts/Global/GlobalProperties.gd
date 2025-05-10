@@ -10,22 +10,18 @@ var unlocked_level : Array[int] = []
 
 # For the item
 var inventory_items : Array[Item]
+var tutorial : Tutorial
 
-# For positions of all character
-# {
-	#"position": character.position,
-	#"local_position": character.local_position,
-	#"health": character.health.current_health
-#}
+# For tutorial
+var tutorials  = {
+	"catch_animal": false,
+	"throwable_item": false,
+	"hostile_animal": false
+}
+
 var characters : Array[Character] = []
 var characters_properties = {}
 
-# For obstacles in the field
-# {
-	#"obstacle": obstacle,
-	#"position": obstacle.position,
-	#"local_position": obstacle.local_position,
-#}
 var obstacles : Array[Obstacle]
 var obstacles_properties = {}
 
@@ -57,7 +53,7 @@ func save(scene_tree: SceneTree):
 			"local_position": obstacle.local_position,
 		}
 
-func load(scene_tree: SceneTree):
+func _load(scene_tree: SceneTree):
 	if characters.is_empty(): return
 	var turnbased_manager : TurnBasedManager = scene_tree.get_first_node_in_group("TurnBasedManager")
 	var obstacles_manager : ObstacleManagement = scene_tree.get_first_node_in_group("ObsManager")
@@ -90,3 +86,15 @@ func load_level() -> int:
 
 func complete_level(_current_level: int):
 	completed_level.append(_current_level)
+
+func completed_tutorial(tutorial_name: String):
+	if !tutorials.has(tutorial_name):
+		push_error("From Global: Cannot find this tutorial: ", tutorial_name)
+		return
+	tutorials[tutorial_name] = true
+
+func check_tutorial(tutorial_name: String):
+	if tutorials.has(tutorial_name):
+		return tutorials[tutorial_name]
+	print("From Global: Cannot get the tutorial: ", tutorial_name, " in tutorials")
+	return false

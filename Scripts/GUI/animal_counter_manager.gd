@@ -3,12 +3,14 @@ extends Control
 class_name AnimalCounterManager
 
 @export var hbox : HBoxContainer
-
+@export var animation_player : AnimationPlayer
+@export var animation_flag : bool = true
 # Properties
 var cows : Array[Animal] = []
 var chickens : Array[Animal] = []
 # Components
 var animals_manager : AnimalManager
+
 
 # Methods
 func _process(_delta: float) -> void:
@@ -57,3 +59,19 @@ func _on_just_caught_animal(animal_name: String):
 			ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
 			return
 	print("From AnimalCounterManager: cannot find animal_name: ", animal_name.to_lower())
+
+func blur():
+	var displayUI : DisplayUI = get_tree().get_first_node_in_group("GUI")
+	z_index = 10
+	displayUI.blur(true, 0.5)
+
+func unblur():
+	var displayUI : DisplayUI = get_tree().get_first_node_in_group("GUI")
+	z_index = 0
+	displayUI.blur(false)
+
+func _on_timer_timeout() -> void:
+	if !animation_flag: return
+	if !animation_player:
+		animation_player = get_child(2)
+	animation_player.play("default")
