@@ -16,6 +16,7 @@ var item_using: Item = null
 # Signals
 signal AddItem
 signal DropItem
+# Connect with player: MainCharacter.gd in _ready()
 signal UsingItem
 signal FinishedUsingItem
 
@@ -54,6 +55,7 @@ func add_item(item: Item):
 	if !item.character:
 		item.set_character(character)
 	
+	item.is_in_inventory = true
 	slots.append(item)
 	#call_deferred("add_child", item)
 	

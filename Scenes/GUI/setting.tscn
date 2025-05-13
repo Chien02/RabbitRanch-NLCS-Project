@@ -1,0 +1,201 @@
+[gd_scene load_steps=9 format=3 uid="uid://bp3d7ghbl00gl"]
+
+[ext_resource type="Script" uid="uid://c3m3q4ni3wsbt" path="res://Scripts/GUI/setting.gd" id="1_fqook"]
+[ext_resource type="Texture2D" uid="uid://drgncq83l8a42" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/base_ui.png" id="1_i0ut7"]
+[ext_resource type="Script" uid="uid://b75e7kuxgmae6" path="res://Scripts/GUI/volume_slider.gd" id="2_igml3"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="4_r77x0"]
+[ext_resource type="Theme" uid="uid://y4k66rhnuxjf" path="res://Themes/button_in_game.tres" id="5_r77x0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_igml3"]
+texture = ExtResource("1_i0ut7")
+texture_margin_left = 8.0
+texture_margin_top = 10.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(11, 11.5787, 106, 122.421)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rm3o"]
+bg_color = Color(0.631373, 0.380392, 0.34902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.419608, 0.294118, 0.356863, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r77x0"]
+bg_color = Color(0.631373, 0.380392, 0.34902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.419608, 0.294118, 0.356863, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Setting" type="Control" node_paths=PackedStringArray("volume_sliders", "audio")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fqook")
+volume_sliders = [NodePath("VolumeContainer/PanelContainer2/VBoxContainer/HBoxMasterVolume/HSlider"), NodePath("VolumeContainer/PanelContainer2/VBoxContainer/HBoxMusicVolume/HSlider"), NodePath("VolumeContainer/PanelContainer2/VBoxContainer/HBoxSoundFXVolume/HSlider")]
+audio = NodePath("AudioStreamPlayer2D")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_igml3")
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -405.0
+offset_top = 122.0
+offset_right = 406.0
+offset_bottom = 211.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7rm3o")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+
+[node name="SettingTitle" type="Label" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.811765, 0.65098, 1)
+theme_override_font_sizes/font_size = 58
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="VolumeContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -405.0
+offset_top = -48.0
+offset_right = 406.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r77x0")
+
+[node name="PanelContainer2" type="MarginContainer" parent="VolumeContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VolumeContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxMasterVolume" type="HBoxContainer" parent="VolumeContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Label" type="Label" parent="VolumeContainer/PanelContainer2/VBoxContainer/HBoxMasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Master Volume"
+
+[node name="HSlider" type="HSlider" parent="VolumeContainer/PanelContainer2/VBoxContainer/HBoxMasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("2_igml3")
+bus_name = "Master"
+
+[node name="HBoxMusicVolume" type="HBoxContainer" parent="VolumeContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Label" type="Label" parent="VolumeContainer/PanelContainer2/VBoxContainer/HBoxMusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Music Volume"
+
+[node name="HSlider" type="HSlider" parent="VolumeContainer/PanelContainer2/VBoxContainer/HBoxMusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("2_igml3")
+bus_name = "music"
+
+[node name="HBoxSoundFXVolume" type="HBoxContainer" parent="VolumeContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Label" type="Label" parent="VolumeContainer/PanelContainer2/VBoxContainer/HBoxSoundFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Sound Effect Volume"
+
+[node name="HSlider" type="HSlider" parent="VolumeContainer/PanelContainer2/VBoxContainer/HBoxSoundFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("2_igml3")
+bus_name = "sfx"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("4_r77x0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -142.0
+offset_right = 212.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 95
+
+[node name="BackButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_r77x0")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[node name="ResetButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_r77x0")
+theme_override_font_sizes/font_size = 24
+text = "Reset"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]

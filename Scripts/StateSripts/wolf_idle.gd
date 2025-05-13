@@ -20,6 +20,11 @@ func exit_state():
 	print("From Wolf Idle: Exited Idle")
 
 func update_state():
+	if !character.turnbase_actor.is_active:
+		if !character.area.get_child(0).disabled == true:
+			character.area.get_child(0).disabled = true
+			return
+	
 	if character.area.get_child(0).disabled == true:
 		character.area.get_child(0).disabled = false
 	# Kết thúc lượt luôn nếu bị trap
@@ -32,7 +37,6 @@ func update_state():
 		return
 	
 	if !character.turnbase_actor.is_active or find_path_flag:
-		print("From Wolf Idle: not your turn or find_path_flag is off")
 		return
 	
 	finding_path()
@@ -152,6 +156,7 @@ func check_near_cross() -> bool:
 	return false
 
 func _on_character_body_enter(body: Node2D):
+	if body is Chest: return
 	if !character.turnbase_actor.is_active: return
 	if body is TileMapLayer: return
 	if body is Wolf: return

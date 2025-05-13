@@ -29,7 +29,9 @@ func update_state(): # Overriding
 	if character.is_stun:
 		character.turnbase_actor.emit_endturn(" I'm get stunned")
 		return
-	
+	if character.be_caught:
+		character.turnbase_actor.emit_endturn(" I'm get caught")
+		return
 	finding_path()
 	
 	if paths.is_empty():
@@ -49,7 +51,7 @@ func switch_to_walk():
 	var duration = 0.5
 	if paths.is_empty():
 		print("From ", character.name, " Idle : Cannot switch to walk")
-		character.turnbase_actor.emit_endturn("I could walk because paths is empty")
+		character.turnbase_actor.emit_endturn("I couldn't walk because paths is empty")
 	
 	if character is not Wolf:
 		var next_pos = character.grid.map_to_local(paths[paths.size() - 2].position)

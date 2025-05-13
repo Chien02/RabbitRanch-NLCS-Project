@@ -4,7 +4,8 @@ extends Control
 class_name Tutorial
 
 @export var tutorial_name : String
-@export var audio : AudioStreamPlayer2D
+@export var audio : UISoundFX
+@export var animation_player : AnimationPlayer
 
 var displayUI : DisplayUI
 
@@ -15,10 +16,16 @@ func _ready() -> void:
 		print("From Tutorial: Cannot get displayUI")
 	set_visible(false)
 
+
 func _on_button_pressed() -> void:
-	audio.play()
+	audio.play_sound(UISoundFX.Sound.CONFIRM)
 	await get_tree().create_timer(0.25).timeout
 	disappear()
+
+func _process(_delta: float) -> void:
+	if !visible: return
+	if Input.is_action_just_pressed("accept"):
+		_on_button_pressed()
 
 func appear() -> void:
 	# Check for tutorial flag in Global, make sure don't repeat the tutorial
@@ -30,8 +37,20 @@ func appear() -> void:
 	get_tree().paused = !get_tree().paused
 	set_visible(true)
 
+
 func disappear():
 	displayUI.blur(false)
 	get_tree().paused = !get_tree().paused
 	GlobalProperties.completed_tutorial(tutorial_name)
 	set_visible(false)
+
+# Use this in animation_player as call method key
+#func play_soundfx_when_appear():
+	#audio.play_sound(CharacterSoundFX.Sound.POP_UP)
+
+func _on_visibility_changed() -> void:
+	if visible:
+		animation_player.play("fade_in")
+		audio.play_sound(CharacterSoundFX.Sound.POPUP)
+	elif !visible:
+		animation_player.play("fade_out")

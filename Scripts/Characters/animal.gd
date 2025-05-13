@@ -1,15 +1,18 @@
 extends Character
 
 class_name Animal
+
 @export_category("Properties")
 @export var speed : float = 10.0
 @export_enum("diagonal", "not_diagonal") var mode : String = "not_diagonal"
 @export_enum("ignore", "not_ignore") var option : String = "ignore"
 @export var breakable_obstacle : Obstacle = null
 var is_finished_special : bool = false
+var be_caught : bool = false
 
 @export_category("Components")
 @export var astar : Astar
+@export var wofl_detector : Area2D
 
 func _ready() -> void:
 	super()
@@ -40,13 +43,18 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		var animals_manager : AnimalManager = get_tree().get_first_node_in_group("LevelManager").animals_manager
 		turnbase_actor.emit_endturn("I caught by player")
 		# Nên có animation chèn vào khúc này
+		play_particle()
+		be_caught = true
 		Disappear.emit(self)
 		animals_manager.caught_animal(self, AnimalManager.Catcher.PLAYER)
 
 func _on_health_die():
 	super()
 	var animals_manager : AnimalManager = get_tree().get_first_node_in_group("LevelManager").animals_manager
-	Disappear.emit(self)
 	# Đợi animation mất máu chạy xong
-	await get_tree().create_timer(0.5).timeout
+	be_caught = true
 	animals_manager.caught_animal(self, AnimalManager.Catcher.WOLF)
+
+
+func _on_wolf_detector_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

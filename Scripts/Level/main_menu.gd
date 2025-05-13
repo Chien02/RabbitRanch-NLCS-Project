@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _on_play_button_pressed() -> void:
 	# Thực hiện audio khi nút được bấm
-	audio.play_sound(CharacterSoundFX.Sound.COMFIRM)
+	audio.play_sound(CharacterSoundFX.Sound.CONFIRM)
 	# Chuyển sang menu chọn màn chơi
 	# nhưng hiện tại chỉ chuyển sang màn chơi
 	transition.trans_in()
@@ -32,3 +32,4 @@ func _on_transition_scene_finished() -> void:
 func _on_setting_button_pressed() -> void:
 	# Thực hiện audio khi nút được bấm
 	audio.play_sound(CharacterSoundFX.Sound.SELECT)
+	$CanvasLayer/Setting.visible = !$CanvasLayer/Setting.visible

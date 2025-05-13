@@ -125,8 +125,15 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		calculate_heuristic(tile, _mode, _option)
 		tile.calculate_f()
 		
+		# Check with obstacles
 		var obstacle_manager : ObstacleManagement = get_tree().get_first_node_in_group("ObsManager")
 		var obstacle : Obstacle = obstacle_manager.get_obstacle_at(tile.position)
+		
+		# Check with chest on field
+		var chest : Chest = get_tree().get_first_node_in_group("Chest")
+		var chest_local_pos : Vector2i = Vector2i.ZERO
+		if chest != null:
+			chest_local_pos = grid.local_to_map(chest.position)
 		
 		# Kiểm tra xem tile đang xét có trùng vị trí với sói hay không, nếu không thì bỏ qua
 		#var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
@@ -152,18 +159,22 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		if _option == "not_ignore" and !tile.is_player_zone:
 			if !obstacle:
 				if !grid.is_path(tile.position): continue
+				if tile.position == chest_local_pos: continue
 				surrounding_tile.append(tile)
 				continue
 			if obstacle and !obstacle.is_breakable(): continue
+			if tile.position == chest_local_pos: continue
 			surrounding_tile.append(tile)
 		# ignore
 		elif _option == "ignore":
 			# Wolf flag ở đây có nghĩa là vị trí đó không có người chơi nào cầm búa
 			if is_wolf and tile.is_path and !wolf_flag:
+				if tile.position == chest_local_pos: continue
 				surrounding_tile.append(tile)
 				continue
 			# Wolf flag ở đây có nghĩa là vị trí đó không trùng với sói
 			if !is_wolf and tile.is_path and !tile.is_player_zone and !wolf_flag:
+				if tile.position == chest_local_pos: continue
 				surrounding_tile.append(tile)
 			
 			#print("tile[", tile.position,"]: cost = ", tile.cost, " heuristic = ", tile.heuristic, " f = ", tile.f)

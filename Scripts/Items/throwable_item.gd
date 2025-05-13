@@ -31,9 +31,11 @@ func cancel_handling():
 	# Case 2: player cancel the process
 	elif Input.is_action_just_pressed("cancel"):
 		is_selecting = false
+		is_activating = false
 		print("From ", name, ": Stop selecting tile")
 		# Remember to clear the map
 		character.grid.clear_layer(debug_layer)
+		finish_active()
 
 
 func let_player_lookat_selecting_tile(selecting_tile_pos: Vector2):

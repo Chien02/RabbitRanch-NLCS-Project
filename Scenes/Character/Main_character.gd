@@ -8,8 +8,10 @@ var is_look_at_mouse: bool = false
 var tooling : bool = false
 var is_using_item : bool = false
 
-# Component variables
+# Components
 @export var inventory : Inventory
+@export var hitbox : Area2D
+@export var hitbox_collider : CollisionShape2D
 var push : PushComponent
 
 # For simulation demo for main_item in inventory
@@ -65,20 +67,12 @@ func debug_canwalk():
 			$Control/Label.text = "can_walk: " + str(character_controller.can_walk)
 		else:
 			$Control/Label.text = ""
-	
+
 func set_collider_position():
 	if area == null: return
 	var collider : CollisionShape2D= area.get_child(0)
 	var tile_size : int = 10
 	collider.global_position = position + facing_direction * tile_size
-
-
-func _on_area_2d_area_entered(_area: Area2D) -> void:
-	pass # Replace with function body.
-
-
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	pass # Replace with function body.
 
 func _on_health_die():
 	super()
@@ -94,3 +88,7 @@ func _on_inventory_using_item(item_name: String):
 
 func _on_inventory_finished_using_item():
 	is_using_item = false
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

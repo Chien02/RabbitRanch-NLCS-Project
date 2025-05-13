@@ -43,6 +43,8 @@ alignment = 1
 [node name="Slot" parent="." instance=ExtResource("2_ytx8n")]
 offset_top = 23.0
 offset_bottom = 41.0
+pc_input_key = "E"
 
 [node name="Slot1" parent="." instance=ExtResource("2_ytx8n")]
 offset_top = -3.0
+pc_input_key = "R"

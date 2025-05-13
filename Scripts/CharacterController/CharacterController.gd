@@ -25,11 +25,16 @@ func movement(_object, _delta: float):
 	
 	var next_position : Vector2 = _object.position + direction * tile_size
 	var local_next_pos : Vector2i = _object.grid.local_to_map(next_position)
+	# Check for the chest in game, check if next position is overlay or not with chest
+	var chest : Chest = _object.get_tree().get_first_node_in_group("Chest")
+	var chest_local_pos : Vector2i = Vector2i.ZERO
+	if chest != null:
+		chest_local_pos = _object.grid.local_to_map(chest.position)
 	# Check if next_position is a obstacle or the bound then player can move to that next_position
 	if _object.grid:
 		# Check input is the same to current direction that character is facing
 		if check_direction(_object, direction):
-			can_walk = _object.grid.is_within_grid(local_next_pos) and _object.grid.is_path(local_next_pos)
+			can_walk = _object.grid.is_within_grid(local_next_pos) and _object.grid.is_path(local_next_pos) and local_next_pos != chest_local_pos
 		else:
 			can_walk = false
 		print("From CharacterController: Checking can_walk: ", can_walk,"and next_local_pos: ", local_next_pos, " is_path: ", _object.grid.is_path(local_next_pos))
@@ -81,6 +86,7 @@ func movement_free(character: CharacterSelectLevel, _delta: float):
 		
 	# Play audio, thêm điều kiện kiểm tra để tránh bị đè âm thanh
 	if character.audio and !character.audio.playing:
+		character.adjust_random_pitch()
 		character.audio.play_sound(CharacterSoundFX.Sound.WALK)
 	
 	# Hàm lerf để di chuyển nhân vật

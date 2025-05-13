@@ -64,5 +64,5 @@ func _on_joy_connect_changed(_device: int, connected: bool):
 		main_slot_1.gamepad_input_key = "X"
 		main_slot_2.gamepad_input_key = "Y"
 		
-	main_slot_1.change_input_to(connected)
-	main_slot_2.change_input_to(connected)
+		main_slot_1.change_input_to(connected)
+		main_slot_2.change_input_to(connected)

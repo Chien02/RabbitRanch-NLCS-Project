@@ -6,6 +6,8 @@ class_name Trap
 @export var area : Area2D
 @export var max_stunned_turn : int = 3
 
+var holded_body : Character = null
+
 func _ready() -> void:
 	is_selecting = false
 	if !animation_player: return
@@ -38,6 +40,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func hold(body: Node2D):
 	if !body is Character: return
+	holded_body = body
+	holded_body.connect("Disappear", _on_holded_body_disappear)
 	# Disable Trap collider
 	area.get_child(0).set_deferred("disabled", true)
 	# Call the stun method from the Character's script
@@ -47,5 +51,8 @@ func hold(body: Node2D):
 	print("From Trap: Trapped ", body.name)
 
 
-func active():
-	super()
+func _on_holded_body_disappear(_animal: Animal):
+	holded_body = null
+	is_activating = false
+	finish_active()
+	disappear()

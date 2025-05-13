@@ -5,6 +5,8 @@ class_name AnimalCounterManager
 @export var hbox : HBoxContainer
 @export var animation_player : AnimationPlayer
 @export var animation_flag : bool = true
+
+@onready var level_manager : LevelManager = get_tree().get_first_node_in_group("LevelManager")
 # Properties
 var cows : Array[Animal] = []
 var chickens : Array[Animal] = []
@@ -46,7 +48,7 @@ func add_UI_bar(animal_name: String, texture: CompressedTexture2D, _max: int, _c
 	new_ui_bar.max_counter = _max
 	new_ui_bar.set_category(animal_name)
 	new_ui_bar.set_texture(texture)
-	new_ui_bar.set_label(_current, _max)
+	new_ui_bar.set_label(_current, _max, level_manager)
 	return new_ui_bar
 
 func _on_just_caught_animal(animal_name: String):
@@ -56,7 +58,9 @@ func _on_just_caught_animal(animal_name: String):
 		print("From AnimalCounterManager: ui_bar.category: ", ui_bar.category)
 		if animal_name.to_lower() == ui_bar.category.to_lower():
 			print("From AnimalCounterManager: add one cow")
-			ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
+			ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter, level_manager)
+			# Play animation when caught that one
+			CustomTween.bounce(ui_bar, ui_bar.scale, Vector2(0.5, 0.5), 0.5)
 			return
 	print("From AnimalCounterManager: cannot find animal_name: ", animal_name.to_lower())
 

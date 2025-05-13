@@ -20,11 +20,12 @@ func init_UI_bars():
 		#print("From AnimalCounterUI: cow caterory with size: ", cows.size())
 		var new_ui = add_UI_bar(cows[0].resource.name, cows[0].resource.texture, cows.size())
 		vbox.call_deferred("add_child", new_ui)
-		
+	
 	if !chickens.is_empty():
 		#print("From AnimalCounterUI: chicken caterory with size: ", chickens.size())
 		var new_ui = add_UI_bar(chickens[0].resource.name, chickens[0].resource.texture, chickens.size())
 		vbox.call_deferred("add_child", new_ui)
+
 
 func _on_just_caught_animal(animal_name: String):
 	#print("From AnimalCounterManager: connect with JustCaughtAnimal")
@@ -35,11 +36,11 @@ func _on_just_caught_animal(animal_name: String):
 			"cow":
 				if animal_name.to_lower() == ui_bar.category.to_lower():
 					#print("From AnimalCounterManager: add one cow")
-					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
+					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter, level_manager)
 					return
 			"chicken":
 				if animal_name.to_lower() == ui_bar.category.to_lower():
 					#print("From AnimalCounterManager: add one chicken")
-					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter)
+					ui_bar.set_label(ui_bar.current_counter + 1, ui_bar.max_counter, level_manager)
 					return
 	#print("From AnimalCounterManager: cannot find animal_name: ", animal_name.to_lower())

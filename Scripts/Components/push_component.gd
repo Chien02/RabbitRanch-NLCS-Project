@@ -2,22 +2,25 @@ extends Node2D
 
 class_name PushComponent
 
+# Properties
+var pushable_direction : Vector2 = Vector2.ZERO
 var push_duration : float = 1.0
 var can_push : bool = false
 var is_pushing : bool = false
 var temp_obstacle : Obstacle
-
+# Components
 var character : MainCharacter
 var grid : Grid
-@onready var turnbase_manager: TurnBasedManager
-@onready var obstacle_manager : ObstacleManagement
-var pushable_direction : Vector2 = Vector2.ZERO
+var turnbase_manager: TurnBasedManager
+var obstacle_manager : ObstacleManagement
+var item_manager : ItemManager
 
 func init_variable(_character: MainCharacter, _grid: Grid):
 	character = _character
 	grid = _grid
 	turnbase_manager = character.get_tree().get_first_node_in_group("TurnBasedManager")
 	obstacle_manager = character.get_tree().get_first_node_in_group("ObsManager")
+	item_manager = character.get_tree().get_first_node_in_group("ItemManager")
 
 func pushing_check() -> void:
 	if !character.character_controller.is_just_type_input(): return
@@ -41,6 +44,8 @@ func pushing_check() -> void:
 	can_push = true if direction == character.facing_direction and pushable_direction == direction and obstacle.pushable else false
 	if can_push:
 		var global_next_pos = character.grid.map_to_local(next_pos_push)
+		# Play audio, ofcourse
+		character.audio.play_sound(CharacterSoundFX.Sound.PUSH)
 		push(obstacle, global_next_pos)
 
 func is_overlap_actor(pos: Vector2i):
@@ -50,20 +55,27 @@ func is_overlap_actor(pos: Vector2i):
 		var local_actor = grid.local_to_map(actor.position)
 		if local_actor == pos:
 			return true
+	
 	# Check in obstacle list
 	for obstacle in obstacle_manager.obstacles:
 		if obstacle != null and obstacle.local_position == pos:
+			return true
+	
+	# Check in items list
+	for item in item_manager.items_on_field:
+		if item != null and grid.string_to_vector2(item) == pos:
 			return true
 	return false
 
 
 func push(_obs: Obstacle, next_pos: Vector2):
 	if is_pushing: return
-	if _obs == null:
-		print("From Push: Obstacle is disappeared")
+	if _obs == null or !_obs.pushable:
+		print("From Push: Obstacle is disappeared or unpushable")
 		return
 	turn_flag()
-	_obs.character_controller.move_to(_obs, next_pos, push_duration)
+	if _obs.character_controller:
+		_obs.character_controller.move_to(_obs, next_pos, push_duration)
 	await character.get_tree().create_timer(push_duration).timeout
 	turn_flag()
 	can_push = false

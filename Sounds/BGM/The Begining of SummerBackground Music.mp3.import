@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dgkt6puoea3nf"
+path="res://.godot/imported/The Begining of SummerBackground Music.mp3-c4c749a4dac03ad3b07d633bc5ee3d35.mp3str"
+
+[deps]
+
+source_file="res://Sounds/BGM/The Begining of SummerBackground Music.mp3"
+dest_files=["res://.godot/imported/The Begining of SummerBackground Music.mp3-c4c749a4dac03ad3b07d633bc5ee3d35.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

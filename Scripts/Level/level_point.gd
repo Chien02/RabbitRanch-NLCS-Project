@@ -35,7 +35,7 @@ func _process(_delta: float):
 		var scene_tree = get_tree()
 		var level_selection : LevelSelection = scene_tree.get_first_node_in_group("LevelSelection")
 		# Play audio
-		level_selection.audio.play_sound(UISoundFX.Sound.COMFIRM)
+		level_selection.audio.play_sound(UISoundFX.Sound.CONFIRM)
 		
 		GlobalProperties.current_level = level_num
 		print("From ", name, " go to level: ", level_num)

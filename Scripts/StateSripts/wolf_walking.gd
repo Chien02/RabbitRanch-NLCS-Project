@@ -8,6 +8,7 @@ func enter_state(_value: Node2D = null):
 func exit_state():
 	super()
 	print("From Wolf walking: Exit walking")
+	character.Walked.emit()
 
 func update_state():
 	if !character.character_controller.is_walking:

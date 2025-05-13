@@ -5,6 +5,7 @@ class_name TurnBaseOrder
 @export var vbox_container : VBoxContainer
 @export var actors_UI : Array[TurnBasedUI] = []
 var actors : Array[Character] = []
+var wolve : Array[Wolf] = []
 var turnbased_manager : TurnBasedManager
 
 func _ready() -> void:
@@ -32,8 +33,13 @@ func init_actor_to_UI():
 			continue
 		
 		var new_ui_bar = preload("res://Scenes/GUI/turnbasedUI.tscn").instantiate()
-		
-		new_ui_bar.init(character.name, character.resource.texture, character.resource.step)
+		if character is not Wolf:
+			new_ui_bar.init(character.name, character.resource.texture, character.resource.step)
+		elif character is Wolf:
+			new_ui_bar.init(character.name, character.resource.texture, character.charge_point)
+			character.Charged.connect(update_step)
+			character.Walked.connect(update_step)
+			wolve.append(character)
 		
 		actors_UI.append(new_ui_bar)
 		vbox_container.add_child(new_ui_bar)
@@ -64,3 +70,11 @@ func drop_ui_bar(character: Character):
 		actor.visible = false
 		actor.clear_property()
 		return
+
+
+func update_step():
+	for actor in actors_UI:
+		for wolf in wolve:
+			if actor.character_name == wolf.name:
+				actor.label.text = str(wolf.charge_point) if wolf.charge_point != 0 else str(1)
+				break

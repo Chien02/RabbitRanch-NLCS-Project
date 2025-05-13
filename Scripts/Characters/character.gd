@@ -55,7 +55,6 @@ func _on_health_die():
 	if !audio: return
 	audio.play_sound(CharacterSoundFX.Sound.HIT)
 	play_particle()
-	
 	Disappear.emit(self)
 
 func _on_health_hurt():

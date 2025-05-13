@@ -19,6 +19,13 @@ var tutorials  = {
 	"hostile_animal": false
 }
 
+# For Config
+var volume_config = {
+	"Master": 1.0,
+	"music": 1.0,
+	"sfx": 1.0
+}
+
 var characters : Array[Character] = []
 var characters_properties = {}
 
@@ -98,3 +105,11 @@ func check_tutorial(tutorial_name: String):
 		return tutorials[tutorial_name]
 	print("From Global: Cannot get the tutorial: ", tutorial_name, " in tutorials")
 	return false
+
+func set_volume_config(bus_name: String, value: float):
+	if !volume_config.has(bus_name):
+		push_error("From Global: Cannot get bus_name", bus_name)
+	volume_config[bus_name] = value
+
+func get_volume_config():
+	return volume_config

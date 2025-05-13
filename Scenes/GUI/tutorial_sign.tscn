@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cg8rorejrmdnt"]
+[gd_scene load_steps=14 format=3 uid="uid://cg8rorejrmdnt"]
 
 [ext_resource type="Script" uid="uid://2dwcp4dib8hx" path="res://Scripts/GUI/tutorial_sign.gd" id="1_3i8ge"]
 [ext_resource type="Texture2D" uid="uid://dc2pxhrsuldb8" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="1_nxqd2"]
 [ext_resource type="Texture2D" uid="uid://503thq4qotoe" path="res://Sprites/Tutorials/Step1.png" id="3_3i8ge"]
 [ext_resource type="Theme" uid="uid://cex1l0g3q1hw2" path="res://Themes/button_in_game_dark.tres" id="4_7nu7a"]
 [ext_resource type="Texture2D" uid="uid://b6nhu5y3sucil" path="res://Sprites/Tutorials/Step2.png" id="4_wvx2b"]
-[ext_resource type="AudioStream" uid="uid://c1814fw7pgncy" path="res://Sounds/SoundFX/select_sound.wav" id="6_wvx2b"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="7_5frb3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xlgeh"]
 texture = ExtResource("1_nxqd2")
@@ -39,17 +39,90 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="TutorialSign" type="Control" node_paths=PackedStringArray("audio")]
+[sub_resource type="Animation" id="Animation_sf6tl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(576, 482)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wvx2b"]
+resource_name = "fade_in"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.38, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(576, 482), Vector2(576, 297), Vector2(576, 314)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5frb3"]
+resource_name = "fade_out"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ql3h"]
+_data = {
+&"RESET": SubResource("Animation_sf6tl"),
+&"fade_in": SubResource("Animation_wvx2b"),
+&"fade_out": SubResource("Animation_5frb3")
+}
+
+[node name="TutorialSign" type="Control" node_paths=PackedStringArray("audio", "animation_player")]
 process_mode = 2
+modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 158.0
+offset_bottom = 158.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.2, 1.2)
 script = ExtResource("1_3i8ge")
 audio = NodePath("AudioStreamPlayer2D")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(180, 120)
@@ -137,15 +210,21 @@ texture = ExtResource("4_wvx2b")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 538.0
-offset_top = 426.0
-offset_right = 610.0
-offset_bottom = 458.0
+offset_left = -36.0
+offset_top = 101.0
+offset_right = 36.0
+offset_bottom = 133.0
 theme = ExtResource("4_7nu7a")
 text = "OK"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_wvx2b")
 bus = &"sfx"
+script = ExtResource("7_5frb3")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7ql3h")
+}
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

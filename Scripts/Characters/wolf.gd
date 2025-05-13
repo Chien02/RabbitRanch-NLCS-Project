@@ -14,6 +14,7 @@ var target : Character = null
 
 signal Charged
 signal Bited
+signal Walked
 
 func _ready() -> void:
 	super()

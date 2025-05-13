@@ -10,27 +10,10 @@ class_name LevelEvent
 
 var level_selection_scene_path : String = "res://Scenes/Levels/level_selection_scene.tscn"
 var main_menu_scene_path : String = "res://Scenes/Levels/main_menu.tscn"
-
-func _ready() -> void:
-	get_tree().paused = false
-	visible = false
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+var flag : bool = false
 
 func pause():
 	appear()
-
-func win():
-	# Wait for animation
-	GlobalProperties.complete_level(level_manager.current_level)
-	appear()
-
-func loss():
-	# Wait for animation
-	await get_tree().create_timer(0.35).timeout
-	visible = true
-	#get_tree().paused = false
-	# Blur shader
-	gui.colorect.material["shader_parameter/blur_amount"] = 2.0 if visible == true else 0.0
 
 func appear():
 	visible = !visible
@@ -40,7 +23,7 @@ func appear():
 
 func _on_continue_pressed() -> void:
 	audio.play_sound(CharacterSoundFX.Sound.CANCEL)
-	await get_tree().create_timer(0.35).timeout
+	#await get_tree().create_timer(0.15).timeout
 	appear()
 
 func _on_next_level_pressed() -> void:
@@ -50,8 +33,6 @@ func _on_next_level_pressed() -> void:
 
 func _on_restart_pressed() -> void:
 	audio.play_sound(CharacterSoundFX.Sound.SELECT)
-	await get_tree().create_timer(0.35).timeout
-	get_tree().paused = !get_tree().paused
 	get_tree().reload_current_scene()
 
 func _on_main_menu_pressed() -> void:

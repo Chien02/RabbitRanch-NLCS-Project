@@ -58,15 +58,12 @@ func check_ui_heal(_damage: int):
 					await CustomTween.jump_up(heart_textures[jndex], pop_up_position, duration)
 					heart_textures[jndex].texture = null
 					break
-	await get_tree().create_timer(1).timeout
-	visible_heart(false)
 
 func load_health(_current_health: int, _max_health: int = 100):
 	current_health = _current_health
 	max_health = _max_health
 
 func visible_heart(value: bool):
-	
 	if heart_textures.is_empty():
 		print("From Health: heart textures is empty")
 		return

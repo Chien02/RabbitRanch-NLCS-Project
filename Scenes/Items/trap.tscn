@@ -47,7 +47,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b7j3f")
 }],
-"loop": true,
+"loop": false,
 "name": &"trap_close",
 "speed": 8.0
 }, {
@@ -173,10 +173,11 @@ audio = NodePath("AudioStreamPlayer2D")
 shape = SubResource("RectangleShape2D_e4lpw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 2)
 sprite_frames = SubResource("SpriteFrames_e380t")
 animation = &"trap_close"
 frame = 3
-frame_progress = 0.709534
+frame_progress = 1.0
 offset = Vector2(0, 1.05)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

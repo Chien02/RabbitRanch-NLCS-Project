@@ -1,10 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0dsp5fadh21b"]
+[gd_scene load_steps=20 format=3 uid="uid://d0dsp5fadh21b"]
 
 [ext_resource type="Texture2D" uid="uid://bwil8k4q4hcin" path="res://Sprites/Sprout Lands - Sprites - Basic pack/menu_sheet.png" id="1_qqk0j"]
 [ext_resource type="Script" uid="uid://bhl8by1xr87xd" path="res://Scripts/Level/main_menu.gd" id="1_vytfc"]
 [ext_resource type="PackedScene" uid="uid://bmhj7hnycog5m" path="res://Scenes/GUI/transition.tscn" id="3_t475i"]
 [ext_resource type="Texture2D" uid="uid://drrdkxsc2balr" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/wooden_base_ui.png" id="3_xg7my"]
 [ext_resource type="Theme" uid="uid://bi0xkjvornbhl" path="res://Themes/button.tres" id="4_wmo1h"]
+[ext_resource type="PackedScene" uid="uid://bp3d7ghbl00gl" path="res://Scenes/GUI/setting.tscn" id="5_wnywc"]
+[ext_resource type="AudioStream" uid="uid://dar14r6koquoc" path="res://Sounds/BGM/MainMenuBGM.wav" id="6_b7svq"]
 [ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="6_gnv55"]
 
 [sub_resource type="Animation" id="Animation_qqk0j"]
@@ -109,7 +111,7 @@ texture_filter = 1
 script = ExtResource("1_vytfc")
 animation_player = NodePath("AnimationPlayer")
 transition = NodePath("CanvasLayer/TransitionScene")
-audio = NodePath("AudioStreamPlayer2D")
+audio = NodePath("SounFX")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")
@@ -178,11 +180,22 @@ theme = ExtResource("4_wmo1h")
 theme_override_font_sizes/font_size = 24
 text = "SETTING"
 
+[node name="Setting" parent="CanvasLayer" instance=ExtResource("5_wnywc")]
+visible = false
+
 [node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("3_t475i")]
 position = Vector2(568, 334)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="SounFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_b7svq")
+bus = &"sfx"
 script = ExtResource("6_gnv55")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_b7svq")
+volume_db = 5.0
+autoplay = true
+bus = &"music"
 
 [connection signal="pressed" from="CanvasLayer/Control/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SettingButton" to="." method="_on_setting_button_pressed"]

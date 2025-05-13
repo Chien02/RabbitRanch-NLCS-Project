@@ -9,7 +9,7 @@ class_name BigTree
 @export var logs_manager : LogsManager
 
 var counter : int = 0
-var max_chop : int = 3
+var max_chop : int = 2
 var rooted_flag : bool = false
 
 func _ready() -> void:
@@ -49,7 +49,6 @@ func switch_anim_to(new_anim: String):
 
 func finish_chopchop():
 	animation_tree["parameters/conditions/is_chopchop"] = false
-
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

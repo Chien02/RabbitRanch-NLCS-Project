@@ -10,6 +10,7 @@ signal Disappear
 @export var audio : ItemSoundFX
 
 var character : MainCharacter = null
+var is_in_inventory : bool = false
 var is_activating : bool = false
 
 func activating_update(_delta: float) -> void:
