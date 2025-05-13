@@ -22,60 +22,69 @@ func reset():
 	open.clear()
 	close.clear()
 
-func get_the_path(option: String = "ignore", mode: String = "not_diagonal", _des: Vector2i = Vector2i.ZERO, _is_wolf: bool = false):
+func get_the_path(option: String = "ignore", mode: String = "not_diagonal", _des: Vector2i = Vector2i.ZERO) -> Array[TilePath]:
 	paths.clear()
 	
 	# If doesn't has destination or destination is under an obstacle, then cannot find the path
-	if grid.destination == Vector2i.ZERO or !grid.is_path(grid.destination):
+	if _des == Vector2i.ZERO:
 		print("From Astar: Could not find destination")
 		return paths
 	
-	astar(option, mode, _des, _is_wolf)
+	astar(option, mode, _des)
 	# Close is empty that's mean there isn't have any validated tile
-	if close.is_empty(): return paths
+	if close.is_empty():
+		if character is Wolf:
+			print("From Wolf's A*: close array is empty, close: ", close)
+		return paths
+	#else:
+		#if character is Wolf:
+			#print("From Wolf's A*: close array:")
+			#for tile in close:
+				#var temp_parent_pos = tile.parent.position if tile.parent != null else Vector2i(-1, -1)
+				#print("From Wolf's A*: tile.position: ", tile.position, " - parent: ", temp_parent_pos)
 	
+	
+	grid.clear_layer(Grid.DESTINATION)
 	# Thêm node có vị trí đích đến
-	paths.append(close[close.size() - 1]) 
+	var last_tile = close.pop_back()
+	paths.append(last_tile)
+	#grid.get_child(Grid.DESTINATION).set_cell(last_tile.position, 3, Vector2.ZERO)
 	
 	# Dò ngược tìm đường đi
 	var index : int = 1
 	while (paths[index-1].parent != null):
 		paths.append(paths[index-1].parent)
+		#if character is Wolf:
+		#grid.get_child(Grid.DESTINATION).set_cell(paths[index-1].parent.position, 3, Vector2.ZERO)
 		index += 1
-	
-	#for path in paths:
-		#print("path: ", path.position, " - is_path: ", path.is_path, " - is_player_zone: ", path.is_player_zone)
 	return paths
 
-func astar(_option: String, _mode: String, _des: Vector2i, _is_wolf: bool = false):
+func astar(_option: String, _mode: String, _des: Vector2i):
 	if not character: return
 	if not grid: return
 	
 	reset() # init all the things
 	var init_tile = TilePath.new()
-	init_tile.set_value(grid.local_to_map(character.position))
+	var flag : bool = false
+	init_tile.set_value(character.local_position)
 	
 	open.append(init_tile)
 	while (not open.is_empty()):
 		var min_f_index = get_min_f(open)
 		var current_tile : TilePath = open.pop_at(min_f_index)
-		#print("A* pop at: ", current_tile.position, " with f: ", current_tile.f) # debug
-		var neighbors = get_surrounding_tile(current_tile, _option, _mode, _is_wolf)
+		var neighbors = get_surrounding_tile(current_tile, _des, _option, _mode)
 		for neighbor in neighbors:
-			destination = _des if _des != Vector2i.ZERO else grid.destination
-			if neighbor.position == destination:
+			if neighbor.position == _des:
+				flag = true
 				close.append(neighbor)
-				#print("------------Found destination-------")
 				return
 			if check_in_open(neighbor) or check_in_close(neighbor):
-				#print("Ignore: neighbor[", neighbor.position,"]")
 				continue
 			open.append(neighbor)
-		
 		close.append(current_tile)
-		#print_list()
 	
-	if open.is_empty():
+	# Trường hợp không tìm được đích đến
+	if open.is_empty() and flag == false:
 		close.clear()
 		return
 
@@ -93,29 +102,26 @@ func check_in_close(tile: TilePath) -> bool:
 				return true
 	return false
 
-func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _mode: String = "not_diagonal", is_wolf: bool = false) -> Array[TilePath]:
+func get_surrounding_tile(current_tile: TilePath, des: Vector2i, _option: String = "ignore", _mode: String = "not_diagonal") -> Array[TilePath]:
 	var surrounding_position = []
 	var surrounding_tile : Array[TilePath]= []
 	
-	if _mode=="not_diagonal":
-		surrounding_position = grid.get_surrounding_cells(current_tile.position)
-	elif _mode == "diagonal":
-		# Adding four corner
-		for x in range(current_tile.position.x - 1, current_tile.position.x + 2):
-			for y in range(current_tile.position.y - 1, current_tile.position.y + 2):
-				var _pos = current_tile.position
-				if x == _pos.x and y == _pos.y:
-					continue
-				surrounding_position.append(Vector2i(x, y))
+	# Adding four corner
+	for x in range(current_tile.position.x - 1, current_tile.position.x + 2):
+		for y in range(current_tile.position.y - 1, current_tile.position.y + 2):
+			var _pos = current_tile.position
+			if x == _pos.x and y == _pos.y: # ignore the center tile - character's position
+				continue
+			surrounding_position.append(Vector2i(x, y))
 	
+	# Xét từng ô trong các ô xung quanh
 	for index in range(0, surrounding_position.size()):
 		var tile = TilePath.new()
-		#surrounding_tile[index] = TilePath.new()
 		tile.set_value(surrounding_position[index])
 		tile.set_parent(current_tile)
 		
 		# Defy that child tile is walkable or not
-		if grid.cells.has(str(tile.position)):
+		if grid.is_within_grid(tile.position):
 			tile.is_path = grid.is_path(tile.position)
 			tile.is_player_zone = grid.is_player_zone(tile.position)
 		
@@ -129,56 +135,46 @@ func get_surrounding_tile(current_tile: TilePath, _option: String = "ignore", _m
 		var obstacle_manager : ObstacleManagement = get_tree().get_first_node_in_group("ObsManager")
 		var obstacle : Obstacle = obstacle_manager.get_obstacle_at(tile.position)
 		
-		# Check with chest on field
-		var chest : Chest = get_tree().get_first_node_in_group("Chest")
-		var chest_local_pos : Vector2i = Vector2i.ZERO
-		if chest != null:
-			chest_local_pos = grid.local_to_map(chest.position)
+		# Check with chest, characters and is_path on field
+		var temp_flag : bool = false
+		var chests := get_tree().get_nodes_in_group("Chest")
+		for chest in chests:
+			if grid.local_to_map(chest.position) == tile.position:
+				temp_flag = true
+				break
+		if temp_flag:
+			continue
 		
-		# Kiểm tra xem tile đang xét có trùng vị trí với sói hay không, nếu không thì bỏ qua
-		#var wolve_manager : Wolve_Manager = get_tree().get_first_node_in_group("LevelManager").wolve_manager
-		var wolf_flag : bool = false
-		if !is_wolf:
-			for _character in get_tree().get_nodes_in_group("Character"):
-				if tile.position == grid.local_to_map(_character.position):
-					wolf_flag = true
-					break
-		elif is_wolf:
-			# Kiểm tra xem có trùng vị trí với người chơi không
-			var players : Array[Node] = get_tree().get_nodes_in_group("MainCharacter")
-			for player in players:
-				if tile.position == grid.local_to_map(player.position):
-					if player.inventory.has_item("axe"):
-						print("From ", character.name, "'s A*: player is holding Axe at ", tile)
-						wolf_flag = true
-						break
+		# Check with all characters in the field
+		var characters := get_tree().get_nodes_in_group("Character")
+		for _character in characters:
+			if _character.local_position == tile.position and _character.local_position != des:
+				temp_flag = true
+				break
+		if temp_flag:
+			continue
 		
 		# Adding the tile that suitable for open
-		if !grid.is_within_grid(tile.position): continue
+		if !grid.is_within_grid(tile.position):
+			continue
+		
+		if _mode != "diagonal":
+			if is_cornered: continue
+		
 		# Ignore all the obstacle, except unbreakable obstacle
 		if _option == "not_ignore" and !tile.is_player_zone:
-			if !obstacle:
-				if !grid.is_path(tile.position): continue
-				if tile.position == chest_local_pos: continue
+			if grid.is_path(tile.position):
 				surrounding_tile.append(tile)
 				continue
-			if obstacle and !obstacle.is_breakable(): continue
-			if tile.position == chest_local_pos: continue
-			surrounding_tile.append(tile)
+			if obstacle and obstacle.is_breakable():
+				surrounding_tile.append(tile)
 		# ignore
 		elif _option == "ignore":
-			# Wolf flag ở đây có nghĩa là vị trí đó không có người chơi nào cầm búa
-			if is_wolf and tile.is_path and !wolf_flag:
-				if tile.position == chest_local_pos: continue
-				surrounding_tile.append(tile)
-				continue
-			# Wolf flag ở đây có nghĩa là vị trí đó không trùng với sói
-			if !is_wolf and tile.is_path and !tile.is_player_zone and !wolf_flag:
-				if tile.position == chest_local_pos: continue
-				surrounding_tile.append(tile)
-			
-			#print("tile[", tile.position,"]: cost = ", tile.cost, " heuristic = ", tile.heuristic, " f = ", tile.f)
-	
+			if grid.is_path(tile.position):
+				if character is Wolf:
+					surrounding_tile.append(tile)
+				elif !tile.is_player_zone:
+					surrounding_tile.append(tile)
 	return surrounding_tile
 
 func calculate_heuristic(current_tile: TilePath, mode: String = "not_diagonal", option: String = "ignore"):

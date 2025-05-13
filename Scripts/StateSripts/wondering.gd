@@ -39,7 +39,8 @@ func switch_to_walk():
 	var neighbors : Array[Vector2i] = grid.get_surrounding_cells(grid.local_to_map(character.global_position))
 	var final_neighbors : Array[Vector2i]
 	var chests = get_tree().get_nodes_in_group("Chest")
-	var characters = get_tree().get_nodes_in_group("MainCharacter")
+	var characters = get_tree().get_nodes_in_group("Character")
+	var player_zone = get_tree().get_first_node_in_group("MainCharacter").player_zone
 	var combine_array = chests + characters
 		
 	# Lọc các neighbor
@@ -51,13 +52,17 @@ func switch_to_walk():
 		if !grid.is_within_grid(neighbor):
 			print("From Wonder State: disqualified: ", neighbor)
 			continue
+		var qualified_flag : bool = true
 		print("From Wonder State: check tile: ", neighbor)
 		for object in combine_array:
-			var local_pos : Vector2i = grid.local_to_map(object.position)
+			var local_pos : Vector2i = grid.local_to_map(object.global_position)
 			print("From Wonder State: compare tile: ", neighbor, " with local_pos: ", local_pos)
-			if neighbor != local_pos and grid.is_path(neighbor) and !final_neighbors.has(neighbor):
-				print("From Wonder State: Adding tile: ", neighbor)
-				final_neighbors.append(neighbor)
+			if neighbor == local_pos or !grid.is_path(neighbor) or player_zone.has(neighbor):
+				qualified_flag = false
+				
+		if qualified_flag and !final_neighbors.has(neighbor):
+			print("From Wonder State: Adding tile: ", neighbor)
+			final_neighbors.append(neighbor)
 		
 	if final_neighbors.is_empty():
 		print("From Wonder State: There is no walkable tile")

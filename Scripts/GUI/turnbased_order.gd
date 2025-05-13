@@ -38,6 +38,7 @@ func init_actor_to_UI():
 		elif character is Wolf:
 			new_ui_bar.init(character.name, character.resource.texture, character.charge_point)
 			character.Charged.connect(update_step)
+			character.Bited.connect(update_step)
 			character.Walked.connect(update_step)
 			wolve.append(character)
 		

@@ -169,6 +169,7 @@ animation_tree = NodePath("../AnimationTree")
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_dpnad")
 animation = &"idle"
+frame = 1
 offset = Vector2(0, -4)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]

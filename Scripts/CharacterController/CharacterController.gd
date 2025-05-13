@@ -37,7 +37,7 @@ func movement(_object, _delta: float):
 			can_walk = _object.grid.is_within_grid(local_next_pos) and _object.grid.is_path(local_next_pos) and local_next_pos != chest_local_pos
 		else:
 			can_walk = false
-		print("From CharacterController: Checking can_walk: ", can_walk,"and next_local_pos: ", local_next_pos, " is_path: ", _object.grid.is_path(local_next_pos))
+		print("From CharacterController: Checking can_walk: ", can_walk,"and next_local_pos: ", local_next_pos)
 	is_walking = true if can_walk else false
 	if !is_walking: return
 	if _object.audio:
@@ -64,7 +64,7 @@ func move_to(_object, next_pos: Vector2, duration: float):
 	if _object is Character:
 		_object.facing_direction = (next_pos - _object.position).normalized()
 	CustomTween.movement(_object, next_pos, duration)
-	await _object.get_tree().create_timer(duration + 0.2).timeout
+	await _object.get_tree().create_timer(duration).timeout
 	# Update local position
 	if _object != null and _object is Character:
 		_object.update_local_position()

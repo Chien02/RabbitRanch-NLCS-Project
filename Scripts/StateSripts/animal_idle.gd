@@ -62,7 +62,7 @@ func switch_to_walk():
 
 func finding_path():
 	paths.clear()
-	paths = character.astar.get_the_path(character.option, character.mode)
+	paths = character.astar.get_the_path(character.option, character.mode, character.grid.destination)
 
 func check_next_step():
 	if paths.is_empty() or find_path_flag: return

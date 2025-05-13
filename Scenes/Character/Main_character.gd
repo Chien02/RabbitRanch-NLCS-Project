@@ -90,5 +90,5 @@ func _on_inventory_finished_using_item():
 	is_using_item = false
 
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
+func _on_hitbox_body_entered(_body: Node2D) -> void:
 	pass # Replace with function body.

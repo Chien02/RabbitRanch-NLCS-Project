@@ -47,7 +47,7 @@ func update_state():
 	if find_prey_flag: return
 	await get_tree().create_timer(0.25).timeout
 	find_prey_flag = true
-	print("From Wolf Idle: Waited for 0.5 to received signal")
+	print("From Wolf Idle: Waited for 0.25 to received signal")
 	switch_to_walk()
 
 func finding_path():
@@ -57,10 +57,11 @@ func finding_path():
 		print("From Wolf Idle: Could not get the nearest animal")
 		return
 	
-	var nearest_animal_pos : Vector2i = character.grid.local_to_map(nearest_animal.position)
-	var is_wolf : bool = true
-	paths = character.astar.get_the_path(character.option, character.mode, nearest_animal_pos, is_wolf)
+	var nearest_animal_pos : Vector2i = nearest_animal.local_position
+	paths = character.astar.get_the_path(character.option, character.mode, nearest_animal_pos)
 	find_path_flag = true
+	if paths.is_empty():
+		print("From Wolf Idle: Paths is empty")
 
 func switch_to_walk():
 	# Trường hợp đã có con vật ở trong vùng:
@@ -105,7 +106,7 @@ func get_nearest_animal() -> Animal:
 			min_distance = distance
 			nearest_animal = animal
 	
-	print("From Wolf Idle: find the prey, it's name is: ", nearest_animal.name)
+	print("From Wolf Idle: find the prey, it's name is: ", nearest_animal.name, " at: ", nearest_animal.local_position)
 	# Đặt facing direction của sói hướng về con mồi
 	character.facing_direction = (nearest_animal.position - character.position).normalized()
 	
@@ -120,12 +121,15 @@ func check_to_switch_to_charge() -> bool:
 	# 1. Là gate keeper:
 	# 2. Đang đứng gần bụi cỏ hoặc ở trong bụi cỏ
 	# 3. Đang đứng gần ngã rẽ
-	if character.role == Wolf.Role.GATE_KEEPER or check_near_grass() or check_near_cross():
-		print("From Wolf Idle: Change charge rate to 75%")
-		charge_rate = 75.0 # Tỉ lệ là 65%
+	
 	
 	# Nếu như không tìm thấy đường đi thì 100% charging
-	if random in range(0.0, charge_rate) or paths.is_empty():
+	if paths.is_empty():
+		print("From Wolf Idle: Cannot get the paths, switch to Charge")
+		SwitchState.emit(self, "charging")
+		return true
+	
+	if random in range(0.0, charge_rate):
 		print("From Wolf Idle: Switch to Charging")
 		character.area.get_child(0).disabled = true
 		SwitchState.emit(self, "charging")

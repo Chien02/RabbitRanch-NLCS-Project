@@ -28,6 +28,8 @@ func _ready() -> void:
 	if health:
 		health.Died.connect(_on_health_die)
 		health.Hurted.connect(_on_health_hurt)
+	if grid:
+		local_position = grid.local_to_map(global_position)
 
 
 func stunned(stun: bool, num_of_turn: int):
@@ -55,6 +57,7 @@ func _on_health_die():
 	if !audio: return
 	audio.play_sound(CharacterSoundFX.Sound.HIT)
 	play_particle()
+	await get_tree().create_timer(0.15).timeout
 	Disappear.emit(self)
 
 func _on_health_hurt():
@@ -65,7 +68,8 @@ func _on_health_hurt():
 
 func play_particle():
 	if !particle: return
-	
+	if !particle.visible:
+		particle.visible = true
 	# Lấy hướng nhìn của nhân vật để chuyển hướng particle
 	particle.direction.x = 10.0 if facing_direction.x <= 0 else -10.0
 	#particle.direction

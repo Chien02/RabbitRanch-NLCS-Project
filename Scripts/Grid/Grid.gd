@@ -32,7 +32,11 @@ var fench_id : int = 6
 var obstacle_source_id : Array[int] = [barrel_id, fench_id]
 
 # Đây là danh sách dùng để kiểm tra các tile không đi được
-var isnot_path : Array[TilePath] = []
+var isnot_path : Array[Vector2i] = [
+	Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2),
+	Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3),
+	Vector2i(4, 3), Vector2i(5, 3), Vector2i(6, 3), Vector2i(7, 3)
+]
 
 
 func _ready() -> void:
@@ -55,7 +59,6 @@ func rescan(player_zone: Array[Vector2i] = []):
 	if update_cells.is_empty(): return
 	for cell in update_cells:
 		cells[str(cell)]["is_path"] = true
-	#print("From Grid: Grid rescaned")
 
 func init_grid():
 	# Check for the water
@@ -74,6 +77,14 @@ func init_grid():
 				"is_path" = !is_water,
 				"player_zone" = false
 			}
+			
+	for str_cell in cells:
+		var cell = string_to_vector2(str_cell)
+		var path_layer : TileMapLayer = get_child(PATH)
+		var path_source_id : int = 7
+		if path_layer.get_cell_source_id(cell) == path_source_id:
+			var atlas_cord = path_layer.get_cell_atlas_coords(cell)
+			cells[str_cell]["is_path"] = !isnot_path.has(atlas_cord)
 	
 
 # This function use to tell player which tile the cursor points to

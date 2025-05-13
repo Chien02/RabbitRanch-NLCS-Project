@@ -36,6 +36,10 @@ func pushing_check() -> void:
 	if obstacle == null:
 		can_push = false
 		return
+	elif !obstacle.pushable:
+		can_push = false
+		return
+	
 	if is_overlap_actor(next_pos_push): return
 		
 	if pushable_direction != direction:
