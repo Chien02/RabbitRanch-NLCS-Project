@@ -4,7 +4,7 @@ class_name CharacterSoundFX
 
 enum Sound {
 	WALK, HIT, SELECT, CONFIRM, CANCEL, CHOP1, CHOP2, FALLING_TREE, MINING,
-	COLLECT, PUSH, POPUP
+	COLLECT, PUSH, POPUP, CATCH
 }
 
 var walk_sound : String = "res://Sounds/SoundFX/walk_sound.wav"
@@ -17,6 +17,7 @@ var mining_stone : String = "res://Sounds/SoundFX/mining_sound.wav"
 var collect_sound : String = "res://Sounds/SoundFX/collect_item.wav"
 var push : String = "res://Sounds/SoundFX/push_sfx.wav"
 var pop_up : String = "res://Sounds/SoundFX/pop_up_sfx.wav"
+var catch : String = "res://Sounds/SoundFX/catch_animal.wav"
 
 func play_sound(sound_name: int):
 	match sound_name:
@@ -36,10 +37,12 @@ func play_sound(sound_name: int):
 			set_and_play(load(push))
 		Sound.POPUP:
 			set_and_play(load(pop_up), 3.0)
+		Sound.CATCH:
+			set_and_play(load(catch))
 
-func set_and_play(_sound: AudioStreamWAV, volume_option: float = 0.0):
+func set_and_play(_sound: AudioStream, volume_option: float = 0.0):
+	set_stream(_sound)
 	volume_db = 0.0
 	if volume_option != 0.0:
 		volume_db += volume_option
-	set_stream(_sound)
 	play()

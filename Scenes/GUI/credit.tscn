@@ -1,0 +1,196 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2d6jv648h8re"]
+
+[ext_resource type="Script" uid="uid://disck4y06sqns" path="res://Scripts/GUI/credit.gd" id="1_1q0av"]
+[ext_resource type="Texture2D" uid="uid://drgncq83l8a42" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/base_ui.png" id="2_auxmh"]
+[ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="3_pf013"]
+[ext_resource type="Theme" uid="uid://y4k66rhnuxjf" path="res://Themes/button_in_game.tres" id="4_fj20w"]
+[ext_resource type="Texture2D" uid="uid://dutn12u8cvhio" path="res://Sprites/GUI/BiggerFootStep.png" id="5_auxmh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_igml3"]
+texture = ExtResource("2_auxmh")
+texture_margin_left = 8.0
+texture_margin_top = 10.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(11, 11.5787, 106, 122.421)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rm3o"]
+bg_color = Color(0.631373, 0.380392, 0.34902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.419608, 0.294118, 0.356863, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r77x0"]
+bg_color = Color(0.631373, 0.380392, 0.34902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.419608, 0.294118, 0.356863, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Credit" type="Control" node_paths=PackedStringArray("audio")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1q0av")
+audio = NodePath("AudioStreamPlayer2D")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_igml3")
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -405.0
+offset_top = 95.0
+offset_right = 406.0
+offset_bottom = 184.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7rm3o")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+
+[node name="SettingTitle" type="Label" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.811765, 0.65098, 1)
+theme_override_font_sizes/font_size = 58
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="VolumeContainer" type="PanelContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -405.0
+offset_top = -119.0
+offset_right = 406.0
+offset_bottom = 203.958
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r77x0")
+
+[node name="MarginContainer" type="MarginContainer" parent="VolumeContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Label" type="Label" parent="VolumeContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "This game made by: Chien02
+Arts and musics, sounds:
+1. Sprout Land Asset pack: https://cupnooble.itch.io/sprout-lands-asset-pack
+2. Sprout Land UI pack: https://cupnooble.itch.io/sprout-lands-ui-pack
+3. Brackeys' Platformer Bundle: https://brackeysgames.itch.io/brackeys-platformer-bundle
+4. Green Pixel's Buttons pack: https://greenpixels.itch.io/pixel-art-asset-3
+5. Mine :>
+
+Audio:
+1. 8-bit / 16-bit Sound Effects (x25) Pack: https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack
+2. Shapeform Audio: https://shapeforms.itch.io/shapeforms-audio-free-sfx
+3. Interface-sfx-pack-1: https://obsydianx.itch.io/interface-sfx-pack-1"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("3_pf013")
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 422.0
+offset_top = 537.0
+offset_right = 695.0
+offset_bottom = 587.0
+size_flags_horizontal = 3
+theme = ExtResource("4_fj20w")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[node name="Textures" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Textures"]
+layout_mode = 0
+offset_left = -36.0
+offset_top = 158.0
+offset_right = 4.0
+offset_bottom = 198.0
+rotation = -0.30646
+scale = Vector2(7.98973, 6.72956)
+texture = ExtResource("5_auxmh")
+
+[node name="TextureRect2" type="TextureRect" parent="Textures"]
+z_index = 1
+layout_mode = 0
+offset_left = 952.0
+offset_top = 441.0
+offset_right = 992.0
+offset_bottom = 481.0
+rotation = 0.380199
+scale = Vector2(3.79123, 3.32292)
+texture = ExtResource("5_auxmh")
+
+[node name="TextureRect3" type="TextureRect" parent="Textures"]
+z_index = 1
+layout_mode = 0
+offset_left = 943.0
+offset_top = 6.00006
+offset_right = 983.0
+offset_bottom = 46.0001
+rotation = 0.380199
+scale = Vector2(5.17489, 4.40677)
+texture = ExtResource("5_auxmh")
+
+[node name="TextureRect4" type="TextureRect" parent="Textures"]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 28.0
+offset_right = 816.0
+offset_bottom = 68.0
+rotation = -0.289466
+scale = Vector2(3.77728, 3.62183)
+texture = ExtResource("5_auxmh")
+flip_h = true
+
+[node name="TextureRect5" type="TextureRect" parent="Textures"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 305.0
+offset_right = 123.0
+offset_bottom = 345.0
+rotation = 0.490348
+scale = Vector2(3.77728, 3.62183)
+texture = ExtResource("5_auxmh")
+flip_h = true
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

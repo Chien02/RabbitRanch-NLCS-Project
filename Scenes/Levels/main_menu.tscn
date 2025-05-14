@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d0dsp5fadh21b"]
+[gd_scene load_steps=21 format=3 uid="uid://d0dsp5fadh21b"]
 
 [ext_resource type="Texture2D" uid="uid://bwil8k4q4hcin" path="res://Sprites/Sprout Lands - Sprites - Basic pack/menu_sheet.png" id="1_qqk0j"]
 [ext_resource type="Script" uid="uid://bhl8by1xr87xd" path="res://Scripts/Level/main_menu.gd" id="1_vytfc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://drrdkxsc2balr" path="res://Sprites/Sprout Lands - UI Pack - Basic pack/Sprite sheets/wooden_base_ui.png" id="3_xg7my"]
 [ext_resource type="Theme" uid="uid://bi0xkjvornbhl" path="res://Themes/button.tres" id="4_wmo1h"]
 [ext_resource type="PackedScene" uid="uid://bp3d7ghbl00gl" path="res://Scenes/GUI/setting.tscn" id="5_wnywc"]
+[ext_resource type="PackedScene" uid="uid://d2d6jv648h8re" path="res://Scenes/GUI/credit.tscn" id="6_6yab0"]
 [ext_resource type="AudioStream" uid="uid://dar14r6koquoc" path="res://Sounds/BGM/MainMenuBGM.wav" id="6_b7svq"]
 [ext_resource type="Script" uid="uid://c6unde668ykyy" path="res://Scripts/Animation/SoundFX/UI_soundfx.gd" id="6_gnv55"]
 
@@ -180,7 +181,21 @@ theme = ExtResource("4_wmo1h")
 theme_override_font_sizes/font_size = 24
 text = "SETTING"
 
+[node name="CreditButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 216.0
+offset_top = 494.0
+offset_right = 444.0
+offset_bottom = 544.0
+size_flags_vertical = 4
+theme = ExtResource("4_wmo1h")
+theme_override_font_sizes/font_size = 24
+text = "CREDIT"
+
 [node name="Setting" parent="CanvasLayer" instance=ExtResource("5_wnywc")]
+visible = false
+
+[node name="Credit" parent="CanvasLayer" instance=ExtResource("6_6yab0")]
 visible = false
 
 [node name="TransitionScene" parent="CanvasLayer" instance=ExtResource("3_t475i")]
@@ -199,4 +214,4 @@ bus = &"music"
 
 [connection signal="pressed" from="CanvasLayer/Control/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SettingButton" to="." method="_on_setting_button_pressed"]
-[connection signal="Finished" from="CanvasLayer/TransitionScene" to="." method="_on_transition_scene_finished"]
+[connection signal="pressed" from="CanvasLayer/Control/CreditButton" to="." method="_on_credit_button_pressed"]

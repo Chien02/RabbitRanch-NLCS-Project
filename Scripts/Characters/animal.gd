@@ -44,6 +44,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		turnbase_actor.emit_endturn("I caught by player")
 		# Nên có animation chèn vào khúc này
 		play_particle()
+		audio.play_sound(CharacterSoundFX.Sound.CATCH)
+		await get_tree().create_timer(0.15).timeout
 		be_caught = true
 		Disappear.emit(self)
 		animals_manager.caught_animal(self, AnimalManager.Catcher.PLAYER)
@@ -56,5 +58,5 @@ func _on_health_die():
 	animals_manager.caught_animal(self, AnimalManager.Catcher.WOLF)
 
 
-func _on_wolf_detector_body_entered(body: Node2D) -> void:
+func _on_wolf_detector_body_entered(_body: Node2D) -> void:
 	pass # Replace with function body.

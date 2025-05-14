@@ -41,10 +41,10 @@ func _process(_delta: float):
 		print("From ", name, " go to level: ", level_num)
 		
 		level_selection.transition.trans_in()
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1).timeout
 			
 		# Chuyển đến nextpath
-		scene_tree.change_scene_to_file(next_level_path)
+		ChangingLevel.change_scene_to(get_tree(), next_level_path)
 
 
 func change_state(state: int):

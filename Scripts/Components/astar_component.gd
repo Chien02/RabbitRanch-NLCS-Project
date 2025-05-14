@@ -119,6 +119,9 @@ func get_surrounding_tile(current_tile: TilePath, des: Vector2i, _option: String
 		var tile = TilePath.new()
 		tile.set_value(surrounding_position[index])
 		tile.set_parent(current_tile)
+		if tile.position == destination:
+			surrounding_tile.append(tile)
+			continue
 		
 		# Defy that child tile is walkable or not
 		if grid.is_within_grid(tile.position):

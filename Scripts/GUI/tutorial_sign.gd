@@ -15,6 +15,7 @@ func _ready() -> void:
 	if displayUI is not DisplayUI:
 		print("From Tutorial: Cannot get displayUI")
 	set_visible(false)
+	set_process(false)
 
 
 func _on_button_pressed() -> void:
@@ -45,12 +46,12 @@ func disappear():
 	set_visible(false)
 
 # Use this in animation_player as call method key
-#func play_soundfx_when_appear():
-	#audio.play_sound(CharacterSoundFX.Sound.POP_UP)
+func play_soundfx_when_appear():
+	$PlayWhenAppear.play()
 
 func _on_visibility_changed() -> void:
 	if visible:
 		animation_player.play("fade_in")
-		audio.play_sound(CharacterSoundFX.Sound.POPUP)
+		set_process(true)
 	elif !visible:
 		animation_player.play("fade_out")

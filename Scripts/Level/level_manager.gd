@@ -33,7 +33,7 @@ func _ready() -> void:
 	# Play transition when enter scene
 	transition.trans_out()
 	
-	var eventUI = get_tree().get_first_node_in_group("GUI").get_children()
+	#var _eventUI = get_tree().get_first_node_in_group("GUI").get_children()
 	
 	animals_manager.call_deferred("init_animals", self)
 	animals_manager.call_deferred("set_max_animal_score", suitable_score)

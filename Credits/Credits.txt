@@ -1,5 +1,12 @@
-Special thanks for:
-- Sound Effect by <a href="https://pixabay.com/users/whitenoisesleepers-42647563/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=194011">Jens-Kristian Ekholm</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=194011">Pixabay</a>
-- BGM by
-- Art, tile sets and UI sprites by
-- Button icon sprites by
+Specials thanks for:
+Arts and musics, sounds:
+1. Sprout Land Asset pack: https://cupnooble.itch.io/sprout-lands-asset-pack
+2. Sprout Land UI pack: https://cupnooble.itch.io/sprout-lands-ui-pack
+3. Brackeys' Platformer Bundle: https://brackeysgames.itch.io/brackeys-platformer-bundle
+4. Green Pixel's Buttons pack: https://greenpixels.itch.io/pixel-art-asset-3
+5. Mine :>
+
+Audio:
+1. 8-bit / 16-bit Sound Effects (x25) Pack: https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack
+2. Shapeform Audio: https://shapeforms.itch.io/shapeforms-audio-free-sfx
+3. Interface-sfx-pack-1: https://obsydianx.itch.io/interface-sfx-pack-1

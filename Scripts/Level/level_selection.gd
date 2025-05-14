@@ -29,7 +29,7 @@ func load_position():
 		print("From LevelSelection: Found curr node at: ", curr_node.name)
 		character.position = curr_node.position + Vector2(0, 5)
 
-func change_level_point_input(device: int, connected: bool):
+func change_level_point_input(_device: int, connected: bool):
 	if connected:
 		print("From LevelSelection: Connected with joypad")
 		for level_point in level_point_manager.level_points:

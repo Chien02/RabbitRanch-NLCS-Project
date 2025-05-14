@@ -9,7 +9,7 @@ func kill_tween():
 		tween.kill()
 
 func movement(_object, destination_pos: Vector2, duration: float):
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(_object, "position", destination_pos, duration)
 	await get_tree().create_timer(duration / 2.0).timeout
 

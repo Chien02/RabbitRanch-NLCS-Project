@@ -194,7 +194,6 @@ script = ExtResource("6_t87p6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5"]
 sprite_frames = SubResource("SpriteFrames_t87p6")
 animation = &"idle"
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 libraries = {

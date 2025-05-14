@@ -26,10 +26,10 @@ func _on_continue_pressed() -> void:
 	#await get_tree().create_timer(0.15).timeout
 	appear()
 
-func _on_next_level_pressed() -> void:
-	print("Go to next level scene")
-	audio.play_sound(CharacterSoundFX.Sound.SELECT)
-	await get_tree().create_timer(0.35).timeout
+#func _on_next_level_pressed() -> void:
+	#print("Go to next level scene")
+	#audio.play_sound(CharacterSoundFX.Sound.SELECT)
+	#await get_tree().create_timer(0.35).timeout
 
 func _on_restart_pressed() -> void:
 	audio.play_sound(CharacterSoundFX.Sound.SELECT)
@@ -37,13 +37,25 @@ func _on_restart_pressed() -> void:
 
 func _on_main_menu_pressed() -> void:
 	audio.play_sound(CharacterSoundFX.Sound.CANCEL)
-	await get_tree().create_timer(0.35).timeout
+	if level_manager:
+		level_manager.transition.trans_in()
+	else:
+		print("From ", name, ": Use level_selection")
+		var level_selection : LevelSelection = get_tree().get_first_node_in_group("LevelSelection")
+		level_selection.transition.trans_in()
+	await get_tree().create_timer(1).timeout
 	# Don't need to save
 	print("Go to main menu")
-	get_tree().change_scene_to_file(main_menu_scene_path)
+	ChangingLevel.change_scene_to(get_tree(), main_menu_scene_path)
 
 func _on_level_selection_pressed() -> void:
 	audio.play_sound(CharacterSoundFX.Sound.SELECT)
-	await get_tree().create_timer(0.35).timeout
+	if level_manager:
+		level_manager.transition.trans_in()
+	else:
+		print("From ", name, ": Use level_selection")
+		var level_selection : LevelSelection = get_tree().get_first_node_in_group("LevelSelection")
+		level_selection.transition.trans_in()
+	await get_tree().create_timer(1).timeout
 	print("Go to level selecion")
-	get_tree().change_scene_to_file(level_selection_scene_path)
+	ChangingLevel.change_scene_to(get_tree(), level_selection_scene_path)
