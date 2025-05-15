@@ -12,7 +12,7 @@ func _ready() -> void:
 	# Look down
 	facing_direction = Vector2(0, 1)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	character_controller = CharacterController.new()
 	character_controller.movement_free(self, delta)
 	move_and_slide()

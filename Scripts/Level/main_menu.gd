@@ -24,9 +24,9 @@ func _on_play_button_pressed() -> void:
 	# Chuyển sang menu chọn màn chơi
 	# nhưng hiện tại chỉ chuyển sang màn chơi
 	transition.trans_in()
-	get_tree().change_scene_to_packed(preload("res://Scenes/Levels/level_selection_scene.tscn"))
-	#await get_tree().create_timer(1).timeout
-	#ChangingLevel.change_scene_to(get_tree(), level_selection_scene_path)
+	#get_tree().change_scene_to_packed(preload("res://Scenes/Levels/level_selection_scene.tscn"))
+	await get_tree().create_timer(1).timeout
+	ChangingLevel.change_scene_to(get_tree(), level_selection_scene_path)
 
 
 func _on_setting_button_pressed() -> void:

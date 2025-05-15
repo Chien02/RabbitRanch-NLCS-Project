@@ -82,6 +82,7 @@ func movement_free(character: CharacterSelectLevel, _delta: float):
 		is_walking = true
 	else:
 		is_walking = false
+		character.velocity = lerp(character.velocity, Vector2.ZERO, 0.1)
 		return
 		
 	# Play audio, thêm điều kiện kiểm tra để tránh bị đè âm thanh
@@ -90,5 +91,4 @@ func movement_free(character: CharacterSelectLevel, _delta: float):
 		character.audio.play_sound(CharacterSoundFX.Sound.WALK)
 	
 	# Hàm lerf để di chuyển nhân vật
-	character.position = lerp(character.position, character.position + direction * character.speed * _delta, character.speed * _delta)
-	
+	character.velocity = direction.normalized() * character.speed

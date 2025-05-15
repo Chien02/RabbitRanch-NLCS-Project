@@ -5,8 +5,8 @@ class_name SelectPointManager
 @export var level_points : Array[LevelPoint]
 @export var scripted_unlocked_level : Array[Array] = [
 	[1, 2], # 0
-	[3], # 1
-	[4], # 2
+	[4], # 1
+	[3], # 2
 ]
 var level_selection : LevelSelection
 
@@ -28,7 +28,7 @@ func load_level_process():
 		
 
 func unlock_new_level(current_level: int):
-	for index in range(0, scripted_unlocked_level.size()):
+	for index in range(0, scripted_unlocked_level.size()+1):
 		if index != current_level: continue
 		
 		for child in scripted_unlocked_level[index]:
